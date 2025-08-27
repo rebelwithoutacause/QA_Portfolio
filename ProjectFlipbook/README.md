@@ -34,6 +34,6 @@ Open the PDF to read offline
 
 Scan the QR Code to view the interactive flipbook online
 
-![Page Preview 1](images/CandleCove.jpg)
-![Page Preview 2](images/Polybius.png)
+![Page Preview 1](CandleCove.jpg)
+![Page Preview 2](Polybius.png)
 ![Page Preview 3]([QR_Code]WhispersOfThe90s-book.png)
