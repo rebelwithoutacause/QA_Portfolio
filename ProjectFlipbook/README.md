@@ -38,6 +38,9 @@ QR Code – links to the online flipbook: QR_Code-WhispersOfThe90s-book.png
 
 Open the PDF to read offline
 
+[Read the Flipbook](WhispersofThe90s-Book.pdf)
+
+
 Scan the QR Code to view the interactive flipbook online
 
 ![Page Preview 3]([QR_Code]WhispersOfThe90s-book.png)
