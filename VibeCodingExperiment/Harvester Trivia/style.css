@@ -1,0 +1,304 @@
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Nosifer&family=Chiller&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000;
+    color: #8b0000;
+    font-family: 'Chiller', cursive;
+    min-height: 100vh;
+    background-image:
+        radial-gradient(circle at 25% 25%, #1a0000 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, #0a0a0a 0%, transparent 50%);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+#persistent-home-btn:hover {
+    opacity: 1;
+    background: rgba(120, 0, 0, 0.9);
+    border-color: #ff0000;
+    transform: translateY(-1px);
+}
+
+.title {
+    font-family: 'Nosifer', cursive;
+    font-size: 4rem;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 10px #8b0000, 0 0 20px #ff0000;
+    animation: flicker 3s infinite alternate;
+}
+
+@keyframes flicker {
+    0% { text-shadow: 3px 3px 10px #8b0000, 0 0 20px #ff0000; }
+    50% { text-shadow: 3px 3px 10px #550000, 0 0 10px #aa0000; }
+    100% { text-shadow: 3px 3px 10px #8b0000, 0 0 30px #ff0000; }
+}
+
+.ascii-art {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    margin: 20px 0;
+    color: #666;
+    white-space: pre-line;
+    line-height: 1.2;
+}
+
+.game-container {
+    background: rgba(20, 0, 0, 0.9);
+    border: 3px solid #8b0000;
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px 0;
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.7);
+}
+
+.lodge-master-text {
+    font-size: 1.8rem;
+    color: #ff6666;
+    margin: 15px 0;
+    text-shadow: 2px 2px 5px #000;
+    font-style: italic;
+}
+
+.name-input {
+    background: #1a0000;
+    border: 2px solid #8b0000;
+    color: #ff9999;
+    padding: 15px 20px;
+    font-size: 1.6rem;
+    font-family: inherit;
+    border-radius: 8px;
+    margin: 15px;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.name-input:focus {
+    outline: none;
+    border-color: #ff0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+}
+
+.menu-btn, .choice-btn, .game-btn {
+    background: #2a0000;
+    border: 2px solid #8b0000;
+    color: #ff9999;
+    padding: 15px 25px;
+    font-size: 1.5rem;
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin: 10px;
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.menu-btn:hover, .choice-btn:hover, .game-btn:hover {
+    background: #4a0000;
+    border-color: #ff0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+    transform: translateX(5px);
+}
+
+.question-header {
+    font-size: 1.3rem;
+    color: #ff8888;
+    margin-bottom: 20px;
+}
+
+.question-text {
+    font-size: 2rem;
+    margin: 25px 0;
+    line-height: 1.4;
+    color: #ffaaaa;
+    text-shadow: 1px 1px 3px #000;
+}
+
+.choice-btn {
+    font-size: 1.4rem;
+    margin: 8px auto;
+    max-width: 600px;
+}
+
+.feedback {
+    font-size: 1.8rem;
+    margin: 20px 0;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 2px 2px 5px #000;
+}
+
+.feedback.correct {
+    color: #00dd00;
+    animation: glow 1s ease-in-out;
+}
+
+.feedback.wrong {
+    color: #ff3333;
+    animation: shake 0.8s ease-in-out;
+}
+
+@keyframes glow {
+    0%, 100% { text-shadow: 0 0 5px #00dd00; }
+    50% { text-shadow: 0 0 20px #00dd00, 0 0 30px #00dd00; }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.score-display {
+    font-size: 1.3rem;
+    color: #ffaaaa;
+    margin: 15px 0;
+}
+
+.ending-text {
+    font-size: 2.2rem;
+    margin: 25px 0;
+    text-shadow: 2px 2px 8px #000;
+    line-height: 1.5;
+}
+
+.graveyard-entry {
+    background: rgba(10, 0, 0, 0.8);
+    border: 1px solid #555;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    color: #888;
+    text-align: left;
+}
+
+.hidden {
+    display: none;
+}
+
+.continue-btn {
+    background: #8b0000;
+    border: 2px solid #ff0000;
+    color: #fff;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin: 20px auto;
+    display: block;
+}
+
+.continue-btn:hover {
+    background: #aa0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+}
+
+/* Audio Controls */
+.audio-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.audio-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #8b0000;
+    transition: all 0.3s ease;
+    text-shadow: 3px 3px 10px #000, 0 0 20px #ff0000;
+    user-select: none;
+    animation: flicker-icon 4s infinite alternate;
+}
+
+.audio-icon:hover {
+    color: #ff0000;
+    text-shadow: 3px 3px 10px #8b0000, 0 0 30px #ff0000;
+    transform: scale(1.2);
+}
+
+@keyframes flicker-icon {
+    0% { text-shadow: 3px 3px 10px #000, 0 0 20px #ff0000; }
+    50% { text-shadow: 3px 3px 5px #000, 0 0 10px #aa0000; }
+    100% { text-shadow: 3px 3px 10px #000, 0 0 30px #ff0000; }
+}
+
+/* Blood Dripping Effect */
+.blood-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.blood-drop {
+    position: absolute;
+    width: 3px;
+    background: linear-gradient(to bottom, #8b0000, #660000, #4a0000);
+    border-radius: 0 0 50% 50%;
+    animation: drip linear infinite;
+    opacity: 0.8;
+}
+
+.blood-drop:before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -1px;
+    width: 5px;
+    height: 8px;
+    background: radial-gradient(ellipse, #aa0000, #660000);
+    border-radius: 50%;
+}
+
+@keyframes drip {
+    0% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+.blood-drop:nth-child(1) { left: 5%; animation-duration: 3s; animation-delay: 0s; height: 15px; }
+.blood-drop:nth-child(2) { left: 15%; animation-duration: 4s; animation-delay: 0.5s; height: 20px; }
+.blood-drop:nth-child(3) { left: 25%; animation-duration: 3.5s; animation-delay: 1s; height: 12px; }
+.blood-drop:nth-child(4) { left: 85%; animation-duration: 4.5s; animation-delay: 1.5s; height: 18px; }
+.blood-drop:nth-child(5) { left: 95%; animation-duration: 3.8s; animation-delay: 2s; height: 14px; }
+.blood-drop:nth-child(6) { left: 75%; animation-duration: 4.2s; animation-delay: 2.5s; height: 16px; }
+.blood-drop:nth-child(7) { left: 65%; animation-duration: 3.2s; animation-delay: 3s; height: 13px; }
+.blood-drop:nth-child(8) { left: 35%; animation-duration: 4.8s; animation-delay: 3.5s; height: 19px; }

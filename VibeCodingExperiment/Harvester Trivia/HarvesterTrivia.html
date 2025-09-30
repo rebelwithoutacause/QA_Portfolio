@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvester Trivia - Lodge Master Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Blood Dripping Effect -->
+    <div class="blood-container">
+        <div class="blood-drop"></div>
+        <div class="blood-drop"></div>
+        <div class="blood-drop"></div>
+        <div class="blood-drop"></div>
+        <div class="blood-drop"></div>
+        <div class="blood-drop"></div>
+        <div class="blood-drop"></div>
+        <div class="blood-drop"></div>
+    </div>
+
+    <!-- Audio Controls -->
+    <div class="audio-controls">
+        <span id="audio-toggle" class="audio-icon">♪</span>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="background-music" loop>
+        <source src="The Lodge Theme (Full) - Samus345.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="container">
+        <h1 class="title">HARVESTER TRIVIA</h1>
+
+        <!-- Harvester Character -->
+        <div style="margin: 30px 0; text-align: center;">
+            <img src="harvester666.png" alt="Harvester" style="
+                max-width: 200px;
+                height: auto;
+                mix-blend-mode: multiply;
+                filter:
+                    drop-shadow(5px 5px 15px #000)
+                    drop-shadow(0 0 20px #8b0000);
+            ">
+        </div>
+
+        <!-- Intro Screen -->
+        <div id="intro-screen">
+            
+            <div class="game-container">
+                <div class="lodge-master-text">🕯️ Welcome, Initiate… 🕯️</div>
+                <div class="lodge-master-text">The Lodge watches your every move.</div>
+                <div class="lodge-master-text">Only the brave may proceed to test their knowledge of Harvest.</div>
+                
+                <input type="text" id="player-name" class="name-input" placeholder="Enter your name..." maxlength="20">
+                <button id="enter-lodge-btn" class="continue-btn">Enter the Lodge</button>
+            </div>
+        </div>
+        
+        <!-- Main Menu -->
+        <div id="menu-screen" class="hidden">
+            <div class="game-container">
+                <div class="lodge-master-text" id="player-greeting"></div>
+                <div class="lodge-master-text">Choose your fate:</div>
+                
+                <button class="menu-btn" id="start-trivia-btn">
+                    1. Enter the Lodge of Knowledge → Begin the trial of blood and mind
+                </button>
+                <button class="menu-btn" id="show-scrolls-btn">
+                    2. Review the Scrolls → Examine your past performances
+                </button>
+                <button class="menu-btn" id="show-graveyard-btn">
+                    3. Observe the Graveyard of Souls → See those who came before
+                </button>
+                <button class="menu-btn" id="exit-btn">
+                    4. Exit the Lodge → Flee like a coward
+                </button>
+            </div>
+        </div>
+        
+        <!-- Trivia Game Screen -->
+        <div id="game-screen" class="hidden">
+            <div class="game-container">
+                <div class="question-header" id="question-header"></div>
+                <div class="score-display" id="score-display"></div>
+                <div class="question-text" id="question-text"></div>
+                <div id="choices-container"></div>
+                <div class="feedback" id="feedback"></div>
+                <button class="continue-btn hidden" id="next-question-btn">Continue the trial...</button>
+                <button class="continue-btn hidden" id="escape-btn">Escape</button>
+            </div>
+        </div>
+        
+        <!-- Scrolls Screen -->
+        <div id="scrolls-screen" class="hidden">
+            <div class="ascii-art">
+📜 THE SCROLLS OF YOUR DEEDS 📜
+               ╔═══════╗
+               ║ 📊 📈 ║
+               ║ 📉 📋 ║
+               ╚═══════╝
+            </div>
+            
+            <div class="game-container">
+                <div class="lodge-master-text">Your dark history reveals itself...</div>
+                <div id="scrolls-content"></div>
+                <button class="continue-btn" id="scrolls-back-btn">Return to the Lodge</button>
+                <button class="continue-btn" id="escape-btn-scrolls">Escape</button>
+            </div>
+        </div>
+        
+        <!-- Graveyard Screen -->
+        <div id="graveyard-screen" class="hidden">
+            <div class="ascii-art">
+🪦 GRAVEYARD OF SOULS 🪦
+                    💀
+                  ☠️ ☠️ ☠️
+               🕯️ ⚰️ 💀 ⚰️ 🕯️
+            </div>
+            
+            <div class="game-container">
+                <div class="lodge-master-text">Here lie the souls who came before you...</div>
+                <div id="graveyard-content"></div>
+                <button class="continue-btn" id="graveyard-back-btn">Return to the Lodge</button>
+                <button class="continue-btn" id="escape-btn-graveyard">Escape</button>
+            </div>
+        </div>
+        
+        <!-- Ending Screen -->
+        <div id="ending-screen" class="hidden">
+            <div class="ascii-art" id="ending-art"></div>
+            
+            <div class="game-container">
+                <div class="lodge-master-text">The trial is complete</div>
+                <div class="score-display" id="final-score"></div>
+                <div class="ending-text" id="ending-message"></div>
+                <button class="continue-btn" id="restart-btn">Face the Lodge again...</button>
+                <button class="continue-btn" id="escape-btn-ending">Escape</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Who is the protagonist of Harvester?",
+                choices: ["Steve Mason", "Hank Mason", "Colonel Buster Monroe", "Stephanie Pottsdam"],
+                answer: "Steve Mason"
+            },
+            {
+                question: "What is the name of the town where Harvester takes place?",
+                choices: ["Harvest", "Wayside", "Silent Hill", "Haven"],
+                answer: "Harvest"
+            },
+            {
+                question: "Who is Steve's girlfriend in the game?",
+                choices: ["Stephanie Pottsdam", "Edna Mason", "Betty Anderson", "Sarah Johnson"],
+                answer: "Stephanie Pottsdam"
+            },
+            {
+                question: "What organization controls the town of Harvest?",
+                choices: ["The Church", "The Lodge", "The Military", "The Government"],
+                answer: "The Lodge"
+            },
+            {
+                question: "Who is Steve's mother in the game?",
+                choices: ["Edna Mason", "Betty Anderson", "Mrs. Pottsdam", "Jennifer Burke"],
+                answer: "Edna Mason"
+            },
+            {
+                question: "What weapon does Steve primarily use in combat?",
+                choices: ["A knife", "A gun", "His fists", "A baseball bat"],
+                answer: "His fists"
+            },
+            {
+                question: "Who runs the local diner in Harvest?",
+                choices: ["Edna Mason", "Betty Anderson", "Mrs. Pottsdam", "The Lodge Master"],
+                answer: "Betty Anderson"
+            },
+            {
+                question: "What is the Lodge Master's role in the town?",
+                choices: ["Mayor", "Sheriff", "Spiritual leader", "Store owner"],
+                answer: "Spiritual leader"
+            },
+            {
+                question: "What strange phenomenon affects Steve at the beginning?",
+                choices: ["Memory loss", "Nightmares", "Hallucinations", "Time loops"],
+                answer: "Memory loss"
+            },
+            {
+                question: "What building serves as the Lodge's headquarters?",
+                choices: ["The Church", "The Town Hall", "The Lodge Building", "The School"],
+                answer: "The Lodge Building"
+            },
+            {
+                question: "Who is Colonel Buster Monroe?",
+                choices: ["A military officer", "A Lodge member", "Steve's father", "The town doctor"],
+                answer: "A military officer"
+            },
+            {
+                question: "What is hidden beneath the town of Harvest?",
+                choices: ["Ancient ruins", "A military facility", "Hell itself", "A mine"],
+                answer: "A military facility"
+            },
+            {
+                question: "What does the Lodge require from its members?",
+                choices: ["Money", "Blood sacrifice", "Complete obedience", "Their souls"],
+                answer: "Complete obedience"
+            },
+            {
+                question: "What happens to those who oppose the Lodge?",
+                choices: ["They disappear", "They die horribly", "They join the Lodge", "They leave town"],
+                answer: "They die horribly"
+            },
+            {
+                question: "What is Steve's relationship to the Lodge initially?",
+                choices: ["He's a member", "He's an outsider", "He's the leader", "He's a prisoner"],
+                answer: "He's an outsider"
+            },
+            {
+                question: "What symbol represents the Lodge?",
+                choices: ["A cross", "A pentagram", "A skull", "An eye"],
+                answer: "An eye"
+            },
+            {
+                question: "What genre best describes Harvester?",
+                choices: ["Horror comedy", "Pure horror", "Psychological thriller", "Action adventure"],
+                answer: "Horror comedy"
+            },
+            {
+                question: "What year was Harvester released?",
+                choices: ["1995", "1996", "1997", "1998"],
+                answer: "1996"
+            },
+            {
+                question: "What engine was Harvester built on?",
+                choices: ["SCUMM", "AGI", "Custom engine", "Unreal Engine"],
+                answer: "Custom engine"
+            },
+            {
+                question: "What makes Harvester controversial?",
+                choices: ["Political themes", "Extreme violence", "Religious content", "Sexual content"],
+                answer: "Extreme violence"
+            },
+            {
+                question: "What perspective is the game played from?",
+                choices: ["First person", "Third person", "Isometric", "Side-scrolling"],
+                answer: "Isometric"
+            },
+            {
+                question: "What happens in the Lodge's initiation ceremony?",
+                choices: ["A test of knowledge", "A blood ritual", "A violent trial", "A meditation"],
+                answer: "A violent trial"
+            },
+            {
+                question: "Who created Harvester?",
+                choices: ["LucasArts", "Sierra", "DigiFX Interactive", "id Software"],
+                answer: "DigiFX Interactive"
+            },
+            {
+                question: "What is the Lodge Master's catchphrase?",
+                choices: ["Join us", "The harvest begins", "Welcome, initiate", "Blood for the blood god"],
+                answer: "Welcome, initiate"
+            },
+            {
+                question: "What happens to Stephanie in the game?",
+                choices: ["She escapes", "She joins the Lodge", "She dies", "She becomes evil"],
+                answer: "She becomes evil"
+            },
+            {
+                question: "What is the true nature of the town of Harvest?",
+                choices: ["A cult compound", "A military experiment", "A gateway to hell", "A virtual reality"],
+                answer: "A virtual reality"
+            },
+            {
+                question: "What weapon is associated with the Lodge?",
+                choices: ["A dagger", "A scythe", "A hammer", "A sword"],
+                answer: "A scythe"
+            },
+            {
+                question: "What rating did Harvester receive?",
+                choices: ["T for Teen", "M for Mature", "AO for Adults Only", "E for Everyone"],
+                answer: "M for Mature"
+            },
+            {
+                question: "What is the final revelation about Steve?",
+                choices: ["He's the chosen one", "He's already dead", "He's in a simulation", "He's the Lodge Master"],
+                answer: "He's in a simulation"
+            },
+            {
+                question: "What must Steve do to escape Harvest?",
+                choices: ["Kill everyone", "Solve puzzles", "Join the Lodge", "Find the truth"],
+                answer: "Find the truth"
+            }
+        ];
+
+        let playerName = '';
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let gameQuestions = [];
+
+        function initGame() {
+            setupEventListeners();
+            setupAudio();
+        }
+
+        function setupAudio() {
+            const audio = document.getElementById('background-music');
+            const toggle = document.getElementById('audio-toggle');
+            let isPlaying = false;
+
+            // Set initial volume
+            audio.volume = 0.3;
+
+            toggle.addEventListener('click', function() {
+                if (isPlaying) {
+                    audio.pause();
+                    toggle.textContent = '♪';
+                    toggle.style.opacity = '0.5';
+                    isPlaying = false;
+                } else {
+                    audio.play().catch(e => {
+                        console.log('Audio play failed:', e);
+                    });
+                    toggle.textContent = '♪';
+                    toggle.style.opacity = '1';
+                    isPlaying = true;
+                }
+            });
+
+            // Auto-play when user first interacts with the page
+            document.addEventListener('click', function autoPlay() {
+                if (!isPlaying) {
+                    audio.play().catch(e => {
+                        console.log('Auto-play failed:', e);
+                    });
+                    toggle.textContent = '♪';
+                    toggle.style.opacity = '1';
+                    isPlaying = true;
+                }
+                document.removeEventListener('click', autoPlay);
+            }, { once: true });
+        }
+
+        function goToHomePage() {
+            // Reset game state
+            playerName = '';
+            currentQuestionIndex = 0;
+            score = 0;
+            hasAnsweredCurrentQuestion = false;
+            gameQuestions = [];
+            
+            // Clear name input
+            const nameInput = document.getElementById('player-name');
+            if (nameInput) {
+                nameInput.value = '';
+            }
+            
+            // Show intro screen
+            hideAllScreens();
+            document.getElementById('intro-screen').classList.remove('hidden');
+        }
+
+        function setupEventListeners() {
+            document.getElementById('enter-lodge-btn').addEventListener('click', enterLodge);
+            document.getElementById('player-name').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') enterLodge();
+            });
+            
+            document.getElementById('start-trivia-btn').addEventListener('click', startTrivia);
+            document.getElementById('show-scrolls-btn').addEventListener('click', showScrolls);
+            document.getElementById('show-graveyard-btn').addEventListener('click', showGraveyard);
+            document.getElementById('exit-btn').addEventListener('click', exitLodge);
+            document.getElementById('next-question-btn').addEventListener('click', nextQuestion);
+            document.getElementById('restart-btn').addEventListener('click', showMenu);
+            document.getElementById('scrolls-back-btn').addEventListener('click', showMenu);
+            document.getElementById('graveyard-back-btn').addEventListener('click', showMenu);
+            
+            // Set up escape buttons
+            document.getElementById('escape-btn').addEventListener('click', goToHomePage);
+            document.getElementById('escape-btn-ending').addEventListener('click', goToHomePage);
+            document.getElementById('escape-btn-scrolls').addEventListener('click', goToHomePage);
+            document.getElementById('escape-btn-graveyard').addEventListener('click', goToHomePage);
+        }
+
+        function enterLodge() {
+            const nameInput = document.getElementById('player-name');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                alert('The shadows demand a name... speak!');
+                return;
+            }
+            
+            playerName = name;
+            showMenu();
+        }
+
+        function showMenu() {
+            hideAllScreens();
+            document.getElementById('menu-screen').classList.remove('hidden');
+            document.getElementById('player-greeting').textContent = 
+                `🕯️ The Lodge of Knowledge beckons, ${playerName} 🕯️`;
+        }
+
+        function startTrivia() {
+            hideAllScreens();
+            document.getElementById('game-screen').classList.remove('hidden');
+            
+            gameQuestions = [...questions].sort(() => Math.random() - 0.5);
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            showQuestion();
+        }
+
+        let hasAnsweredCurrentQuestion = false;
+
+        function showQuestion() {
+            const question = gameQuestions[currentQuestionIndex];
+            hasAnsweredCurrentQuestion = false; // Reset for new question
+            
+            document.getElementById('question-header').textContent = 
+                `🕯️ Question ${currentQuestionIndex + 1} of 30 🕯️`;
+            document.getElementById('score-display').textContent = 
+                `Score: ${score}/${currentQuestionIndex}`;
+            document.getElementById('question-text').textContent = question.question;
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('feedback').className = 'feedback';
+            document.getElementById('next-question-btn').classList.add('hidden');
+            document.getElementById('escape-btn').classList.remove('hidden');
+            
+            const shuffledChoices = [...question.choices].sort(() => Math.random() - 0.5);
+            const choicesContainer = document.getElementById('choices-container');
+            choicesContainer.innerHTML = '';
+            
+            shuffledChoices.forEach((choice, index) => {
+                const button = document.createElement('button');
+                button.className = 'choice-btn';
+                button.textContent = `${String.fromCharCode(65 + index)}. ${choice}`;
+                button.addEventListener('click', () => selectAnswer(choice));
+                choicesContainer.appendChild(button);
+            });
+        }
+
+        function selectAnswer(selectedAnswer) {
+            if (hasAnsweredCurrentQuestion) return; // Prevent multiple selections
+            
+            hasAnsweredCurrentQuestion = true;
+            const question = gameQuestions[currentQuestionIndex];
+            const feedback = document.getElementById('feedback');
+            const isCorrect = selectedAnswer === question.answer;
+            
+            // Disable all buttons after selection
+            document.querySelectorAll('.choice-btn').forEach(btn => {
+                btn.disabled = true;
+                btn.style.opacity = '0.6';
+            });
+            
+            if (isCorrect) {
+                score++;
+                feedback.textContent = `✅ You have seen the truth, ${playerName}... for now.`;
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = `❌ WRONG, ${playerName}... the shadows laugh at you.`;
+                feedback.className = 'feedback wrong';
+            }
+            
+            // Show continue button only after answer is selected
+            setTimeout(() => {
+                document.getElementById('next-question-btn').classList.remove('hidden');
+            }, 1500);
+        }
+
+        function nextQuestion() {
+            if (!hasAnsweredCurrentQuestion) {
+                alert('The Lodge demands an answer before you may proceed...');
+                return;
+            }
+            
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex >= gameQuestions.length) {
+                showEnding();
+            } else {
+                showQuestion();
+            }
+        }
+
+        function showEnding() {
+            hideAllScreens();
+            document.getElementById('ending-screen').classList.remove('hidden');
+            
+            document.getElementById('final-score').textContent = `Final Score: ${score}/30`;
+            
+            let ending, endingArt, endingType;
+            
+            if (score >= 0 && score <= 7) {
+                ending = `💀 DOOMED 💀<br>The harvest claims you, ${playerName}.<br>The reaper carves your name into the graveyard of souls.`;
+                endingArt = `⚰️💀⚰️\n🔥👹🔥\n💀⚡💀⚡💀\n🪦${playerName}🪦\nYOUR SOUL IS HARVESTED`;
+                endingType = "DOOMED";
+            } else if (score >= 8 && score <= 15) {
+                ending = `👁️ POSSESSED 👁️<br>Shadows follow you home, ${playerName}.<br>The harvest has marked you.`;
+                endingArt = `👁️‍🗨️👁️‍🗨️\n🌑👻🌑\n⚡⚡⚡\n💀🔮💀\n${playerName.toUpperCase()} IS WATCHED`;
+                endingType = "POSSESSED";
+            } else if (score >= 16 && score <= 23) {
+                ending = `🌙 SURVIVOR 🌙<br>You escaped the worst of the harvest, ${playerName}.<br>Though whispers linger in the night. Rest uneasy.`;
+                endingArt = `${playerName.toUpperCase()} HEARS WHISPERS`;
+                endingType = "SURVIVOR";
+            } else if (score >= 24 && score <= 30) {
+                ending = `THE REAPER'S HEIR<br>You saw through every shadow, ${playerName}.<br>Uncovered every secret. The scythe is now yours to wield.`;
+                endingArt = `👑⚡👑\n💀💀💀\n⚰️⚰️⚰️\n🔥👹🔥\n${playerName.toUpperCase()} IS THE NEW REAPER`;
+                endingType = "THE REAPER'S HEIR";
+            }
+            
+            document.getElementById('ending-message').innerHTML = ending;
+            document.getElementById('ending-art').textContent = endingArt;
+            
+            saveScore(endingType);
+        }
+
+        function showScrolls() {
+            hideAllScreens();
+            document.getElementById('scrolls-screen').classList.remove('hidden');
+            
+            const scores = loadScores();
+            const playerScores = scores.filter(s => s.name === playerName);
+            const content = document.getElementById('scrolls-content');
+            
+            if (playerScores.length === 0) {
+                content.innerHTML = `<div class="lodge-master-text">The scrolls are empty, ${playerName}...<br>You have not yet faced the trial.</div>`;
+            } else {
+                content.innerHTML = `<div class="lodge-master-text">Your dark history, ${playerName}:</div>`;
+                playerScores.slice(-10).forEach((score, index) => {
+                    const entry = document.createElement('div');
+                    entry.className = 'graveyard-entry';
+                    entry.textContent = `${index + 1}. Score: ${score.score}/30 - ${score.ending} - ${score.date}`;
+                    content.appendChild(entry);
+                });
+            }
+        }
+
+        function showGraveyard() {
+            hideAllScreens();
+            document.getElementById('graveyard-screen').classList.remove('hidden');
+            
+            const scores = loadScores();
+            const content = document.getElementById('graveyard-content');
+            
+            if (scores.length === 0) {
+                content.innerHTML = `<div class="lodge-master-text">The graveyard is empty...<br>No souls have yet dared to face the Lodge.</div>`;
+            } else {
+                content.innerHTML = `<div class="lodge-master-text">Here lie the souls who came before you:</div>`;
+                scores.slice(-15).forEach(score => {
+                    const entry = document.createElement('div');
+                    entry.className = 'graveyard-entry';
+                    entry.textContent = `💀 ${score.name} - Score: ${score.score}/30 - ${score.ending}`;
+                    content.appendChild(entry);
+                });
+            }
+        }
+
+        function exitLodge() {
+            const confirmExit = confirm(`So, ${playerName} flees from the Lodge...\nThe shadows will remember your cowardice.\nAre you sure you wish to leave?`);
+            if (confirmExit) {
+                alert('The Lodge never forgets...');
+                window.close();
+            }
+        }
+
+        function loadScores() {
+            try {
+                const scores = localStorage.getItem('harvesterGraveyard');
+                return scores ? JSON.parse(scores) : [];
+            } catch {
+                return [];
+            }
+        }
+
+        function saveScore(endingType) {
+            const scores = loadScores();
+            const newScore = {
+                name: playerName,
+                score: score,
+                ending: endingType,
+                date: new Date().toLocaleDateString()
+            };
+            
+            scores.push(newScore);
+            
+            try {
+                localStorage.setItem('harvesterGraveyard', JSON.stringify(scores));
+            } catch {
+                // Fail silently if localStorage is not available
+            }
+        }
+
+        function hideAllScreens() {
+            document.getElementById('intro-screen').classList.add('hidden');
+            document.getElementById('menu-screen').classList.add('hidden');
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById('scrolls-screen').classList.add('hidden');
+            document.getElementById('graveyard-screen').classList.add('hidden');
+            document.getElementById('ending-screen').classList.add('hidden');
+        }
+
+        // Initialize the game
+        document.addEventListener('DOMContentLoaded', initGame);
+
+        // Atmospheric effects
+        setInterval(() => {
+            const title = document.querySelector('.title');
+            if (Math.random() < 0.1) {
+                title.style.color = '#ff0000';
+                setTimeout(() => {
+                    title.style.color = '#8b0000';
+                }, 150);
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
+    </script>
+</body>
+</html>
