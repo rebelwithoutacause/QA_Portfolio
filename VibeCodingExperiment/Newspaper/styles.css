@@ -1,0 +1,654 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000;
+    font-family: 'Courier New', 'Courier', monospace;
+    color: #fff;
+    line-height: 1.6;
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.03) 0px,
+            transparent 1px,
+            transparent 2px,
+            rgba(255, 255, 255, 0.03) 3px
+        );
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: #000;
+    border: 8px double #fff;
+    box-shadow:
+        0 0 0 4px #000,
+        0 0 0 12px #fff;
+}
+
+/* Header - Classic Arcade Title Screen */
+.header {
+    background: #000;
+    padding: 40px 20px;
+    border-bottom: 8px solid #fff;
+    position: relative;
+    text-align: center;
+}
+
+.header::before {
+    content: '▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓';
+    display: block;
+    color: #fff;
+    font-size: 0.4em;
+    margin-bottom: 15px;
+    letter-spacing: 0;
+    overflow: hidden;
+}
+
+.header::after {
+    content: '▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓';
+    display: block;
+    color: #fff;
+    font-size: 0.4em;
+    margin-top: 15px;
+    letter-spacing: 0;
+    overflow: hidden;
+}
+
+.site-title {
+    font-size: 3.5em;
+    color: #fff;
+    text-align: center;
+    margin: 20px 0;
+    font-weight: bold;
+    letter-spacing: 8px;
+    text-shadow:
+        4px 4px 0 #000,
+        8px 8px 0 rgba(255, 255, 255, 0.3);
+    animation: pixelBlink 2s step-end infinite;
+}
+
+@keyframes pixelBlink {
+    0%, 49% { opacity: 1; }
+    50%, 99% { opacity: 0.85; }
+}
+
+.site-subtitle {
+    text-align: center;
+    color: #fff;
+    font-size: 0.9em;
+    margin: 15px 0;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    padding: 10px 0;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Navigation - Classic Arcade Select Screen */
+.navbar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 30px 20px;
+    background: #000;
+    border-top: 4px solid #fff;
+    border-bottom: 4px solid #fff;
+    position: relative;
+}
+
+.navbar::before {
+    content: '▼▼▼ SELECT YOUR MISSION ▼▼▼';
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 0.9em;
+    letter-spacing: 3px;
+    animation: selectBlink 1s step-end infinite;
+}
+
+@keyframes selectBlink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.nav-button {
+    padding: 15px 30px;
+    background: #000;
+    color: #fff;
+    border: 4px solid #fff;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-family: 'Courier New', monospace;
+    transition: all 0.1s;
+    position: relative;
+    box-shadow: 8px 8px 0 rgba(255, 255, 255, 0.3);
+}
+
+.nav-button::before {
+    content: '►';
+    position: absolute;
+    left: 10px;
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
+.nav-button:hover {
+    background: #fff;
+    color: #000;
+    transform: translate(2px, 2px);
+    box-shadow: 6px 6px 0 rgba(255, 255, 255, 0.5);
+}
+
+.nav-button:hover::before {
+    opacity: 1;
+    color: #000;
+}
+
+.nav-button:active {
+    transform: translate(8px, 8px);
+    box-shadow: none;
+}
+
+.nav-button.active {
+    background: #fff;
+    color: #000;
+    animation: activePixel 0.5s step-end infinite;
+}
+
+@keyframes activePixel {
+    0%, 49% {
+        background: #fff;
+        color: #000;
+    }
+    50%, 99% {
+        background: #000;
+        color: #fff;
+    }
+}
+
+.nav-button.active::before {
+    opacity: 1;
+}
+
+/* Content Area */
+.content {
+    padding: 40px;
+    min-height: 500px;
+    background: #000;
+}
+
+.section {
+    display: none;
+    animation: pixelFade 0.3s steps(4);
+}
+
+.section.active {
+    display: block;
+}
+
+@keyframes pixelFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Forum-style boxes - Arcade Game Screens */
+.forum-box {
+    background: #000;
+    border: 6px double #fff;
+    margin-bottom: 40px;
+    position: relative;
+    padding: 5px;
+}
+
+.forum-box::before {
+    content: '▓ ▓ ▓';
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #fff;
+    font-size: 0.8em;
+}
+
+.forum-box-header {
+    background: #fff;
+    color: #000;
+    padding: 15px 20px;
+    font-weight: bold;
+    font-size: 1.4em;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    border: 4px solid #000;
+    position: relative;
+    margin: 5px;
+}
+
+.forum-box-header::before {
+    content: '▼▼▼';
+    margin-right: 15px;
+}
+
+.forum-box-header::after {
+    content: '▼▼▼';
+    margin-left: 15px;
+}
+
+.forum-box-content {
+    padding: 30px;
+    color: #fff;
+    background: #000;
+    border: 3px solid #fff;
+    margin: 5px;
+}
+
+/* Info boxes - Power-Up Boxes */
+.info-box {
+    background: #000;
+    border: 4px solid #fff;
+    padding: 25px;
+    margin: 25px 0;
+    position: relative;
+    box-shadow: inset 0 0 0 2px #000, inset 0 0 0 6px #fff;
+}
+
+.info-box::before {
+    content: '★ BONUS INFO ★';
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    background: #000;
+    color: #fff;
+    padding: 5px 20px;
+    font-size: 1em;
+    border: 3px solid #fff;
+    letter-spacing: 2px;
+}
+
+.info-box-header {
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border-bottom: 3px solid #fff;
+    padding-bottom: 10px;
+}
+
+.info-box p {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+/* Timeline - Level Progress Bar */
+.timeline-item {
+    border-left: 6px solid #fff;
+    padding-left: 30px;
+    margin: 30px 0;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.timeline-item::before {
+    content: '■';
+    position: absolute;
+    left: -13px;
+    top: 0;
+    color: #fff;
+    font-size: 1.8em;
+    animation: squarePulse 1.5s step-end infinite;
+}
+
+@keyframes squarePulse {
+    0%, 50% { content: '■'; }
+    51%, 100% { content: '□'; }
+}
+
+.timeline-year {
+    font-weight: bold;
+    color: #fff;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    border: 3px solid #fff;
+    display: inline-block;
+    padding: 5px 15px;
+    background: #000;
+}
+
+.timeline-item p {
+    color: #fff;
+    margin-top: 10px;
+}
+
+/* Layout */
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.three-column {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* Table styling - High Score Board */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    border: 6px double #fff;
+}
+
+th {
+    background: #fff;
+    color: #000;
+    padding: 15px;
+    text-align: left;
+    border: 3px solid #000;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+td {
+    padding: 15px;
+    border: 2px solid #fff;
+    background: #000;
+    color: #fff;
+}
+
+tr:nth-child(even) td {
+    background: #111;
+}
+
+tr:hover td {
+    background: #fff;
+    color: #000;
+}
+
+/* Footer - Game Over Screen */
+.footer {
+    background: #000;
+    color: #fff;
+    text-align: center;
+    padding: 40px;
+    border-top: 8px double #fff;
+    margin-top: 40px;
+    position: relative;
+}
+
+.footer::before {
+    content: '▓▓▓ GAME OVER ▓▓▓';
+    display: block;
+    color: #fff;
+    font-size: 2em;
+    margin-bottom: 20px;
+    letter-spacing: 5px;
+    animation: gameOverBlink 1s step-end infinite;
+    border: 4px solid #fff;
+    padding: 15px;
+    display: inline-block;
+}
+
+@keyframes gameOverBlink {
+    0%, 50% {
+        background: #000;
+        color: #fff;
+    }
+    51%, 100% {
+        background: #fff;
+        color: #000;
+    }
+}
+
+.footer p {
+    margin-top: 20px;
+}
+
+/* Links - Underlined Retro Style */
+a {
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.1s;
+    position: relative;
+}
+
+a:hover {
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    padding: 2px 4px;
+}
+
+/* Stats counter - Pixel Score Display */
+.stats-counter {
+    background: #000;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    padding: 20px;
+    border: 6px double #fff;
+    display: inline-block;
+    margin: 20px 0;
+    font-weight: bold;
+    font-size: 1.2em;
+    letter-spacing: 3px;
+}
+
+/* Headings */
+h3 {
+    color: #fff;
+    margin-top: 30px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-bottom: 4px solid #fff;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+h4 {
+    color: #fff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+strong {
+    color: #fff;
+    font-weight: bold;
+    background: #000;
+    padding: 2px 4px;
+    border: 1px solid #fff;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+/* Scanline Effect - Heavy CRT */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.25),
+        rgba(0, 0, 0, 0.25) 2px,
+        transparent 2px,
+        transparent 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Pixel Grid Effect */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.03) 2px,
+            rgba(255, 255, 255, 0.03) 4px
+        );
+    pointer-events: none;
+    z-index: 9998;
+}
+
+/* CRT Phosphor Fade */
+@keyframes phosphor {
+    0% { opacity: 1; }
+    100% { opacity: 0.98; }
+}
+
+.container {
+    animation: phosphor 0.1s infinite alternate;
+}
+
+/* Pixel Border Decorations */
+.forum-box-content::before {
+    content: '▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓';
+    display: block;
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.5em;
+    margin-bottom: 15px;
+    overflow: hidden;
+    letter-spacing: 0;
+}
+
+.forum-box-content::after {
+    content: '▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓';
+    display: block;
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.5em;
+    margin-top: 15px;
+    overflow: hidden;
+    letter-spacing: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar {
+        flex-direction: column;
+    }
+
+    .nav-button {
+        width: 100%;
+    }
+
+    .site-title {
+        font-size: 2em;
+    }
+
+    .container {
+        border: 4px solid #fff;
+    }
+}
+
+/* Retro Dividers */
+h3::before {
+    content: '▓▓▓ ';
+    margin-right: 10px;
+}
+
+h3::after {
+    content: ' ▓▓▓';
+    margin-left: 10px;
+}
+
+/* Bullet Points - Retro Style */
+ul {
+    list-style: none;
+}
+
+ul li::before {
+    content: '■ ';
+    margin-right: 10px;
+}
+
+/* Input fields if any */
+input, textarea {
+    background: #000;
+    color: #fff;
+    border: 4px solid #fff;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 1em;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px #fff;
+}
+
+/* Selection Style */
+::selection {
+    background: #fff;
+    color: #000;
+}
+
+/* Smooth Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+    background: #000;
+}
+
+::-webkit-scrollbar-track {
+    border: 2px solid #fff;
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #fff;
+    border: 2px solid #000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #fff;
+}
+
+/* Loading Animation */
+@keyframes loading {
+    0% { content: '▓'; }
+    33% { content: '▓▓'; }
+    66% { content: '▓▓▓'; }
+    100% { content: '▓▓▓▓'; }
+}
+
+/* Retro Corner Brackets */
+.forum-box::after {
+    content: '└─────────────────────────────┘';
+    display: block;
+    color: #fff;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.8em;
+    letter-spacing: 0;
+}

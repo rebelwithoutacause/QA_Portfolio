@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Tech Forum - Computing History & AI Discussion</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="site-title">RETRO TECH FORUM</div>
+            <div class="site-subtitle">Your Gateway to Computing History & AI Evolution</div>
+        </div>
+
+        <nav class="navbar">
+            <button class="nav-button active" onclick="showSection('home')">Home</button>
+            <button class="nav-button" onclick="showSection('eliza')">ELIZA Chatbot</button>
+            <button class="nav-button" onclick="showSection('chronology')">Chatbot History</button>
+            <button class="nav-button" onclick="showSection('software')">Software Companies</button>
+            <button class="nav-button" onclick="showSection('games')">PC Games</button>
+            <button class="nav-button" onclick="showSection('clubs')">Computer Clubs</button>
+            <button class="nav-button" onclick="showSection('classic')">Classic Computers</button>
+            <button class="nav-button" onclick="showSection('vintage')">Vintage Gaming</button>
+            <button class="nav-button" onclick="showSection('retro-os')">Retro Software</button>
+            <button class="nav-button" onclick="showSection('gadgets')">Old Gadgets</button>
+            <button class="nav-button" onclick="showSection('history')">Tech History</button>
+            <button class="nav-button" onclick="showSection('diy')">DIY & Restoration</button>
+            <button class="nav-button" onclick="showSection('community')">Community Corner</button>
+        </nav>
+
+        <div class="content">
+            <!-- HOME SECTION -->
+            <div id="home" class="section active">
+                <div class="forum-box">
+                    <div class="forum-box-header">Welcome to Retro Tech Forum</div>
+                    <div class="forum-box-content">
+                        <p style="font-size: 1.1em;">Explore the fascinating history of computing, from the first chatbots to legendary computer clubs that shaped the digital age.</p>
+
+                        <div class="two-column" style="margin-top: 20px;">
+                            <div class="info-box">
+                                <div class="info-box-header">Featured Topic</div>
+                                <p><strong>ELIZA (1966)</strong> - The world's first chatbot that convinced people a computer could understand them. Created by Joseph Weizenbaum at MIT, this simple program sparked decades of AI research.</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header">Latest Updates</div>
+                                <p><strong>2025:</strong> AI assistants like Claude Opus 4.5 and GPT-4 represent the cutting edge of conversational AI, yet they still trace their lineage back to ELIZA's 200 lines of code.</p>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Quick Navigation</h3>
+                        <table>
+                            <tr>
+                                <th>Section</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td><strong>ELIZA Chatbot</strong></td>
+                                <td>Learn about the first doctor chatbot and the ELIZA effect</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Chatbot History</strong></td>
+                                <td>Complete chronology from 1950 to 2025</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Software Companies</strong></td>
+                                <td>80s and 90s pioneers: Microsoft, Apple, id Software, and more</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PC Games</strong></td>
+                                <td>First PC games from countries around the world</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Computer Clubs</strong></td>
+                                <td>Homebrew Computer Club, MIT hackers, and global communities</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ELIZA SECTION -->
+            <div id="eliza" class="section">
+                <div class="forum-box">
+                    <div class="forum-box-header">ELIZA: The First Doctor Chatbot</div>
+                    <div class="forum-box-content">
+                        <p style="font-size: 1.15em;"><strong>In 1966, at the <a href="https://web.mit.edu/" target="_blank">Massachusetts Institute of Technology</a>, a revolutionary program was born that would forever change how humans interact with machines. Her name was <a href="https://en.wikipedia.org/wiki/ELIZA" target="_blank">ELIZA</a>, and she was the world's first chatbot.</strong></p>
+
+                        <div class="info-box">
+                            <div class="info-box-header">ELIZA Quick Facts</div>
+                            <p><strong>Created:</strong> 1964-1966</p>
+                            <p><strong>Creator:</strong> <a href="https://en.wikipedia.org/wiki/Joseph_Weizenbaum" target="_blank">Joseph Weizenbaum</a> at <a href="https://web.mit.edu/" target="_blank">MIT</a></p>
+                            <p><strong>Programming Language:</strong> <a href="https://en.wikipedia.org/wiki/MAD_(programming_language)" target="_blank">MAD-Slip</a></p>
+                            <p><strong>Purpose:</strong> Demonstrate superficiality of human-computer communication</p>
+                            <p><strong>Most Famous Script:</strong> DOCTOR (mimicking <a href="https://en.wikipedia.org/wiki/Person-centered_therapy" target="_blank">Rogerian psychotherapist</a>)</p>
+                            <p><strong>Innovation:</strong> First program to attempt the <a href="https://en.wikipedia.org/wiki/Turing_test" target="_blank">Turing Test</a></p>
+                            <p><strong>Lines of Code:</strong> Approximately 200 in the DOCTOR script</p>
+                            <p><strong>Try it:</strong> <a href="https://www.masswerk.at/elizabot/" target="_blank">Online ELIZA Simulator</a></p>
+                        </div>
+
+                        <h3 style="margin-top: 25px;">How ELIZA Worked</h3>
+                        <p>ELIZA operated through a deceptively simple mechanism. The program scanned user input for keywords, then applied transformation rules to generate responses. If a user typed "I am sad," ELIZA might respond with "Why do you think you are sad?"</p>
+
+                        <p>This technique, called pattern matching and substitution, created an illusion of understanding. The DOCTOR script contained approximately 200 lines of code defining patterns and responses. When no keyword was found, ELIZA would fall back on generic responses like "Please go on" or "That is very interesting."</p>
+
+                        <div class="info-box">
+                            <div class="info-box-header">Example Conversation</div>
+                            <p><strong>User:</strong> "I am worried about my exams."</p>
+                            <p><strong>ELIZA:</strong> "Why are you worried about your exams?"</p>
+                            <p style="margin-top: 10px;"><strong>User:</strong> "My mother doesn't understand me."</p>
+                            <p><strong>ELIZA:</strong> "Tell me more about your family."</p>
+                            <p style="margin-top: 10px;"><strong>User:</strong> "I feel depressed."</p>
+                            <p><strong>ELIZA:</strong> "I am sorry to hear you are depressed."</p>
+                        </div>
+
+                        <h3 style="margin-top: 25px;">The Unexpected Impact</h3>
+                        <p>Weizenbaum was shocked by how seriously people took ELIZA. His own secretary asked him to leave the room so she could have a private conversation with the program. Psychiatrists suggested the program could provide automated therapy to mental health patients.</p>
+
+                        <p>This reaction troubled Weizenbaum deeply. He had created ELIZA to demonstrate the superficiality of machine communication, but instead found people projecting genuine intelligence and empathy onto the program.</p>
+
+                        <h3 style="margin-top: 25px;">The ELIZA Effect</h3>
+                        <p>The term "<a href="https://en.wikipedia.org/wiki/ELIZA_effect" target="_blank">ELIZA effect</a>" now describes the tendency of humans to unconsciously assume computer behaviors are analogous to human behaviors. This psychological phenomenon explains why people form emotional attachments to chatbots, virtual assistants, and even simple automated systems.</p>
+
+                        <p>Modern researchers studying <a href="https://en.wikipedia.org/wiki/Human%E2%80%93computer_interaction" target="_blank">human-computer interaction</a> continue to reference ELIZA when discussing how users anthropomorphize technology. The program's legacy extends far beyond its simple code—it revealed fundamental truths about human psychology and our need for connection.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHRONOLOGY SECTION -->
+            <div id="chronology" class="section">
+                <div class="forum-box">
+                    <div class="forum-box-header">Complete Chatbot Chronology: 1950-2025</div>
+                    <div class="forum-box-content">
+                        <p style="font-size: 1.1em;">Six decades of conversational AI, from Turing's test to modern language models.</p>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">1950</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/Alan_Turing" target="_blank">Alan Turing</a>'s Imitation Game:</strong> Publishes "<a href="https://en.wikipedia.org/wiki/Computing_Machinery_and_Intelligence" target="_blank">Computing Machinery and Intelligence</a>," proposing the famous <a href="https://en.wikipedia.org/wiki/Turing_test" target="_blank">Turing Test</a> to determine if machines can think.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">1964-1966</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/ELIZA" target="_blank">ELIZA</a> Created:</strong> <a href="https://en.wikipedia.org/wiki/Joseph_Weizenbaum" target="_blank">Joseph Weizenbaum</a> at MIT develops the first chatbot capable of engaging in conversation, simulating a Rogerian psychotherapist.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">1972</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/PARRY" target="_blank">PARRY</a> Debuts:</strong> Kenneth Colby creates PARRY at <a href="https://www.stanford.edu/" target="_blank">Stanford</a>, simulating a paranoid patient. Later "converses" with ELIZA via <a href="https://en.wikipedia.org/wiki/ARPANET" target="_blank">ARPANET</a> in the first conversation between two AI programs.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">1988</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/Jabberwacky" target="_blank">Jabberwacky</a> Launched:</strong> Rollo Carpenter creates a chatbot designed to simulate interesting human conversation rather than pass the Turing Test.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">1991</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/Dr._Sbaitso" target="_blank">Dr. Sbaitso</a> Released:</strong> <a href="https://en.wikipedia.org/wiki/Creative_Technology" target="_blank">Creative Labs</a> includes this AI therapist chatbot with Sound Blaster cards. Featured speech synthesis and became cult classic.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">1995</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/Artificial_Linguistic_Internet_Computer_Entity" target="_blank">A.L.I.C.E.</a> Created:</strong> Richard Wallace develops Artificial Linguistic Internet Computer Entity using <a href="https://en.wikipedia.org/wiki/AIML" target="_blank">AIML</a> (Artificial Intelligence Markup Language). Wins <a href="https://en.wikipedia.org/wiki/Loebner_Prize" target="_blank">Loebner Prize</a> three times.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">1997</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/Deep_Blue_(chess_computer)" target="_blank">Deep Blue</a> vs. <a href="https://en.wikipedia.org/wiki/Garry_Kasparov" target="_blank">Kasparov</a>:</strong> While not a chatbot, <a href="https://www.ibm.com/" target="_blank">IBM</a>'s chess computer defeats world champion, proving AI could beat humans at complex tasks.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2001</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/SmarterChild" target="_blank">SmarterChild</a> Launches:</strong> ActiveBuddy's bot on <a href="https://en.wikipedia.org/wiki/AOL_Instant_Messenger" target="_blank">AOL Instant Messenger</a> reaches 30 million users, becoming mainstream culture phenomenon.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2006</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/IBM_Watson" target="_blank">IBM Watson</a> Begins:</strong> Development starts on question-answering system that would win <a href="https://en.wikipedia.org/wiki/Jeopardy!" target="_blank">Jeopardy!</a> in 2011.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2010</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/Siri" target="_blank">Siri</a> Founded:</strong> Company acquired by <a href="https://www.apple.com/" target="_blank">Apple</a>, launches as iPhone feature in 2011, bringing voice assistants to millions.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2014</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/Eugene_Goostman" target="_blank">Eugene Goostman</a>:</strong> Chatbot simulating 13-year-old Ukrainian boy claims to pass Turing Test with 33% of judges (disputed).</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2014</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/Amazon_Alexa" target="_blank">Amazon Alexa</a>:</strong> Voice-activated assistant launches with <a href="https://en.wikipedia.org/wiki/Amazon_Echo" target="_blank">Amazon Echo</a>, pioneering smart home integration.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2016</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/Tay_(bot)" target="_blank">Microsoft Tay</a>:</strong> Twitter bot shut down after 16 hours due to learning inappropriate responses from users.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2016</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/Google_Assistant" target="_blank">Google Assistant</a>:</strong> Launches with <a href="https://en.wikipedia.org/wiki/Google_Home" target="_blank">Google Home</a>, competing in voice assistant market.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2018</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/GPT-1" target="_blank">GPT-1</a> Released:</strong> <a href="https://openai.com/" target="_blank">OpenAI</a> introduces first <a href="https://en.wikipedia.org/wiki/Generative_pre-trained_transformer" target="_blank">Generative Pre-trained Transformer</a>, foundation for modern conversational AI.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2019</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/GPT-2" target="_blank">GPT-2</a> Released:</strong> Initially withheld due to concerns about misuse, demonstrating improved language generation capabilities.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2020</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/GPT-3" target="_blank">GPT-3</a> Launches:</strong> 175 billion parameters make it the largest language model to date, powering hundreds of applications.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2021</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/GitHub_Copilot" target="_blank">GitHub Copilot</a>:</strong> AI pair programmer launches, using OpenAI Codex to suggest code completions.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2022</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/ChatGPT" target="_blank">ChatGPT</a> Released:</strong> OpenAI launches conversational interface to GPT-3.5, reaching 100 million users in two months—fastest-growing consumer application in history.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2023</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/GPT-4" target="_blank">GPT-4</a> and <a href="https://www.anthropic.com/" target="_blank">Claude 2</a>:</strong> Next-generation models from OpenAI and <a href="https://www.anthropic.com/" target="_blank">Anthropic</a> demonstrate improved reasoning, longer context, and multimodal capabilities.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2024</div>
+                            <p><strong><a href="https://en.wikipedia.org/wiki/Gemini_(chatbot)" target="_blank">Gemini</a> and <a href="https://www.anthropic.com/claude" target="_blank">Claude 3</a>:</strong> <a href="https://www.google.com/" target="_blank">Google</a> and Anthropic release advanced models. AI assistants become integrated into operating systems, browsers, and productivity tools.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2025</div>
+                            <p><strong><a href="https://www.anthropic.com/" target="_blank">Claude Opus 4.5</a>:</strong> State-of-the-art frontier model. AI assistants now feature extended context windows, improved reasoning, and specialized capabilities for coding, analysis, and creative work.</p>
+                        </div>
+
+                        <div class="info-box" style="margin-top: 30px;">
+                            <div class="info-box-header">Chatbot Milestones by the Numbers</div>
+                            <p><strong>200:</strong> Lines of code in ELIZA's DOCTOR script (1966)</p>
+                            <p><strong>30 million:</strong> Users SmarterChild reached at peak</p>
+                            <p><strong>16:</strong> Hours Microsoft's Tay was online before shutdown (2016)</p>
+                            <p><strong>175 billion:</strong> Parameters in GPT-3 (2020)</p>
+                            <p><strong>100 million:</strong> Users ChatGPT gained in 2 months (2022)</p>
+                            <p><strong>1 trillion:</strong> Estimated parameters in largest 2024 models</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOFTWARE COMPANIES SECTION -->
+            <div id="software" class="section">
+                <div class="forum-box">
+                    <div class="forum-box-header">Software Revolution: 1980s & 1990s Companies</div>
+                    <div class="forum-box-content">
+                        <p style="font-size: 1.1em;">From garage startups to billion-dollar empires, these pioneers transformed personal computing from hobbyist pursuit to household necessity.</p>
+
+                        <h3 style="margin-top: 25px;">The 1980s Giants</h3>
+
+                        <div class="two-column">
+                            <div>
+                                <h4><a href="https://www.microsoft.com/" target="_blank">Microsoft</a> (Founded 1975)</h4>
+                                <p>When <a href="https://www.ibm.com/" target="_blank">IBM</a> needed an operating system for their PC in 1981, Microsoft provided <a href="https://en.wikipedia.org/wiki/MS-DOS" target="_blank">MS-DOS</a>. By 1985, <a href="https://en.wikipedia.org/wiki/Windows_1.0x" target="_blank">Windows 1.0</a> launched, beginning an empire. The <a href="https://en.wikipedia.org/wiki/Windows_3.0" target="_blank">Windows 3.0</a> release in 1990 sold 10 million copies in two years, making <a href="https://en.wikipedia.org/wiki/Bill_Gates" target="_blank">Bill Gates</a> a household name.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/Lotus_Software" target="_blank">Lotus Development</a> (Founded 1982)</h4>
+                                <p><a href="https://en.wikipedia.org/wiki/Lotus_1-2-3" target="_blank">Lotus 1-2-3</a> became the killer app for the IBM PC, dominating spreadsheet software throughout the 1980s. At its peak, Lotus was generating over $500 million annually.</p>
+                            </div>
+
+                            <div>
+                                <h4><a href="https://www.apple.com/" target="_blank">Apple Computer</a> (Founded 1976)</h4>
+                                <p>After the <a href="https://en.wikipedia.org/wiki/Apple_II" target="_blank">Apple II</a>'s success, the <a href="https://en.wikipedia.org/wiki/Macintosh" target="_blank">Macintosh</a> launched in 1984 with the famous <a href="https://en.wikipedia.org/wiki/1984_(advertisement)" target="_blank">"1984" Super Bowl commercial</a>. It brought graphical user interfaces to the masses, forever changing how humans interact with computers.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/Borland" target="_blank">Borland</a> (Founded 1983)</h4>
+                                <p>Philippe Kahn's company revolutionized programming with <a href="https://en.wikipedia.org/wiki/Turbo_Pascal" target="_blank">Turbo Pascal</a>, selling for just $49.99 when competitors charged hundreds. Borland became synonymous with developer tools throughout the late 80s and early 90s.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-box" style="margin-top: 20px;">
+                            <div class="info-box-header">1980s Milestones</div>
+                            <p><strong>1982:</strong> <a href="https://www.autodesk.com/" target="_blank">AutoDesk</a> founded, releases <a href="https://en.wikipedia.org/wiki/AutoCAD" target="_blank">AutoCAD</a></p>
+                            <p><strong>1982:</strong> <a href="https://www.adobe.com/" target="_blank">Adobe Systems</a> founded by John Warnock and Charles Geschke</p>
+                            <p><strong>1983:</strong> <a href="https://en.wikipedia.org/wiki/Novell" target="_blank">Novell</a> releases <a href="https://en.wikipedia.org/wiki/NetWare" target="_blank">NetWare</a>, dominating network operating systems</p>
+                            <p><strong>1984:</strong> <a href="https://en.wikipedia.org/wiki/Symantec" target="_blank">Symantec</a> founded, later acquires <a href="https://en.wikipedia.org/wiki/Norton_Utilities" target="_blank">Norton utilities</a></p>
+                            <p><strong>1986:</strong> <a href="https://www.pixar.com/" target="_blank">Pixar</a> founded (originally part of <a href="https://en.wikipedia.org/wiki/Lucasfilm" target="_blank">Lucasfilm</a>)</p>
+                            <p><strong>1988:</strong> <a href="https://en.wikipedia.org/wiki/McAfee" target="_blank">McAfee Associates</a> founded, pioneering antivirus software</p>
+                        </div>
+
+                        <h3 style="margin-top: 25px;">The 1990s Boom</h3>
+
+                        <div class="two-column">
+                            <div>
+                                <h4><a href="https://www.idsoftware.com/" target="_blank">id Software</a> (Founded 1991)</h4>
+                                <p><a href="https://en.wikipedia.org/wiki/John_Carmack" target="_blank">John Carmack</a> and <a href="https://en.wikipedia.org/wiki/John_Romero" target="_blank">John Romero</a> changed gaming forever with <a href="https://en.wikipedia.org/wiki/Commander_Keen" target="_blank">Commander Keen</a>, <a href="https://en.wikipedia.org/wiki/Wolfenstein_3D" target="_blank">Wolfenstein 3D</a>, <a href="https://en.wikipedia.org/wiki/Doom_(1993_video_game)" target="_blank">Doom</a>, and <a href="https://en.wikipedia.org/wiki/Quake_(video_game)" target="_blank">Quake</a>. They pioneered the first-person shooter genre and the <a href="https://en.wikipedia.org/wiki/Shareware" target="_blank">shareware</a> distribution model.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/Netscape" target="_blank">Netscape</a> (Founded 1994)</h4>
+                                <p><a href="https://en.wikipedia.org/wiki/Marc_Andreessen" target="_blank">Marc Andreessen</a>'s company brought the World Wide Web to the masses with <a href="https://en.wikipedia.org/wiki/Netscape_Navigator" target="_blank">Netscape Navigator</a>. Their 1995 IPO sparked the <a href="https://en.wikipedia.org/wiki/Dot-com_bubble" target="_blank">dot-com boom</a>, with stock prices doubling on the first day.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/RealNetworks" target="_blank">Real Networks</a> (Founded 1994)</h4>
+                                <p><a href="https://en.wikipedia.org/wiki/RealAudio" target="_blank">RealAudio</a> and <a href="https://en.wikipedia.org/wiki/RealPlayer" target="_blank">RealPlayer</a> brought streaming media to the internet, letting users hear audio without downloading entire files first.</p>
+                            </div>
+
+                            <div>
+                                <h4><a href="https://www.epicgames.com/" target="_blank">Epic MegaGames</a> (Founded 1991)</h4>
+                                <p>Started with shareware titles like <a href="https://en.wikipedia.org/wiki/Jill_of_the_Jungle" target="_blank">Jill of the Jungle</a> and <a href="https://en.wikipedia.org/wiki/Epic_Pinball" target="_blank">Epic Pinball</a>, later creating the <a href="https://www.unrealengine.com/" target="_blank">Unreal Engine</a> that powers modern gaming.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://www.yahoo.com/" target="_blank">Yahoo!</a> (Founded 1994)</h4>
+                                <p>David Filo and Jerry Yang's "Jerry and David's Guide to the World Wide Web" became <a href="https://en.wikipedia.org/wiki/Yahoo!" target="_blank">Yahoo!</a>, the internet's first major portal and search engine.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://www.redhat.com/" target="_blank">Red Hat</a> (Founded 1993)</h4>
+                                <p>Made <a href="https://www.linux.org/" target="_blank">Linux</a> accessible to businesses, proving <a href="https://en.wikipedia.org/wiki/Open-source_software" target="_blank">open-source software</a> could be commercially viable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PC GAMES SECTION -->
+            <div id="games" class="section">
+                <div class="forum-box">
+                    <div class="forum-box-header">Gaming Goes Global: First PC Games by Country</div>
+                    <div class="forum-box-content">
+                        <p style="font-size: 1.1em;">Explore how different countries pioneered PC gaming with their unique innovations and styles.</p>
+
+                        <div class="three-column" style="margin-top: 20px;">
+                            <div class="info-box">
+                                <div class="info-box-header">United States</div>
+                                <p><strong>1971:</strong> The Oregon Trail (MECC)</p>
+                                <p><strong>1980:</strong> Mystery House (Sierra On-Line) - First adventure game with graphics</p>
+                                <p><strong>1981:</strong> Wizardry: Proving Grounds of the Mad Overlord</p>
+                                <p><strong>1987:</strong> Maniac Mansion (Lucasfilm Games) - Introduced SCUMM engine</p>
+                                <p><strong>1992:</strong> Wolfenstein 3D (id Software)</p>
+                                <p><strong>1993:</strong> Myst (Cyan) - Best-selling PC game of the 1990s</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header">United Kingdom</div>
+                                <p><strong>1982:</strong> 3D Monster Maze (Malcolm Evans) - First 3D game</p>
+                                <p><strong>1983:</strong> Jet Set Willy (Matthew Smith) - ZX Spectrum classic</p>
+                                <p><strong>1984:</strong> Elite (Braben & Bell) - Revolutionary space trading game</p>
+                                <p><strong>1991:</strong> Lemmings (DMA Design)</p>
+                                <p><strong>1997:</strong> Grand Theft Auto (DMA Design)</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header">Japan</div>
+                                <p><strong>1982:</strong> The Black Onyx - First Japanese RPG</p>
+                                <p><strong>1984:</strong> Portopia Serial Murder Case (Chunsoft)</p>
+                                <p><strong>1987:</strong> Metal Gear (Konami) - Stealth pioneer</p>
+                                <p><strong>1992:</strong> Princess Maker (Gainax)</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header">France</div>
+                                <p><strong>1988:</strong> Captain Blood (ERE Informatique)</p>
+                                <p><strong>1992:</strong> Alone in the Dark (Infogrames) - Created survival horror genre</p>
+                                <p><strong>1995:</strong> Rayman (Ubisoft)</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header">Germany</div>
+                                <p><strong>1987:</strong> The Great Giana Sisters</p>
+                                <p><strong>1993:</strong> The Settlers (Blue Byte) - RTS classic</p>
+                                <p><strong>1997:</strong> Gothic (Piranha Bytes)</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header">Canada</div>
+                                <p><strong>1983:</strong> Archon: The Light and the Dark</p>
+                                <p><strong>1992:</strong> Stunts (Distinctive Software)</p>
+                                <p><strong>1996:</strong> MDK (Shiny Entertainment)</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header">Poland</div>
+                                <p><strong>1994:</strong> Robbo (Janusz Pelc) - Eastern Europe phenomenon</p>
+                                <p><strong>1997:</strong> The I of the Dragon (Primal Software)</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header">Australia</div>
+                                <p><strong>1990:</strong> Dark Side (Major Developments)</p>
+                                <p><strong>1993:</strong> Halloween Harry (SubZero Software)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMPUTER CLUBS SECTION -->
+            <div id="clubs" class="section">
+                <div class="forum-box">
+                    <div class="forum-box-header">Computer Clubs: Where Hackers & Hobbyists Met</div>
+                    <div class="forum-box-content">
+                        <p style="font-size: 1.1em;">Before the internet connected everyone, computer clubs were the social networks of the digital age.</p>
+
+                        <h3 style="margin-top: 30px;">Major Computer Clubs</h3>
+
+                        <div class="two-column" style="margin-top: 20px;">
+                            <div>
+                                <h4><a href="https://en.wikipedia.org/wiki/Homebrew_Computer_Club" target="_blank">Homebrew Computer Club</a> (1975-1986)</h4>
+                                <p><strong>Location:</strong> Menlo Park, California</p>
+                                <p>Perhaps the most influential computer club in history, the Homebrew Computer Club was ground zero for the personal computer revolution. <a href="https://en.wikipedia.org/wiki/Steve_Wozniak" target="_blank">Steve Wozniak</a> demonstrated the <a href="https://en.wikipedia.org/wiki/Apple_I" target="_blank">Apple I</a> here. Members included founders of 23 companies including Apple, Cromemco, and North Star Computers. At its peak, over 750 people attended meetings.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://www.ccc.de/en/" target="_blank">Chaos Computer Club</a> (1981-Present)</h4>
+                                <p><strong>Location:</strong> Berlin, Germany</p>
+                                <p>Europe's largest <a href="https://en.wikipedia.org/wiki/Chaos_Computer_Club" target="_blank">hacker association</a> became famous for exposing security flaws in government and corporate systems. Their annual <a href="https://en.wikipedia.org/wiki/Chaos_Communication_Congress" target="_blank">Chaos Communication Congress</a> is one of the world's premier hacking conferences, running since 1984.</p>
+                            </div>
+
+                            <div>
+                                <h4><a href="https://en.wikipedia.org/wiki/Tech_Model_Railroad_Club" target="_blank">Tech Model Railroad Club</a> (1946-Present)</h4>
+                                <p><strong>Location:</strong> MIT, Cambridge, Massachusetts</p>
+                                <p>The birthplace of <a href="https://en.wikipedia.org/wiki/Hacker_culture" target="_blank">hacker culture</a>. TMRC members created some of the first computer games on MIT's TX-0 and <a href="https://en.wikipedia.org/wiki/PDP-1" target="_blank">PDP-1</a> computers, including <a href="https://en.wikipedia.org/wiki/Spacewar!" target="_blank">Spacewar!</a> (1962). The term "hacker" originated here, originally meaning someone who could modify systems cleverly.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/Boston_Computer_Society" target="_blank">Boston Computer Society</a> (1977-1996)</h4>
+                                <p><strong>Location:</strong> Boston, Massachusetts</p>
+                                <p>World's largest personal computer user group with 31,000 members at peak. Influenced computing adoption across business and education sectors.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-box" style="margin-top: 20px;">
+                            <div class="info-box-header">Notable Clubs Worldwide</div>
+                            <p><strong>People's Computer Company (1972-1979):</strong> Menlo Park, CA - Published newsletter that inspired Homebrew Club</p>
+                            <p><strong>Southern California Computer Society (1977):</strong> Los Angeles - 5,000+ members</p>
+                            <p><strong>Capital PC User Group (1981):</strong> Washington DC - Influenced government computing</p>
+                            <p><strong>Cambridge University Computer Society (1950s):</strong> UK - British computing innovations</p>
+                            <p><strong>Acorn User Groups (1980s):</strong> UK - Supported BBC Micro computers</p>
+                            <p><strong>ASCII User Groups (1980s):</strong> Japan - Japanese PC standards</p>
+                            <p><strong>Melbourne Computer Club (1975):</strong> Australia - Computing culture Down Under</p>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">BBS & Demo Scene</h3>
+
+                        <div class="two-column" style="margin-top: 20px;">
+                            <div>
+                                <h4><a href="https://en.wikipedia.org/wiki/Bulletin_board_system" target="_blank">Bulletin Board Systems</a> (1978-1990s)</h4>
+                                <p><a href="https://en.wikipedia.org/wiki/Ward_Christensen" target="_blank">Ward Christensen</a> and Randy Suess created the <a href="https://en.wikipedia.org/wiki/CBBS" target="_blank">first BBS</a> in Chicago in 1978. By the mid-1990s, there were over 150,000 BBSs worldwide. Famous systems like <a href="https://en.wikipedia.org/wiki/The_WELL" target="_blank">The WELL</a> in San Francisco became legendary communities where journalists, hackers, and writers gathered.</p>
+                            </div>
+
+                            <div>
+                                <h4><a href="https://en.wikipedia.org/wiki/Demoscene" target="_blank">The Demo Scene</a> (1980s-Present)</h4>
+                                <p>A unique subculture emerged in Europe during the 1980s. Groups competed to create impressive audiovisual demonstrations that pushed computer hardware to its limits. Finnish, Swedish, and German groups dominated, with parties like <a href="https://en.wikipedia.org/wiki/Assembly_(demoparty)" target="_blank">Assembly</a> (Finland, 1992) drawing thousands.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CLASSIC COMPUTERS SECTION -->
+            <div id="classic" class="section">
+                <div class="forum-box">
+                    <div class="forum-box-header">Classic Computers: Machines That Changed Everything</div>
+                    <div class="forum-box-content">
+                        <p style="font-size: 1.1em;">Before sleek laptops and smartphones, these legendary machines brought computing to homes and offices worldwide.</p>
+
+                        <div class="three-column" style="margin-top: 20px;">
+                            <div class="info-box">
+                                <div class="info-box-header"><a href="https://en.wikipedia.org/wiki/IBM_Personal_Computer" target="_blank">IBM PC</a> (1981)</div>
+                                <p><strong>CPU:</strong> Intel 8088 @ 4.77 MHz</p>
+                                <p><strong>RAM:</strong> 16-256 KB</p>
+                                <p><strong>Storage:</strong> Cassette or 5.25" floppy</p>
+                                <p><strong>Price:</strong> $1,565 (base model)</p>
+                                <p style="margin-top: 10px;">The machine that defined the PC standard. Its open architecture spawned an entire industry of clones and compatibles.</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header"><a href="https://en.wikipedia.org/wiki/Commodore_64" target="_blank">Commodore 64</a> (1982)</div>
+                                <p><strong>CPU:</strong> MOS 6510 @ 1 MHz</p>
+                                <p><strong>RAM:</strong> 64 KB</p>
+                                <p><strong>Graphics:</strong> VIC-II chip</p>
+                                <p><strong>Sound:</strong> SID chip (legendary!)</p>
+                                <p style="margin-top: 10px;">Best-selling single computer model ever: 17 million units sold. Gaming powerhouse with incredible sound.</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header"><a href="https://en.wikipedia.org/wiki/Apple_II" target="_blank">Apple II</a> (1977)</div>
+                                <p><strong>CPU:</strong> MOS 6502 @ 1 MHz</p>
+                                <p><strong>RAM:</strong> 4-48 KB</p>
+                                <p><strong>Features:</strong> Color graphics, expansion slots</p>
+                                <p><strong>Price:</strong> $1,298</p>
+                                <p style="margin-top: 10px;">First successful mass-produced microcomputer. Dominated education and business until the mid-1980s.</p>
+                            </div>
+                        </div>
+
+                        <div class="three-column" style="margin-top: 20px;">
+                            <div class="info-box">
+                                <div class="info-box-header"><a href="https://en.wikipedia.org/wiki/Amiga" target="_blank">Commodore Amiga</a> (1985)</div>
+                                <p><strong>CPU:</strong> Motorola 68000 @ 7.16 MHz</p>
+                                <p><strong>RAM:</strong> 256 KB-9 MB</p>
+                                <p><strong>Graphics:</strong> 4096 colors, hardware sprites</p>
+                                <p style="margin-top: 10px;">Years ahead of its time. Dominated video production, gaming, and demo scene. Multitasking OS in 1985!</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header"><a href="https://en.wikipedia.org/wiki/ZX_Spectrum" target="_blank">ZX Spectrum</a> (1982)</div>
+                                <p><strong>CPU:</strong> Zilog Z80 @ 3.5 MHz</p>
+                                <p><strong>RAM:</strong> 16-128 KB</p>
+                                <p><strong>Price:</strong> £125-£175</p>
+                                <p style="margin-top: 10px;">UK's most popular home computer. Affordable price sparked massive gaming industry in Britain.</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header"><a href="https://en.wikipedia.org/wiki/Atari_ST" target="_blank">Atari ST</a> (1985)</div>
+                                <p><strong>CPU:</strong> Motorola 68000 @ 8 MHz</p>
+                                <p><strong>RAM:</strong> 512 KB-4 MB</p>
+                                <p><strong>MIDI:</strong> Built-in ports</p>
+                                <p style="margin-top: 10px;">Music production legend. Every recording studio had one. Competed fiercely with Amiga.</p>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Running Classic Computers Today</h3>
+
+                        <div class="two-column">
+                            <div>
+                                <h4>Emulators</h4>
+                                <ul>
+                                    <li><a href="https://www.dosbox.com/" target="_blank">DOSBox</a> - Run MS-DOS programs</li>
+                                    <li><a href="https://www.winuae.net/" target="_blank">WinUAE</a> - Amiga emulation</li>
+                                    <li><a href="https://vice-emu.sourceforge.io/" target="_blank">VICE</a> - Commodore 64/128/VIC-20</li>
+                                    <li><a href="https://fuse-emulator.sourceforge.net/" target="_blank">Fuse</a> - ZX Spectrum</li>
+                                    <li><a href="https://www.applewin.com/" target="_blank">AppleWin</a> - Apple II family</li>
+                                    <li><a href="https://hatari.tuxfamily.org/" target="_blank">Hatari</a> - Atari ST/STE/TT</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4>Preserved Hardware</h4>
+                                <ul>
+                                    <li>Clean contacts with isopropyl alcohol</li>
+                                    <li>Replace electrolytic capacitors (they leak!)</li>
+                                    <li>Modern SD card solutions for storage</li>
+                                    <li>HDMI adapters for modern displays</li>
+                                    <li>Join communities: <a href="https://www.vintage-computer.com/" target="_blank">VCF</a>, Reddit r/retrobattlestations</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VINTAGE GAMING SECTION -->
+            <div id="vintage" class="section">
+                <div class="forum-box">
+                    <div class="forum-box-header">Vintage Gaming: The Golden Age of Consoles</div>
+                    <div class="forum-box-content">
+                        <p style="font-size: 1.1em;">Before HD graphics and online multiplayer, these consoles defined gaming for generations.</p>
+
+                        <div class="two-column" style="margin-top: 20px;">
+                            <div>
+                                <h4><a href="https://en.wikipedia.org/wiki/Nintendo_Entertainment_System" target="_blank">Nintendo Entertainment System</a> (1985)</h4>
+                                <p><strong>Sales:</strong> 61.91 million worldwide</p>
+                                <p><strong>Games:</strong> 714 licensed in North America</p>
+                                <p>Saved the video game industry after the 1983 crash. Introduced <a href="https://en.wikipedia.org/wiki/Super_Mario_Bros." target="_blank">Super Mario Bros.</a>, <a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda" target="_blank">The Legend of Zelda</a>, <a href="https://en.wikipedia.org/wiki/Metroid" target="_blank">Metroid</a>, and quality control via Nintendo Seal of Quality.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/Atari_2600" target="_blank">Atari 2600</a> (1977)</h4>
+                                <p><strong>Sales:</strong> 30 million</p>
+                                <p><strong>Iconic Games:</strong> Space Invaders, Pac-Man, Pitfall!</p>
+                                <p>First major home console. Cartridge-based system revolutionized gaming. The <a href="https://en.wikipedia.org/wiki/E.T._the_Extra-Terrestrial_(video_game)" target="_blank">E.T. disaster</a> became legendary.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/Game_Boy" target="_blank">Game Boy</a> (1989)</h4>
+                                <p><strong>Sales:</strong> 118.69 million (all variants)</p>
+                                <p><strong>Battery Life:</strong> 30 hours on 4 AAs</p>
+                                <p>Monochrome screen, inferior specs - but incredible library and portability. <a href="https://en.wikipedia.org/wiki/Tetris" target="_blank">Tetris</a> was the killer app. Dominated handheld gaming for a decade.</p>
+                            </div>
+
+                            <div>
+                                <h4><a href="https://en.wikipedia.org/wiki/Sega_Genesis" target="_blank">Sega Genesis</a> (1988)</h4>
+                                <p><strong>Sales:</strong> 30.75 million</p>
+                                <p><strong>CPU:</strong> Motorola 68000 @ 7.6 MHz</p>
+                                <p>"Genesis does what Nintendon't!" The console wars began. <a href="https://en.wikipedia.org/wiki/Sonic_the_Hedgehog" target="_blank">Sonic the Hedgehog</a> became gaming's second-biggest icon. Aggressive marketing created intense brand loyalty.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/Super_Nintendo_Entertainment_System" target="_blank">Super Nintendo</a> (1991)</h4>
+                                <p><strong>Sales:</strong> 49.1 million</p>
+                                <p><strong>Games:</strong> Some of the best ever made</p>
+                                <p>16-bit perfection. <a href="https://en.wikipedia.org/wiki/Super_Mario_World" target="_blank">Super Mario World</a>, <a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_A_Link_to_the_Past" target="_blank">A Link to the Past</a>, <a href="https://en.wikipedia.org/wiki/Super_Metroid" target="_blank">Super Metroid</a>, <a href="https://en.wikipedia.org/wiki/Chrono_Trigger" target="_blank">Chrono Trigger</a>, <a href="https://en.wikipedia.org/wiki/Final_Fantasy_VI" target="_blank">Final Fantasy VI</a>. Mode 7 graphics wowed players.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/PlayStation_(console)" target="_blank">PlayStation</a> (1994)</h4>
+                                <p><strong>Sales:</strong> 102.49 million</p>
+                                <p><strong>Format:</strong> CD-ROM (cheaper than cartridges)</p>
+                                <p>Sony's entry destroyed Nintendo and Sega's dominance. CD audio, 3D graphics, mature games. Changed gaming forever.</p>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Collecting vs. Digital Preservation</h3>
+
+                        <table style="margin-top: 20px;">
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Physical Collecting</th>
+                                <th>Digital/Emulation</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Authenticity</strong></td>
+                                <td>Original hardware experience, CRT display, controller feel</td>
+                                <td>Near-perfect accuracy with modern emulators</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cost</strong></td>
+                                <td>Expensive - rare games cost hundreds/thousands</td>
+                                <td>Free (legal gray area for ROMs)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Preservation</strong></td>
+                                <td>Hardware fails, cartridges degrade, batteries die</td>
+                                <td>Perfect copies, infinite backups</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Convenience</strong></td>
+                                <td>Setup required, space needed, cables everywhere</td>
+                                <td>Play anywhere on PC/phone/handheld</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Community</strong></td>
+                                <td>Collectors meetups, conventions, trading</td>
+                                <td>ROM hacks, translations, enhancement patches</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RETRO SOFTWARE SECTION -->
+            <div id="retro-os" class="section">
+                <div class="forum-box">
+                    <div class="forum-box-header">Retro Software & Operating Systems</div>
+                    <div class="forum-box-content">
+                        <p style="font-size: 1.1em;">Remember when installing software came on 47 floppy disks?</p>
+
+                        <div class="two-column" style="margin-top: 20px;">
+                            <div>
+                                <h4><a href="https://en.wikipedia.org/wiki/MS-DOS" target="_blank">MS-DOS</a> (1981-2000)</h4>
+                                <p>The command-line OS that powered millions of PCs. No mouse, no graphics - just C:\ and your typing skills.</p>
+                                <p><strong>Iconic Commands:</strong></p>
+                                <ul>
+                                    <li>DIR - List files</li>
+                                    <li>CD - Change directory</li>
+                                    <li>FORMAT A: - Format floppy (and pray you didn't type C:)</li>
+                                    <li>QEMM386.SYS - Memory management nightmare</li>
+                                </ul>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/Windows_3.1x" target="_blank">Windows 3.1</a> (1992)</h4>
+                                <p>First widely successful Windows. Program Manager, File Manager, Minesweeper, and Solitaire productivity killers.</p>
+                                <p><strong>Quirks:</strong> Not a true OS - ran on top of DOS. Installing drivers was an art form. Printer setup took hours.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/Windows_95" target="_blank">Windows 95</a> (1995)</h4>
+                                <p>The revolution. Start button, taskbar, plug-and-play (theoretically), 32-bit apps, long filenames!</p>
+                                <p><strong>Launch:</strong> Massive marketing campaign. Rolling Stones' "Start Me Up." Lines at stores. Jay Leno hosting launch event.</p>
+                                <p><strong>Reality:</strong> Still crashed regularly. Blue Screen of Death became part of computing culture.</p>
+                            </div>
+
+                            <div>
+                                <h4><a href="https://en.wikipedia.org/wiki/System_7" target="_blank">Mac System 7</a> (1991)</h4>
+                                <p>Peak classic Mac OS. MultiFinder (cooperative multitasking), AppleTalk, TrueType fonts, System Folder nightmares.</p>
+                                <p><strong>Extensions:</strong> Tiny programs that added features - or conflicts. Managing them was a dark art.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/AmigaOS" target="_blank">AmigaOS</a> (1985)</h4>
+                                <p>Ahead of its time by years. Preemptive multitasking, custom chips, CLI and GUI together, legendary Workbench.</p>
+                                <p>Could run multiple programs smoothly on 512 KB RAM while Windows 95 needed 8 MB and still crashed.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/OS/2" target="_blank">OS/2</a> (1987)</h4>
+                                <p>IBM's "better than Windows" OS that nobody used. Superior technology, terrible marketing. "OS/2 Warp" sounded cool but came too late.</p>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Running Old Software Today</h3>
+
+                        <div class="info-box">
+                            <div class="info-box-header">Installation Guide</div>
+                            <ul>
+                                <li><strong>DOSBox:</strong> Perfect for DOS games and apps. <a href="https://www.dosbox.com/" target="_blank">Download here</a></li>
+                                <li><strong>VirtualBox:</strong> Run entire old Windows installs. Free virtualization from <a href="https://www.virtualbox.org/" target="_blank">Oracle</a></li>
+                                <li><strong>86Box:</strong> Emulate complete vintage PCs with period-accurate hardware</li>
+                                <li><strong>PCem:</strong> Another excellent PC emulator for Win3.1/95/98</li>
+                                <li><strong>WinWorld:</strong> Archive of old software (abandonware - legal gray area)</li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Funny Software Quirks</h3>
+
+                        <ul>
+                            <li><strong>Clippy:</strong> Microsoft Office assistant that everyone hated. "It looks like you're writing a letter!"</li>
+                            <li><strong>Trumpet Winsock:</strong> Required to get Windows 3.1 online. Configuration was black magic.</li>
+                            <li><strong>IRQ Conflicts:</strong> Sound card won't work? Change the IRQ! Break everything else instead!</li>
+                            <li><strong>Turbo Button:</strong> Button on old PCs to slow down CPU so games would run right</li>
+                            <li><strong>512KB RAM Limit:</strong> Early PCs couldn't use more without memory managers and dark rituals</li>
+                            <li><strong>Printer Port Dongles:</strong> Copy protection via hardware keys. Lose it = can't use software</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OLD GADGETS SECTION -->
+            <div id="gadgets" class="section">
+                <div class="forum-box">
+                    <div class="forum-box-header">Old Gadgets & Electronics: Before Smartphones</div>
+                    <div class="forum-box-content">
+                        <p style="font-size: 1.1em;">The devices that shaped daily life before everything became a phone app.</p>
+
+                        <div class="three-column" style="margin-top: 20px;">
+                            <div class="info-box">
+                                <div class="info-box-header"><a href="https://en.wikipedia.org/wiki/Walkman" target="_blank">Sony Walkman</a> (1979)</div>
+                                <p>Portable music revolution. Cassette tapes, foam headphones, rewinding with pencils when batteries died.</p>
+                                <p><strong>Evolution:</strong> Cassette → CD → MiniDisc → MP3 → obsolete</p>
+                                <p style="margin-top: 10px;">Peak cool: 1985. Walking down street with yellow Walkman, oversized headphones, actually rewinding to replay favorite song.</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header"><a href="https://en.wikipedia.org/wiki/Pager" target="_blank">Pagers/Beepers</a> (1980s-90s)</div>
+                                <p>Before cell phones, professionals wore these. Numeric codes became secret language: 143 = I love you, 911 = emergency, 07734 = hello (upside down).</p>
+                                <p>Doctors, drug dealers, and businesspeople all had them. Status symbol turned obsolete overnight.</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header"><a href="https://en.wikipedia.org/wiki/Rotary_dial" target="_blank">Rotary Phones</a> (1900s-1980s)</div>
+                                <p>Dialing took forever. Misdialing on last digit meant starting over. Actual physical connection to phone network.</p>
+                                <p><strong>Fun fact:</strong> Why no Q or Z on phone dial? Not enough letters for standard layout!</p>
+                            </div>
+                        </div>
+
+                        <div class="three-column" style="margin-top: 20px;">
+                            <div class="info-box">
+                                <div class="info-box-header"><a href="https://en.wikipedia.org/wiki/VHS" target="_blank">VHS Players</a> (1976-2000s)</div>
+                                <p>Home video standard. Recording TV shows, rental stores, tracking issues, tape eating disasters.</p>
+                                <p><strong>The ritual:</strong> Be kind, rewind. Late fees if you didn't.</p>
+                                <p>Lost the war to DVD, but won against Betamax (which was better quality).</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header"><a href="https://en.wikipedia.org/wiki/Floppy_disk" target="_blank">Floppy Disks</a> (1970s-2000s)</div>
+                                <p>1.44 MB of storage! Needed 50 disks to install Windows 95. "Floppy" because original 8" disks actually flopped.</p>
+                                <p><strong>Uses today:</strong> Universal save icon. Actual floppies? Museum pieces.</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header"><a href="https://en.wikipedia.org/wiki/PDA" target="_blank">PDAs</a> (1990s-2000s)</div>
+                                <p><a href="https://en.wikipedia.org/wiki/Palm_Pilot" target="_blank">Palm Pilot</a>, <a href="https://en.wikipedia.org/wiki/Windows_Mobile" target="_blank">Windows CE</a> devices. Stylus input, Graffiti writing, HotSync to PC.</p>
+                                <p>iPhone killed them all in 2007. Nobody misses stylus calibration.</p>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Evolution to Modern Tech</h3>
+
+                        <table style="margin-top: 20px;">
+                            <tr>
+                                <th>Old Gadget</th>
+                                <th>Purpose</th>
+                                <th>Modern Equivalent</th>
+                            </tr>
+                            <tr>
+                                <td>Walkman</td>
+                                <td>Portable music</td>
+                                <td>Spotify on smartphone</td>
+                            </tr>
+                            <tr>
+                                <td>Pager</td>
+                                <td>Instant messaging</td>
+                                <td>WhatsApp, iMessage, SMS</td>
+                            </tr>
+                            <tr>
+                                <td>VHS Recorder</td>
+                                <td>Time-shift TV, movies</td>
+                                <td>Netflix, DVR, streaming</td>
+                            </tr>
+                            <tr>
+                                <td>Answering Machine</td>
+                                <td>Voice messages</td>
+                                <td>Voicemail (built-in)</td>
+                            </tr>
+                            <tr>
+                                <td>Encyclopedia Set</td>
+                                <td>Quick reference</td>
+                                <td>Wikipedia, Google</td>
+                            </tr>
+                            <tr>
+                                <td>Paper Maps</td>
+                                <td>Navigation</td>
+                                <td>Google Maps, Waze</td>
+                            </tr>
+                            <tr>
+                                <td>Film Camera</td>
+                                <td>Photography</td>
+                                <td>Smartphone camera</td>
+                            </tr>
+                            <tr>
+                                <td>Alarm Clock</td>
+                                <td>Wake up</td>
+                                <td>Phone alarm</td>
+                            </tr>
+                        </table>
+
+                        <h3 style="margin-top: 30px;">The Nostalgia Factor</h3>
+
+                        <p>Why do we miss these frustrating, limited devices?</p>
+
+                        <ul>
+                            <li><strong>Simplicity:</strong> Each device did ONE thing well</li>
+                            <li><strong>Physicality:</strong> Buttons clicked, tapes spun, dials rotated - satisfying feedback</li>
+                            <li><strong>No connectivity:</strong> Your Walkman couldn't update, track you, or show ads</li>
+                            <li><strong>Ownership:</strong> You bought it, you owned it forever. No subscriptions or cloud dependencies</li>
+                            <li><strong>Shared experience:</strong> Everyone used same devices. Mix tapes were personal gifts</li>
+                            <li><strong>Repairability:</strong> Could often fix with screwdriver and patience</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TECH HISTORY SECTION -->
+            <div id="history" class="section">
+                <div class="forum-box">
+                    <div class="forum-box-header">Tech History & Trivia: Strange Facts from Computing's Past</div>
+                    <div class="forum-box-content">
+                        <p style="font-size: 1.1em;">The weird, wonderful, and forgotten corners of technology history.</p>
+
+                        <h3 style="margin-top: 25px;">Failed Gadgets & Tech</h3>
+
+                        <div class="two-column">
+                            <div>
+                                <h4><a href="https://en.wikipedia.org/wiki/Apple_Newton" target="_blank">Apple Newton</a> (1993)</h4>
+                                <p>Apple's PDA that couldn't recognize handwriting. "Eat up Martha" became "Egg freckles." $700 for terrible palm recognition. Steve Jobs killed it after returning to Apple.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/Microsoft_Zune" target="_blank">Microsoft Zune</a> (2006)</h4>
+                                <p>iPod competitor that arrived late and failed hard. Brown color scheme. "Squirting" songs to friends (yes, they called it that). Dead after 5 years.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/Betamax" target="_blank">Sony Betamax</a> (1975)</h4>
+                                <p>Better quality than VHS, lost anyway. Shorter recording time, higher cost. VHS won through licensing and porn industry support.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/HD_DVD" target="_blank">HD DVD</a> (2006)</h4>
+                                <p>Lost to Blu-ray. Backed by Toshiba and Microsoft. Format war ended when Warner Bros went Blu-ray exclusive. Obsolete by 2008, then streaming killed both.</p>
+                            </div>
+
+                            <div>
+                                <h4><a href="https://en.wikipedia.org/wiki/LaserDisc" target="_blank">LaserDisc</a> (1978)</h4>
+                                <p>Size of vinyl records. Better quality than VHS but expensive. Had to flip disc mid-movie. Cult following in Japan and among videophiles. DVD killed it.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/Virtual_Boy" target="_blank">Nintendo Virtual Boy</a> (1995)</h4>
+                                <p>Nintendo's VR disaster. Red monochrome, headaches, neck pain, no portability despite "portable" label. Killed after one year. Only 22 games ever released.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/Sega_32X" target="_blank">Sega 32X</a> (1994)</h4>
+                                <p>Genesis add-on nobody wanted. Came out same time as Saturn. Confused consumers, split developer support. Dead within 2 years.</p>
+
+                                <h4 style="margin-top: 20px;"><a href="https://en.wikipedia.org/wiki/Google_Glass" target="_blank">Google Glass</a> (2013)</h4>
+                                <p>$1,500 computer glasses. "Glassholes" banned from bars and theaters. Privacy concerns killed consumer version. B2B use only now.</p>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Odd Patents & Inventions</h3>
+
+                        <ul>
+                            <li><strong>Computer Mouse (1964):</strong> <a href="https://en.wikipedia.org/wiki/Douglas_Engelbart" target="_blank">Douglas Engelbart</a> invented it. Made of wood. Patent expired before GUI made it valuable. He made almost nothing from it.</li>
+                            <li><strong>GIF Format (1987):</strong> Pronunciation war never ended. Creator says "jif." Internet says "gif." Patent disputes almost killed it; expired 2003.</li>
+                            <li><strong>MP3 Patents:</strong> Required licensing fees until 2017. Cost millions. Now free to use.</li>
+                            <li><strong>One-Click Shopping:</strong> Amazon patented it (1999). Expired 2017. Yes, you could patent clicking once.</li>
+                            <li><strong>Slide to Unlock:</strong> Apple patent that didn't hold up. Now everyone has it.</li>
+                        </ul>
+
+                        <h3 style="margin-top: 30px;">Did You Know?</h3>
+
+                        <div class="info-box">
+                            <div class="info-box-header">Computing Trivia</div>
+                            <ul>
+                                <li>First computer bug was actual bug (moth) in Harvard Mark II (1947)</li>
+                                <li>QWERTY keyboard designed to SLOW typists to prevent typewriter jams</li>
+                                <li>First spam email sent in 1978 to 400 people. Now billions per day.</li>
+                                <li>First webcam watched coffee pot at Cambridge University (1991)</li>
+                                <li>@ symbol chosen for email arbitrarily by Ray Tomlinson (1971)</li>
+                                <li>First YouTube video: "Me at the zoo" (2005). 19 seconds long.</li>
+                                <li>Nokia ringtone "Nokia Tune" from 1902 Spanish guitar piece</li>
+                                <li>Bluetooth named after Viking king Harald Bluetooth who united Denmark</li>
+                                <li>First computer to beat human at chess: Deep Blue vs Kasparov (1997)</li>
+                                <li>Original Macintosh team signatures molded inside case</li>
+                                <li>Intel's "Pentium" name because couldn't trademark "586"</li>
+                                <li>PlayStation existed because Nintendo betrayed Sony on SNES CD add-on</li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Forgotten Tech Brands</h3>
+
+                        <table>
+                            <tr>
+                                <th>Brand</th>
+                                <th>What They Made</th>
+                                <th>What Happened</th>
+                            </tr>
+                            <tr>
+                                <td><a href="https://en.wikipedia.org/wiki/Tandy_Corporation" target="_blank">Tandy/Radio Shack</a></td>
+                                <td>TRS-80 computers, electronics</td>
+                                <td>Failed to evolve. Retail locations closed. Brand sold off.</td>
+                            </tr>
+                            <tr>
+                                <td><a href="https://en.wikipedia.org/wiki/Compaq" target="_blank">Compaq</a></td>
+                                <td>IBM PC compatibles, servers</td>
+                                <td>Acquired by HP (2002). Brand discontinued 2013.</td>
+                            </tr>
+                            <tr>
+                                <td><a href="https://en.wikipedia.org/wiki/Packard_Bell" target="_blank">Packard Bell</a></td>
+                                <td>Consumer PCs</td>
+                                <td>Cheap quality reputation killed them. Still exists in Europe somehow.</td>
+                            </tr>
+                            <tr>
+                                <td><a href="https://en.wikipedia.org/wiki/3dfx" target="_blank">3dfx</a></td>
+                                <td>Voodoo graphics cards</td>
+                                <td>Bad business decisions. Bought by NVIDIA (2000). Technology lives on.</td>
+                            </tr>
+                            <tr>
+                                <td><a href="https://en.wikipedia.org/wiki/Gateway,_Inc." target="_blank">Gateway</a></td>
+                                <td>Cow-spotted PC boxes</td>
+                                <td>Retail stores failed. Bought by Acer. Brand zombie now.</td>
+                            </tr>
+                            <tr>
+                                <td><a href="https://en.wikipedia.org/wiki/Palm,_Inc." target="_blank">Palm</a></td>
+                                <td>PDAs, smartphones</td>
+                                <td>iPhone killed them. Sold to HP. webOS sold to LG. Dead.</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DIY RESTORATION SECTION -->
+            <div id="diy" class="section">
+                <div class="forum-box">
+                    <div class="forum-box-header">DIY & Restoration: Bringing Old Tech Back to Life</div>
+                    <div class="forum-box-content">
+                        <p style="font-size: 1.1em;">Got a dusty old computer in the attic? Here's how to make it work again.</p>
+
+                        <h3 style="margin-top: 25px;">Cleaning & Basic Maintenance</h3>
+
+                        <div class="two-column">
+                            <div class="info-box">
+                                <div class="info-box-header">Cartridge Cleaning</div>
+                                <ul>
+                                    <li>Isopropyl alcohol (90%+ purity)</li>
+                                    <li>Cotton swabs or lint-free cloth</li>
+                                    <li>Clean contacts gently - don't scrub hard</li>
+                                    <li>Let dry completely before testing</li>
+                                    <li>Use eraser on stubborn oxidation (carefully!)</li>
+                                    <li>Security bit sets to open carts if needed</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header">Computer/Console Cleaning</div>
+                                <ul>
+                                    <li>Compressed air for dust (don't shake can)</li>
+                                    <li>Isopropyl alcohol for plastic cases</li>
+                                    <li>Retr0bright for yellowed plastic</li>
+                                    <li>DeoxIT for corroded connectors</li>
+                                    <li>Thermal paste replacement for CPUs</li>
+                                    <li>Never use water near electronics!</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Capacitor Replacement</h3>
+
+                        <div class="info-box">
+                            <div class="info-box-header">The #1 Killer of Old Electronics</div>
+                            <p><strong>Why:</strong> Electrolytic capacitors leak, bulge, and fail after 20-30 years. They're everywhere in vintage tech.</p>
+                            <p><strong>Symptoms:</strong> Won't power on, distorted video/audio, random crashes, battery drains fast</p>
+                            <p><strong>What You Need:</strong></p>
+                            <ul>
+                                <li>Soldering iron (temperature controlled)</li>
+                                <li>Solder sucker or desoldering wick</li>
+                                <li>Replacement capacitors (match voltage/capacitance)</li>
+                                <li>Multimeter to test</li>
+                                <li>Flux for easier soldering</li>
+                                <li>Patience and steady hands</li>
+                            </ul>
+                            <p><strong>Pro tip:</strong> Take photos before removing anything. Mark polarity with permanent marker.</p>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Modern Storage Solutions</h3>
+
+                        <table>
+                            <tr>
+                                <th>System</th>
+                                <th>Original Storage</th>
+                                <th>Modern Solution</th>
+                            </tr>
+                            <tr>
+                                <td>Commodore 64</td>
+                                <td>Floppy disk (unreliable)</td>
+                                <td><a href="https://www.sd2iec.co.uk/" target="_blank">SD2IEC</a> - SD card adapter</td>
+                            </tr>
+                            <tr>
+                                <td>Amiga</td>
+                                <td>Floppy disk</td>
+                                <td><a href="https://amiga.store/gotek-floppy-emulator" target="_blank">Gotek USB emulator</a></td>
+                            </tr>
+                            <tr>
+                                <td>Old PCs</td>
+                                <td>Hard drive (dying)</td>
+                                <td>IDE-to-CF or IDE-to-SD adapter</td>
+                            </tr>
+                            <tr>
+                                <td>NES/SNES</td>
+                                <td>Cartridges</td>
+                                <td><a href="https://everdrive.me/" target="_blank">EverDrive</a> flash carts</td>
+                            </tr>
+                            <tr>
+                                <td>Game Boy</td>
+                                <td>Cartridges</td>
+                                <td>EverDrive GB or <a href="https://www.epilogue.co/" target="_blank">Epilogue GB Operator</a></td>
+                            </tr>
+                        </table>
+
+                        <h3 style="margin-top: 30px;">Video Output Upgrades</h3>
+
+                        <div class="two-column">
+                            <div>
+                                <h4>HDMI Mods & Adapters</h4>
+                                <ul>
+                                    <li><strong>RetroTINK:</strong> Upscalers for vintage consoles</li>
+                                    <li><strong>OSSC:</strong> Open Source Scan Converter - zero lag</li>
+                                    <li><strong>RGB mods:</strong> Install RGB output on old consoles</li>
+                                    <li><strong>VGA mods:</strong> Dreamcast, Xbox already have VGA</li>
+                                    <li><strong>Component cables:</strong> Best analog option</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4>Finding Parts</h4>
+                                <ul>
+                                    <li><a href="https://console5.com/" target="_blank">Console5</a> - capacitor kits, parts</li>
+                                    <li><a href="https://www.mouser.com/" target="_blank">Mouser</a> - electronic components</li>
+                                    <li><a href="https://www.digikey.com/" target="_blank">DigiKey</a> - everything electronic</li>
+                                    <li>eBay - replacement parts, donor boards</li>
+                                    <li>AliExpress - cheap Chinese replacements (hit or miss)</li>
+                                    <li>Community forums - people selling/trading parts</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Essential Tools</h3>
+
+                        <ul>
+                            <li><strong>Soldering:</strong> Hakko FX-888D or similar temperature-controlled iron ($100)</li>
+                            <li><strong>Multimeter:</strong> Check voltages, continuity, component testing ($20-50)</li>
+                            <li><strong>Screwdriver set:</strong> Security bits for Nintendo, Sega, Apple ($15-30)</li>
+                            <li><strong>Magnification:</strong> Helping hands with magnifier for tiny work ($15)</li>
+                            <li><strong>ESD protection:</strong> Anti-static wrist strap ($5)</li>
+                            <li><strong>Heat gun:</strong> For shrink tube and careful component removal ($30)</li>
+                        </ul>
+
+                        <h3 style="margin-top: 30px;">Online Resources</h3>
+
+                        <div class="info-box">
+                            <div class="info-box-header">Learn From the Experts</div>
+                            <ul>
+                                <li><strong>YouTube Channels:</strong> <a href="https://www.youtube.com/@adriansdigitalbasement" target="_blank">Adrian's Digital Basement</a>, <a href="https://www.youtube.com/@The8BitGuy" target="_blank">The 8-Bit Guy</a>, <a href="https://www.youtube.com/@techtangents" target="_blank">Tech Tangents</a>, <a href="https://www.youtube.com/@MyLifeInGaming" target="_blank">My Life in Gaming</a></li>
+                                <li><strong>Forums:</strong> <a href="https://atariage.com/" target="_blank">AtariAge</a>, <a href="https://www.lemon64.com/" target="_blank">Lemon64</a>, <a href="https://eab.abime.net/" target="_blank">English Amiga Board</a>, <a href="https://www.sega-16.com/forum/" target="_blank">Sega-16</a>, <a href="https://nintendoage.com/" target="_blank">NintendoAge</a></li>
+                                <li><strong>Wikis:</strong> <a href="https://www.retrorgb.com/" target="_blank">RetroRGB</a> for console mods</li>
+                                <li><strong>Subreddits:</strong> <a href="https://www.reddit.com/r/retrogaming/" target="_blank">r/retrogaming</a>, <a href="https://www.reddit.com/r/crtgaming/" target="_blank">r/crtgaming</a>, <a href="https://www.reddit.com/r/retrobattlestations/" target="_blank">r/retrobattlestations</a></li>
+                                <li><strong>Discord:</strong> Retro gaming communities for live help</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMMUNITY SECTION -->
+            <div id="community" class="section">
+                <div class="forum-box">
+                    <div class="forum-box-header">Community Corner: Share Your Retro Tech Memories</div>
+                    <div class="forum-box-content">
+                        <p style="font-size: 1.1em;">This is YOUR space to share stories, show off collections, and connect with fellow enthusiasts!</p>
+
+                        <h3 style="margin-top: 25px;">Share Your First Computer Memory</h3>
+
+                        <div class="info-box">
+                            <div class="info-box-header">Community Prompts</div>
+                            <ul>
+                                <li>What was your first computer or gaming console?</li>
+                                <li>What game or program got you hooked on computers?</li>
+                                <li>Most frustrating tech experience from the 80s/90s?</li>
+                                <li>What retro tech do you still own and use?</li>
+                                <li>Funniest computer club or BBS memory?</li>
+                                <li>Which discontinued gadget do you miss most?</li>
+                                <li>Best garage sale/thrift store retro tech find?</li>
+                                <li>What modern convenience would blow minds in 1985?</li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Retro Tech Challenges</h3>
+
+                        <div class="two-column">
+                            <div class="info-box">
+                                <div class="info-box-header">Monthly Challenges</div>
+                                <p><strong>Code Challenge:</strong> Write a program in BASIC or assembly for vintage platform</p>
+                                <p><strong>Gaming Challenge:</strong> Beat classic game without save states or cheats</p>
+                                <p><strong>Restoration Challenge:</strong> Fix broken vintage hardware, document process</p>
+                                <p><strong>Collection Challenge:</strong> Complete a console library or software set</p>
+                            </div>
+
+                            <div class="info-box">
+                                <div class="info-box-header">Show & Tell</div>
+                                <p><strong>Setup Photos:</strong> Post your retro gaming corner or computer room</p>
+                                <p><strong>Collection Showcase:</strong> Share your vintage hardware collection</p>
+                                <p><strong>Restoration Progress:</strong> Before/after of repairs and mods</p>
+                                <p><strong>Code Demos:</strong> Programs you wrote on old systems</p>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Getting Involved</h3>
+
+                        <ul>
+                            <li><strong>Local Meetups:</strong> Find <a href="https://www.vcfed.org/" target="_blank">Vintage Computer Festivals</a> near you</li>
+                            <li><strong>Online Communities:</strong> Join forums, Discord servers, subreddits dedicated to retro tech</li>
+                            <li><strong>Preservation Projects:</strong> Help archive old software and documentation</li>
+                            <li><strong>YouTube:</strong> Document your restorations and projects</li>
+                            <li><strong>Teach Others:</strong> Run workshops on retro computing for younger generation</li>
+                            <li><strong>Donate:</strong> Museums need working vintage hardware - consider donating duplicates</li>
+                        </ul>
+
+                        <h3 style="margin-top: 30px;">Resources for Beginners</h3>
+
+                        <div class="info-box">
+                            <div class="info-box-header">Start Your Retro Journey</div>
+                            <p><strong>Affordable Entry Points:</strong></p>
+                            <ul>
+                                <li>Emulation on PC (free!) - Try DOSBox, RetroPie</li>
+                                <li>Raspberry Pi retro gaming station ($50-100)</li>
+                                <li>Thrift store hunting for old consoles/computers</li>
+                                <li>Analogue Pocket for authentic handheld gaming ($220)</li>
+                                <li>MiSTer FPGA for hardware-accurate emulation ($200-500)</li>
+                            </ul>
+                            <p><strong>Where to Learn:</strong></p>
+                            <ul>
+                                <li>Read: "Racing the Beam" (Atari 2600), "Hackers" by Steven Levy</li>
+                                <li>Watch: "High Score" (Netflix), "The King of Kong," "Indie Game: The Movie"</li>
+                                <li>Listen: Retro gaming podcasts like "The Retro Hour"</li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Preservation Matters</h3>
+
+                        <p>Old games, software, and hardware are disappearing. Here's how you can help:</p>
+
+                        <ul>
+                            <li><strong><a href="https://archive.org/" target="_blank">Internet Archive</a>:</strong> Upload old software, manuals, magazines</li>
+                            <li><strong><a href="https://www.mobygames.com/" target="_blank">MobyGames</a>:</strong> Document old games with info and scans</li>
+                            <li><strong>Local preservation:</strong> Start computer museum in your area</li>
+                            <li><strong>Documentation:</strong> Write guides for forgotten hardware</li>
+                            <li><strong>Source code:</strong> Help track down and preserve vintage game code</li>
+                            <li><strong>Oral history:</strong> Interview old programmers, industry veterans</li>
+                        </ul>
+
+                        <div class="info-box" style="margin-top: 30px;">
+                            <div class="info-box-header">Final Thought</div>
+                            <p>Every piece of vintage technology has a story. Every computer, every console, every gadget represents someone's first experience with technology, someone's career beginning, someone's childhood memories.</p>
+                            <p style="margin-top: 10px;">By preserving, restoring, and sharing these devices, we're not just keeping old tech alive - we're keeping history alive.</p>
+                            <p style="margin-top: 10px;"><strong>Welcome to the community. Let's keep the pixels glowing.</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>RetroTech Forums</strong> - Est. 2025</p>
+            <p style="margin-top: 10px;">Preserving Computing History for Future Generations</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">All information sourced from historical computing archives and documentation</p>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected section
+            const selectedSection = document.getElementById(sectionId);
+            selectedSection.classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Scroll to the selected section
+            selectedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>
