@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>*** RETRO QUIZ ZONE ***</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <marquee behavior="scroll" direction="left" class="top-marquee">
+        *** WELCOME TO THE ULTIMATE QUIZ ZONE *** TEST YOUR KNOWLEDGE *** CHOOSE YOUR CATEGORY ***
+    </marquee>
+
+    <div class="header">
+        <h1>~*~ RETRO QUIZ ZONE ~*~</h1>
+        <p class="tagline">[ Your Gateway to Knowledge - Est. 2025 ]</p>
+    </div>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="dropdown-container">
+            <button class="nav-btn" onclick="toggleRetroFacts()">
+                <span class="nav-icon">📚</span>
+                <span class="nav-text">RETRO TECH</span>
+            </button>
+            <div class="dropdown-menu" id="retro-dropdown" style="display: none;">
+                <div class="dropdown-item" onclick="showFact(0)">🦠 FIRST COMPUTER VIRUS</div>
+                <div class="dropdown-item" onclick="showFact(1)">🛡️ FIRST ANTIVIRUS</div>
+                <div class="dropdown-item" onclick="showFact(2)">📧 FIRST EMAIL</div>
+                <div class="dropdown-item" onclick="showFact(3)">🕹️ FIRST VIDEO GAME</div>
+                <div class="dropdown-item" onclick="showFact(4)">💾 FLOPPY DISK</div>
+                <div class="dropdown-item" onclick="showFact(5)">🌐 FIRST WEBSITE</div>
+                <div class="dropdown-item" onclick="showFact(6)">🎮 GAME BOY</div>
+                <div class="dropdown-item" onclick="showFact(7)">💿 CD-ROM</div>
+                <div class="dropdown-item" onclick="showFact(8)">🖱️ COMPUTER MOUSE</div>
+                <div class="dropdown-item" onclick="showFact(9)">👾 SPACE INVADERS</div>
+                <div class="dropdown-item" onclick="showFact(10)">📟 FIRST SPAM EMAIL</div>
+                <div class="dropdown-item" onclick="showFact(11)">🎵 FIRST MP3 PLAYER</div>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <button class="nav-btn" onclick="toggleProgLangs()">
+                <span class="nav-icon">⌨️</span>
+                <span class="nav-text">PROG LANGUAGES</span>
+            </button>
+            <div class="dropdown-menu" id="prog-dropdown" style="display: none;">
+                <div class="dropdown-item" onclick="showFact(12)">⚙️ C</div>
+                <div class="dropdown-item" onclick="showFact(13)">🔧 C++</div>
+                <div class="dropdown-item" onclick="showFact(14)">🎯 C#</div>
+                <div class="dropdown-item" onclick="showFact(15)">☕ JAVA</div>
+                <div class="dropdown-item" onclick="showFact(16)">📜 JAVASCRIPT</div>
+                <div class="dropdown-item" onclick="showFact(17)">🐍 PYTHON</div>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <button class="nav-btn" onclick="toggleEsoteric()">
+                <span class="nav-icon">🔥</span>
+                <span class="nav-text">ESOTERIC PROG LANGUAGES</span>
+            </button>
+            <div class="dropdown-menu" id="esoteric-dropdown" style="display: none;">
+                <div class="dropdown-item" onclick="showFact(18)">🔥 MALBOLGE</div>
+                <div class="dropdown-item" onclick="showFact(19)">🧠 BRAINFUCK</div>
+                <div class="dropdown-item" onclick="showFact(20)">🥞 CHEF</div>
+                <div class="dropdown-item" onclick="showFact(21)">🎨 PIET</div>
+                <div class="dropdown-item" onclick="showFact(22)">🐄 COW</div>
+                <div class="dropdown-item" onclick="showFact(23)">🚀 WHITESPACE</div>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <button class="nav-btn" onclick="toggleWeather()">
+                <span class="nav-icon">🌡️</span>
+                <span class="nav-text">WEATHER</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Category Selection -->
+    <div id="category-selection" class="category-container">
+        <table class="category-table">
+            <tr>
+                <td class="category-box" onclick="selectCategory('chess')">
+                    <div class="category-content">
+                        <h2>♔ CHESS ♔</h2>
+                        <p>Test your chess knowledge!</p>
+                        <p class="blink">>>> CLICK HERE <<<</p>
+                    </div>
+                </td>
+                <td class="category-box" onclick="selectCategory('programming')">
+                    <div class="category-content">
+                        <h2>⌨ PROGRAMMING ⌨</h2>
+                        <p>Code like it's 1999!</p>
+                        <p class="blink">>>> CLICK HERE <<<</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="category-box" onclick="selectCategory('it')">
+                    <div class="category-content">
+                        <h2>💾 IT & TECH 💾</h2>
+                        <p>Hardware & Software!</p>
+                        <p class="blink">>>> CLICK HERE <<<</p>
+                    </div>
+                </td>
+                <td class="category-box" onclick="selectCategory('horror')">
+                    <div class="category-content">
+                        <h2>🎃 HORROR 🎃</h2>
+                        <p>If you dare...</p>
+                        <p class="blink">>>> CLICK HERE <<<</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Weather Modal Overlay -->
+    <div class="weather-modal" id="weather-modal" style="display: none;">
+        <div class="weather-modal-content">
+            <h2>*** WEATHER FORECAST ***</h2>
+            <div id="weather-content">
+                <div class="weather-display">
+                    <p class="blink">LOADING WEATHER DATA...</p>
+                </div>
+            </div>
+            <button class="close-btn" onclick="toggleWeather()">CLOSE</button>
+        </div>
+    </div>
+
+    <!-- Single Fact Modal -->
+    <div class="fact-detail-modal" id="fact-detail-modal" style="display: none;">
+        <div class="fact-detail-content">
+            <h2 id="fact-detail-title">*** FACT ***</h2>
+            <div id="fact-detail-body" class="fact-detail-body"></div>
+            <button class="close-btn" onclick="closeFact()">CLOSE</button>
+        </div>
+    </div>
+
+    <!-- Quiz Container -->
+    <div id="quiz-section" class="quiz-section" style="display: none;">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h2 id="category-title">QUIZ</h2>
+                <div class="score-container">
+                    <span>SCORE: <span id="score">0</span></span>
+                    <span>QUESTION: <span id="question-number">1</span>/<span id="total-questions">10</span></span>
+                </div>
+            </div>
+
+            <div id="quiz-container" class="quiz-body">
+                <div class="question-container">
+                    <h3 id="question"></h3>
+                </div>
+                <div class="options-container" id="options-container">
+                    <!-- Options will be inserted here -->
+                </div>
+                <div class="button-container">
+                    <button id="next-btn" class="next-btn" style="display: none;">>>> NEXT QUESTION >>></button>
+                    <button id="back-btn" class="back-btn"><<< BACK TO CATEGORIES</button>
+                </div>
+            </div>
+
+            <div id="result-container" class="result-container" style="display: none;">
+                <h2 class="blink">*** QUIZ COMPLETE ***</h2>
+                <p class="final-score">YOUR SCORE: <span id="final-score">0</span>/<span id="final-total">10</span></p>
+                <p class="percentage" id="percentage"></p>
+                <button id="restart-btn" class="restart-btn">PLAY AGAIN</button>
+                <button id="home-btn" class="home-btn">BACK TO CATEGORIES</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Best viewed in Netscape Navigator 4.0 or Internet Explorer 5.0</p>
+        <p>This page has been visited <span class="counter">420</span> times!</p>
+        <p>Webmaster: quiz@retrozone.com</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
