@@ -60,15 +60,41 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', highlightNavigation);
 
     // ===================================
-    // Email Button Handling
+    // Email Modal Handling
     // ===================================
 
     const EMAIL = 'qamanualtester@proton.me';
     const emailButton = document.getElementById('emailButton');
+    const emailModal = document.getElementById('emailModal');
+    const emailModalImage = document.getElementById('emailModalImage');
+    const modalCloseX = document.getElementById('modalCloseX');
+    const modalOverlay = document.getElementById('modalOverlay');
 
+    function closeModal() {
+        emailModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    function showToast() {
+        const toast = document.createElement('div');
+        toast.textContent = 'Email copied: ' + EMAIL;
+        toast.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#B8860B;color:#1a1410;padding:0.75rem 1.5rem;border-radius:4px;font-weight:600;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,0.5);';
+        document.body.appendChild(toast);
+        setTimeout(function() { toast.remove(); }, 3000);
+    }
+
+    // Open modal when email button is clicked
     if (emailButton) {
         emailButton.addEventListener('click', function() {
-            // Copy to clipboard
+            emailModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    // Click image: copy email + open mail client + close modal
+    if (emailModalImage) {
+        emailModalImage.style.cursor = 'pointer';
+        emailModalImage.addEventListener('click', function() {
             navigator.clipboard.writeText(EMAIL).catch(function() {
                 const ta = document.createElement('textarea');
                 ta.value = EMAIL;
@@ -77,18 +103,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.execCommand('copy');
                 document.body.removeChild(ta);
             });
-
-            // Open email client
             window.location.href = 'mailto:' + EMAIL;
-
-            // Show toast
-            const toast = document.createElement('div');
-            toast.textContent = 'Email copied: ' + EMAIL;
-            toast.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#B8860B;color:#1a1410;padding:0.75rem 1.5rem;border-radius:4px;font-weight:600;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,0.5);';
-            document.body.appendChild(toast);
-            setTimeout(function() { toast.remove(); }, 3000);
+            closeModal();
+            showToast();
         });
     }
+
+    if (modalCloseX) {
+        modalCloseX.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeModal();
+        });
+    }
+
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', closeModal);
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && emailModal.classList.contains('active')) {
+            closeModal();
+        }
+    });
 
     // ===================================
     // Navbar Background on Scroll
