@@ -455,6 +455,57 @@ section {
     font-size: 0.95rem;
 }
 
+.about-experience {
+    grid-column: 1 / -1;
+    margin-top: var(--spacing-md);
+}
+
+.experience-title {
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 2px solid var(--accent);
+    font-family: var(--font-victorian);
+}
+
+.experience-item {
+    background-color: var(--bg-card);
+    border-left: 3px solid var(--accent-copper);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+.experience-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.experience-company {
+    color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: var(--font-victorian);
+}
+
+.experience-role {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.experience-description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.experience-description strong {
+    color: var(--text-primary);
+}
+
 /* ===================================
    Services Section
    =================================== */
