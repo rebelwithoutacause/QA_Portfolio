@@ -267,6 +267,8 @@ body::before {
 }
 
 .radio-item input[type="radio"] {
+    -webkit-appearance: none;
+    appearance: none;
     width: 18px;
     height: 18px;
     background: linear-gradient(145deg, #333, #222);
@@ -276,6 +278,7 @@ body::before {
     position: relative;
     transition: all 0.3s ease;
     margin: 0;
+    flex-shrink: 0;
 }
 
 .radio-item input[type="radio"]:checked {
@@ -287,10 +290,11 @@ body::before {
 .radio-item input[type="radio"]:checked::after {
     content: '';
     position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 8px;
-    height: 8px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
     background: #000;
     border-radius: 50%;
 }
