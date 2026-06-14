@@ -1313,21 +1313,6 @@ section {
         0 0 24px var(--brass-glow);
 }
 
-.modal-email-text {
-    position: absolute;
-    bottom: 1.25rem;
-    left: 50%;
-    transform: translateX(-50%);
-    color: var(--accent);
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    user-select: all;
-    background: rgba(26, 20, 16, 0.85);
-    padding: 0.4rem 1rem;
-    border-radius: 4px;
-    white-space: nowrap;
-}
 
 @keyframes modalSlideIn {
     from {
