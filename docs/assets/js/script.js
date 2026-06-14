@@ -4,6 +4,26 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
+    // ===================================
+    // Hamburger Menu
+    // ===================================
+
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('open');
+        navMenu.classList.toggle('open');
+    });
+
+    // Close menu when a nav link is clicked
+    navMenu.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('open');
+            navMenu.classList.remove('open');
+        });
+    });
+
     // Handle smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('.nav-menu a, .cta-button');
 
