@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PASSWORD GENERATOR v1.3</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="crt-overlay"></div>
+    
+    <div class="container">
+        <div class="terminal-window">
+            <div class="header">
+                <h1 class="title-centered">PASSWORD GENERATOR</h1>
+                <div class="subtitle-centered">v1.3 - SECURITY PROTOCOL ACTIVE</div>
+            </div>
+
+            <div class="controls">
+                <div class="controls-columns">
+                    <div class="column-left">
+                        <div class="control-group">
+                            <label for="length">PASSWORD LENGTH:</label>
+                            <div class="slider-container">
+                                <input type="range" id="length" class="slider" min="4" max="50" value="12">
+                                <span class="length-display" id="lengthDisplay">12</span>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label>CHARACTER OPTIONS:</label>
+                            <div class="checkboxes">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="uppercase" checked>
+                                    <label for="uppercase">Uppercase Letters</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="lowercase" checked>
+                                    <label for="lowercase">Lowercase Letters</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="numbers" checked>
+                                    <label for="numbers">Numbers</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="symbols" checked>
+                                    <label for="symbols">Symbols</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="column-right">
+                        <div class="control-group">
+                            <label for="customSymbols">CUSTOM SYMBOLS:</label>
+                            <input type="text" id="customSymbols" class="custom-input" placeholder="Enter custom symbols (optional)">
+                        </div>
+
+                        <div class="control-group">
+                            <label>GENERATION MODE:</label>
+                            <div class="mode-selection">
+                                <label class="radio-item">
+                                    <input type="radio" name="genMode" value="random" checked>
+                                    <span>Random</span>
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="genMode" value="pattern">
+                                    <span>Pattern</span>
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="genMode" value="pronounceable">
+                                    <span>Pronounceable</span>
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="genMode" value="passphrase">
+                                    <span>Passphrase</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="control-group pattern-controls" id="patternControls" style="display: none;">
+                            <label for="patternInput">PATTERN (L=Letter, N=Number, S=Symbol):</label>
+                            <input type="text" id="patternInput" class="custom-input" placeholder="e.g., LLNNSS or LnLnLn" value="LLNNSS">
+                        </div>
+
+                        <div class="control-group batch-controls">
+                            <label for="batchCount">BATCH GENERATION:</label>
+                            <div class="slider-container">
+                                <input type="range" id="batchCount" class="slider" min="1" max="10" value="1">
+                                <span class="length-display" id="batchDisplay">1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="generate-btn-centered" id="generateBtn">Generate Password</button>
+
+            <div class="output-section">
+                <div class="strength-indicator" id="strengthIndicator">
+                    <div class="strength-label-centered">STRENGTH:</div>
+                    <div class="strength-bar">
+                        <div class="strength-fill" id="strengthFill"></div>
+                    </div>
+                    <div class="strength-text" id="strengthText">-</div>
+                </div>
+                <div class="password-display" id="passwordDisplay"></div>
+                <div class="password-batch" id="passwordBatch" style="display: none;"></div>
+                <div class="button-row">
+                    <button class="copy-btn" id="copyBtn" disabled>Copy to Clipboard</button>
+                    <button class="save-btn" id="saveBtn" disabled>Save Passwords</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="error-flash" id="errorFlash"></div>
+
+    <script>
+        class PasswordGenerator {
+            constructor() {
+                this.lengthSlider = document.getElementById('length');
+                this.lengthDisplay = document.getElementById('lengthDisplay');
+                this.uppercaseCheck = document.getElementById('uppercase');
+                this.lowercaseCheck = document.getElementById('lowercase');
+                this.numbersCheck = document.getElementById('numbers');
+                this.symbolsCheck = document.getElementById('symbols');
+                this.customSymbolsInput = document.getElementById('customSymbols');
+                this.patternInput = document.getElementById('patternInput');
+                this.patternControls = document.getElementById('patternControls');
+                this.batchCount = document.getElementById('batchCount');
+                this.batchDisplay = document.getElementById('batchDisplay');
+                this.genModeRadios = document.querySelectorAll('input[name="genMode"]');
+                this.generateBtn = document.getElementById('generateBtn');
+                this.passwordDisplay = document.getElementById('passwordDisplay');
+                this.passwordBatch = document.getElementById('passwordBatch');
+                this.copyBtn = document.getElementById('copyBtn');
+                this.saveBtn = document.getElementById('saveBtn');
+                this.strengthIndicator = document.getElementById('strengthIndicator');
+                this.strengthFill = document.getElementById('strengthFill');
+                this.strengthText = document.getElementById('strengthText');
+                this.errorFlash = document.getElementById('errorFlash');
+                
+                this.currentPassword = '';
+                this.isTyping = false;
+                
+                this.initEventListeners();
+                this.startRandomMessages();
+            }
+
+            initEventListeners() {
+                this.lengthSlider.addEventListener('input', (e) => {
+                    this.lengthDisplay.textContent = e.target.value;
+                });
+
+                this.batchCount.addEventListener('input', (e) => {
+                    this.batchDisplay.textContent = e.target.value;
+                });
+
+                this.genModeRadios.forEach(radio => {
+                    radio.addEventListener('change', () => {
+                        this.patternControls.style.display = radio.value === 'pattern' ? 'block' : 'none';
+                    });
+                });
+
+                this.generateBtn.addEventListener('click', () => {
+                    if (!this.isTyping) {
+                        this.generatePassword();
+                    }
+                });
+
+                this.copyBtn.addEventListener('click', () => {
+                    this.copyToClipboard();
+                });
+
+                this.saveBtn.addEventListener('click', () => {
+                    this.savePasswords();
+                });
+            }
+
+            generatePassword() {
+                const length = parseInt(this.lengthSlider.value);
+                const batchSize = parseInt(this.batchCount.value);
+                const genMode = document.querySelector('input[name="genMode"]:checked').value;
+
+                const options = {
+                    uppercase: this.uppercaseCheck.checked,
+                    lowercase: this.lowercaseCheck.checked,
+                    numbers: this.numbersCheck.checked,
+                    symbols: this.symbolsCheck.checked,
+                    customSymbols: this.customSymbolsInput.value
+                };
+
+                if (genMode === 'random' && !Object.values(options).slice(0, 4).some(option => option)) {
+                    this.showMessage('ERROR: No character types selected');
+                    return;
+                }
+
+                this.currentPasswords = [];
+
+                for (let i = 0; i < batchSize; i++) {
+                    let password = '';
+
+                    switch (genMode) {
+                        case 'random':
+                            password = this.generateRandomPassword(length, options);
+                            break;
+                        case 'pattern':
+                            password = this.generatePatternPassword(options);
+                            break;
+                        case 'pronounceable':
+                            password = this.generatePronounceablePassword(length);
+                            break;
+                        case 'passphrase':
+                            password = this.generatePassphrase(length);
+                            break;
+                    }
+
+                    this.currentPasswords.push(password);
+                }
+
+                this.currentPassword = this.currentPasswords[0];
+                this.displayPasswords();
+
+                // Easter egg for 13 characters
+                if (length === 13) {
+                    setTimeout(() => {
+                        this.showEasterEgg();
+                    }, 2000);
+                }
+            }
+
+            generateRandomPassword(length, options) {
+                const charset = this.buildCharset(options);
+                let password = '';
+                for (let i = 0; i < length; i++) {
+                    password += charset[Math.floor(Math.random() * charset.length)];
+                }
+                return password;
+            }
+
+            buildCharset(options) {
+                let charset = '';
+                let uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                let lowercase = 'abcdefghijklmnopqrstuvwxyz';
+                let numbers = '0123456789';
+                let symbols = options.customSymbols || '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+
+                if (options.uppercase) charset += uppercase;
+                if (options.lowercase) charset += lowercase;
+                if (options.numbers) charset += numbers;
+                if (options.symbols) charset += symbols;
+
+                return charset;
+            }
+
+            generatePatternPassword(options) {
+                const pattern = this.patternInput.value.toUpperCase();
+                const charset = this.buildCharset(options);
+                const upperChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                const lowerChars = 'abcdefghijklmnopqrstuvwxyz';
+                const numberChars = '0123456789';
+                const symbolChars = options.customSymbols || '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+                let password = '';
+
+                for (let char of pattern) {
+                    switch (char) {
+                        case 'L':
+                            password += upperChars[Math.floor(Math.random() * upperChars.length)];
+                            break;
+                        case 'l':
+                            password += lowerChars[Math.floor(Math.random() * lowerChars.length)];
+                            break;
+                        case 'N':
+                            password += numberChars[Math.floor(Math.random() * numberChars.length)];
+                            break;
+                        case 'S':
+                            password += symbolChars[Math.floor(Math.random() * symbolChars.length)];
+                            break;
+                        default:
+                            password += char;
+                    }
+                }
+
+                return password;
+            }
+
+            generatePronounceablePassword(length) {
+                const consonants = 'bcdfghjklmnpqrstvwxyz';
+                const vowels = 'aeiou';
+                let password = '';
+
+                for (let i = 0; i < length; i++) {
+                    if (i % 2 === 0) {
+                        password += consonants[Math.floor(Math.random() * consonants.length)];
+                    } else {
+                        password += vowels[Math.floor(Math.random() * vowels.length)];
+                    }
+                }
+
+                return password.charAt(0).toUpperCase() + password.slice(1);
+            }
+
+            generatePassphrase(wordCount) {
+                const words = ['apple', 'bridge', 'castle', 'dragon', 'engine', 'forest', 'guitar', 'harbor', 'island', 'jungle', 'knight', 'lighthouse', 'mountain', 'ocean', 'palace', 'queen', 'river', 'sunset', 'tower', 'village', 'winter', 'yellow', 'zebra', 'cosmos', 'diamond', 'falcon', 'galaxy', 'horizon', 'phoenix', 'storm', 'thunder', 'rainbow', 'crystal', 'shadow', 'mystic', 'cipher', 'matrix', 'quantum', 'stellar', 'cosmic'];
+                const selectedWords = [];
+
+                for (let i = 0; i < Math.min(wordCount, 8); i++) {
+                    const word = words[Math.floor(Math.random() * words.length)];
+                    selectedWords.push(word.charAt(0).toUpperCase() + word.slice(1));
+                }
+
+                return selectedWords.join('-') + Math.floor(Math.random() * 999);
+            }
+
+            calculatePasswordStrength(password) {
+                let score = 0;
+                let feedback = [];
+
+                // Length bonus
+                if (password.length >= 12) score += 25;
+                else if (password.length >= 8) score += 15;
+                else score += 5;
+
+                // Character variety
+                if (/[a-z]/.test(password)) score += 10;
+                if (/[A-Z]/.test(password)) score += 10;
+                if (/[0-9]/.test(password)) score += 10;
+                if (/[^a-zA-Z0-9]/.test(password)) score += 15;
+
+                // Complexity bonus
+                if (password.length > 16) score += 10;
+                if (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])/.test(password)) score += 20;
+
+                let strength = 'WEAK';
+                let color = '#ff4444';
+
+                if (score >= 80) {
+                    strength = 'VERY STRONG';
+                    color = '#00ff00';
+                } else if (score >= 60) {
+                    strength = 'STRONG';
+                    color = '#88ff00';
+                } else if (score >= 40) {
+                    strength = 'MEDIUM';
+                    color = '#ffaa00';
+                } else if (score >= 20) {
+                    strength = 'WEAK';
+                    color = '#ff8800';
+                }
+
+                return { score: Math.min(score, 100), strength, color };
+            }
+
+            displayPasswords() {
+                if (this.currentPasswords.length === 1) {
+                    this.passwordBatch.style.display = 'none';
+                    this.passwordDisplay.style.display = 'block';
+                    this.typePassword(this.currentPasswords[0]);
+                } else {
+                    this.passwordDisplay.style.display = 'none';
+                    this.passwordBatch.style.display = 'block';
+                    this.displayBatchPasswords();
+                }
+
+                this.updateStrengthIndicator(this.currentPasswords[0]);
+                this.saveBtn.disabled = false;
+            }
+
+            displayBatchPasswords() {
+                this.passwordBatch.innerHTML = '';
+                this.currentPasswords.forEach((password, index) => {
+                    const passwordItem = document.createElement('div');
+                    passwordItem.className = 'batch-password-item';
+                    passwordItem.innerHTML = `
+                        <span class="batch-password">${password}</span>
+                        <button class="mini-copy-btn" onclick="navigator.clipboard.writeText('${password}');">Copy</button>
+                    `;
+                    this.passwordBatch.appendChild(passwordItem);
+                });
+            }
+
+            updateStrengthIndicator(password) {
+                const result = this.calculatePasswordStrength(password);
+                this.strengthFill.style.width = result.score + '%';
+                this.strengthFill.style.background = `linear-gradient(90deg, ${result.color}, ${result.color}88)`;
+                this.strengthText.textContent = result.strength;
+                this.strengthText.style.color = result.color;
+            }
+
+
+            async typePassword(password) {
+                this.isTyping = true;
+                this.generateBtn.disabled = true;
+                this.copyBtn.disabled = true;
+                this.passwordDisplay.textContent = '';
+                this.passwordDisplay.classList.add('typing');
+                
+                for (let i = 0; i < password.length; i++) {
+                    await new Promise(resolve => setTimeout(resolve, 60 + Math.random() * 80));
+                    this.passwordDisplay.textContent = password.substring(0, i + 1);
+                    
+                    // Occasional subtle glitch
+                    if (Math.random() < 0.1) {
+                        const glitchChar = String.fromCharCode(0x2580 + Math.floor(Math.random() * 16));
+                        this.passwordDisplay.textContent = password.substring(0, i) + glitchChar;
+                        await new Promise(resolve => setTimeout(resolve, 30));
+                        this.passwordDisplay.textContent = password.substring(0, i + 1);
+                    }
+                }
+                
+                this.passwordDisplay.classList.remove('typing');
+                this.isTyping = false;
+                this.generateBtn.disabled = false;
+                this.copyBtn.disabled = false;
+            }
+
+            async copyToClipboard() {
+                try {
+                    const textToCopy = this.currentPasswords.length === 1
+                        ? this.currentPassword
+                        : this.currentPasswords.join('\n');
+
+                    await navigator.clipboard.writeText(textToCopy);
+                    this.copyBtn.textContent = 'Copied!';
+                    this.copyBtn.style.background = 'linear-gradient(145deg, #ffaa00, #cc8800)';
+
+                    setTimeout(() => {
+                        this.copyBtn.textContent = 'Copy to Clipboard';
+                        this.copyBtn.style.background = 'linear-gradient(145deg, #00ff00, #008800)';
+                    }, 1500);
+                } catch (err) {
+                    this.showMessage('Copy failed: Clipboard access denied');
+                }
+            }
+
+            savePasswords() {
+                const data = {
+                    passwords: this.currentPasswords,
+                    timestamp: new Date().toISOString(),
+                    settings: {
+                        length: this.lengthSlider.value,
+                        mode: document.querySelector('input[name="genMode"]:checked').value,
+                        options: {
+                            uppercase: this.uppercaseCheck.checked,
+                            lowercase: this.lowercaseCheck.checked,
+                            numbers: this.numbersCheck.checked,
+                            symbols: this.symbolsCheck.checked
+                        }
+                    }
+                };
+
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `passwords_${new Date().toISOString().slice(0, 10)}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                this.showMessage('Passwords saved successfully!');
+            }
+
+            showMessage(message) {
+                this.errorFlash.textContent = message;
+                this.errorFlash.classList.add('show');
+                setTimeout(() => {
+                    this.errorFlash.classList.remove('show');
+                }, 3000);
+            }
+
+            showEasterEgg() {
+                const easterEgg = document.createElement('div');
+                easterEgg.className = 'easter-egg';
+                easterEgg.innerHTML = `
+                    <div style="margin-bottom: 10px;">The system is watching...</div>
+                    <div style="font-size: 1rem; opacity: 0.8;">13 characters detected</div>
+                `;
+                document.body.appendChild(easterEgg);
+                
+                // Add subtle glitch to terminal
+                document.querySelector('.terminal-window').classList.add('glitch');
+                setTimeout(() => {
+                    document.querySelector('.terminal-window').classList.remove('glitch');
+                }, 500);
+                
+                setTimeout(() => {
+                    if (document.body.contains(easterEgg)) {
+                        document.body.removeChild(easterEgg);
+                    }
+                }, 2000);
+            }
+
+            startRandomMessages() {
+                const messages = [
+                    'System corrupted',
+                    'Mind link established',
+                    'Neural interface active',
+                    'Soul scanner online',
+                    'Security protocol engaged',
+                    'Security through obscurity',
+                    'Data stream intercepted',
+                    'Connection established'
+                ];
+
+                setInterval(() => {
+                    if (Math.random() < 0.25 && !this.errorFlash.classList.contains('show')) {
+                        const message = messages[Math.floor(Math.random() * messages.length)];
+                        this.showMessage(message);
+                    }
+                }, 12000 + Math.random() * 18000);
+            }
+        }
+
+        // Initialize the password generator when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new PasswordGenerator();
+        });
+    </script>
+</body>
+</html>
