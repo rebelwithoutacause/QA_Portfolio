@@ -60,55 +60,35 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', highlightNavigation);
 
     // ===================================
-    // Email Modal Handling
+    // Email Button Handling
     // ===================================
 
+    const EMAIL = 'qamanualtester@proton.me';
     const emailButton = document.getElementById('emailButton');
-    const emailModal = document.getElementById('emailModal');
-    const emailModalImage = document.getElementById('emailModalImage');
-    const modalCloseX = document.getElementById('modalCloseX');
-    const modalOverlay = document.getElementById('modalOverlay');
 
-    // Open modal when email button is clicked
     if (emailButton) {
         emailButton.addEventListener('click', function() {
-            emailModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            // Copy to clipboard
+            navigator.clipboard.writeText(EMAIL).catch(function() {
+                const ta = document.createElement('textarea');
+                ta.value = EMAIL;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            });
+
+            // Open email client
+            window.location.href = 'mailto:' + EMAIL;
+
+            // Show toast
+            const toast = document.createElement('div');
+            toast.textContent = 'Email copied: ' + EMAIL;
+            toast.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#B8860B;color:#1a1410;padding:0.75rem 1.5rem;border-radius:4px;font-weight:600;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,0.5);';
+            document.body.appendChild(toast);
+            setTimeout(function() { toast.remove(); }, 3000);
         });
     }
-
-    // Close modal when X button is clicked
-    if (modalCloseX) {
-        modalCloseX.addEventListener('click', function(e) {
-            e.stopPropagation();
-            emailModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-    }
-
-    // Close modal when image is clicked
-    if (emailModalImage) {
-        emailModalImage.addEventListener('click', function() {
-            emailModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-    }
-
-    // Close modal when overlay is clicked
-    if (modalOverlay) {
-        modalOverlay.addEventListener('click', function() {
-            emailModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-    }
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && emailModal.classList.contains('active')) {
-            emailModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-    });
 
     // ===================================
     // Navbar Background on Scroll
