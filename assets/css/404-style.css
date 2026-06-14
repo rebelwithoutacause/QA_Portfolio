@@ -1,0 +1,857 @@
+/* ===================================
+   404 Secret Room - Dark Theme
+   =================================== */
+
+:root {
+    --bg-dark: #0a0a0a;
+    --bg-darker: #050505;
+    --text-light: #e8e8e8;
+    --text-dim: #a0a0a0;
+    --accent-red: #B00020;
+    --accent-glow: rgba(176, 0, 32, 0.6);
+    --mystery-purple: #6a0dad;
+    --mystery-blue: #1e3a8a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 50%, #0d0d1a 100%);
+    color: var(--text-light);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ===================================
+   Particles Background Animation
+   =================================== */
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--accent-red);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: float 15s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateY(-100px) translateX(50px);
+        opacity: 0.6;
+    }
+}
+
+/* ===================================
+   Main Container
+   =================================== */
+
+.secret-room {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    min-height: 100vh;
+}
+
+/* ===================================
+   Glitch Effect Title
+   =================================== */
+
+.glitch-container {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.glitch {
+    font-size: 3rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    position: relative;
+    letter-spacing: 0.2rem;
+    animation: glitch-skew 3s infinite linear alternate-reverse;
+    text-shadow:
+        2px 2px 0 var(--accent-red),
+        -2px -2px 0 #00ffff;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--accent-red);
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 #00ffff, 2px 2px var(--accent-red);
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim2 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(61px, 9999px, 85px, 0); }
+    20% { clip: rect(28px, 9999px, 10px, 0); }
+    40% { clip: rect(89px, 9999px, 43px, 0); }
+    60% { clip: rect(12px, 9999px, 99px, 0); }
+    80% { clip: rect(55px, 9999px, 21px, 0); }
+    100% { clip: rect(74px, 9999px, 67px, 0); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip: rect(12px, 9999px, 95px, 0); }
+    20% { clip: rect(45px, 9999px, 32px, 0); }
+    40% { clip: rect(78px, 9999px, 8px, 0); }
+    60% { clip: rect(22px, 9999px, 67px, 0); }
+    80% { clip: rect(92px, 9999px, 44px, 0); }
+    100% { clip: rect(38px, 9999px, 71px, 0); }
+}
+
+@keyframes glitch-skew {
+    0% { transform: skew(0deg); }
+    10% { transform: skew(-2deg); }
+    20% { transform: skew(2deg); }
+    30% { transform: skew(0deg); }
+    100% { transform: skew(0deg); }
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    margin-top: 1rem;
+    letter-spacing: 0.3rem;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* ===================================
+   Mystery Box
+   =================================== */
+
+.mystery-box {
+    background: rgba(20, 20, 30, 0.8);
+    border: 2px solid var(--accent-red);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 700px;
+    box-shadow: 0 0 30px var(--accent-glow);
+    animation: glow-pulse 3s infinite ease-in-out;
+}
+
+@keyframes glow-pulse {
+    0%, 100% {
+        box-shadow: 0 0 30px var(--accent-glow);
+    }
+    50% {
+        box-shadow: 0 0 50px var(--accent-glow), 0 0 70px var(--accent-glow);
+    }
+}
+
+.mystery-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.clue {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(176, 0, 32, 0.2);
+    border-left: 4px solid var(--accent-red);
+    font-style: italic;
+    font-size: 1rem;
+}
+
+/* ===================================
+   Interactive Objects Area
+   =================================== */
+
+.interactive-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4rem auto;
+    max-width: 900px;
+}
+
+.candle-container,
+.book-container,
+.safe-container,
+.orb-container {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: rgba(20, 20, 30, 0.5);
+}
+
+.candle-container:hover,
+.book-container:hover,
+.safe-container:hover,
+.orb-container:hover {
+    transform: translateY(-10px);
+    background: rgba(30, 30, 40, 0.7);
+}
+
+.object-label {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1rem;
+}
+
+/* Candle with flame animation */
+.candle-container {
+    position: relative;
+}
+
+.flame {
+    width: 20px;
+    height: 30px;
+    background: linear-gradient(to top, #ff6600, #ffcc00, #ffff66);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    position: relative;
+    margin: 0 auto 5px;
+    animation: flicker 1.5s infinite ease-in-out;
+    box-shadow: 0 0 20px #ff6600, 0 0 40px #ff6600;
+}
+
+@keyframes flicker {
+    0%, 100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+    25% {
+        transform: scale(1.05) translateY(-2px);
+        opacity: 0.9;
+    }
+    50% {
+        transform: scale(0.95) translateY(1px);
+        opacity: 1;
+    }
+    75% {
+        transform: scale(1.02) translateY(-1px);
+        opacity: 0.95;
+    }
+}
+
+.candle {
+    width: 40px;
+    height: 60px;
+    background: linear-gradient(to bottom, #8b4513, #654321);
+    border-radius: 5px 5px 0 0;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Book */
+.book {
+    font-size: 4rem;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.book-container:hover .book {
+    transform: rotateY(20deg);
+}
+
+/* Safe */
+.safe-icon {
+    font-size: 4rem;
+}
+
+.safe-input {
+    margin-top: 1rem;
+}
+
+.safe-input input {
+    padding: 0.5rem;
+    width: 100px;
+    background: var(--bg-dark);
+    border: 2px solid var(--accent-red);
+    color: var(--text-light);
+    text-align: center;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    letter-spacing: 0.3rem;
+}
+
+.safe-input button {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--accent-red);
+    color: var(--text-light);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.safe-input button:hover {
+    background: #d00030;
+    transform: scale(1.05);
+}
+
+/* Orb */
+.orb {
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 30% 30%, #00ffff, #0066ff, var(--mystery-purple));
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: orb-glow 2s infinite ease-in-out;
+    box-shadow: 0 0 30px rgba(106, 13, 173, 0.8);
+}
+
+@keyframes orb-glow {
+    0%, 100% {
+        box-shadow: 0 0 30px rgba(106, 13, 173, 0.8);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 60px rgba(106, 13, 173, 1), 0 0 90px rgba(106, 13, 173, 0.6);
+        transform: scale(1.1);
+    }
+}
+
+/* ===================================
+   Riddle Box
+   =================================== */
+
+.riddle-box {
+    background: rgba(30, 0, 50, 0.8);
+    border: 2px solid var(--mystery-purple);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(106, 13, 173, 0.5);
+}
+
+.riddle-box h3 {
+    color: #c084fc;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.riddle-text {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    color: #e9d5ff;
+}
+
+.riddle-box input {
+    width: 80%;
+    padding: 0.8rem;
+    background: var(--bg-dark);
+    border: 2px solid var(--mystery-purple);
+    color: var(--text-light);
+    font-size: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+.riddle-box button {
+    padding: 0.8rem 2rem;
+    background: var(--mystery-purple);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.riddle-box button:hover {
+    background: #8b0dd1;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(106, 13, 173, 0.5);
+}
+
+.riddle-feedback {
+    margin-top: 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.riddle-feedback.correct {
+    color: #4ade80;
+}
+
+.riddle-feedback.incorrect {
+    color: #f87171;
+}
+
+/* ===================================
+   Bug Hunt Game
+   =================================== */
+
+.game-box {
+    background: rgba(20, 40, 20, 0.8);
+    border: 2px solid #22c55e;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 700px;
+    text-align: center;
+}
+
+.game-box h3 {
+    color: #4ade80;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.game-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 1.5rem 0;
+    font-size: 1.1rem;
+}
+
+.game-stats strong {
+    color: #4ade80;
+}
+
+.game-area {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background: rgba(10, 10, 10, 0.8);
+    border: 2px solid #16a34a;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+}
+
+.bug {
+    position: absolute;
+    font-size: 2rem;
+    cursor: crosshair;
+    animation: bug-crawl 3s linear infinite;
+    transition: transform 0.1s ease;
+}
+
+.bug:hover {
+    transform: scale(1.3);
+}
+
+@keyframes bug-crawl {
+    0% {
+        transform: translateX(0) rotate(0deg);
+    }
+    50% {
+        transform: translateX(20px) rotate(180deg);
+    }
+    100% {
+        transform: translateX(0) rotate(360deg);
+    }
+}
+
+@keyframes bug-spin {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.2);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+@keyframes float-up {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+}
+
+@keyframes fade-in-out {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    80% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+}
+
+.game-button {
+    padding: 1rem 2rem;
+    background: #22c55e;
+    color: var(--bg-dark);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.game-button:hover {
+    background: #16a34a;
+    transform: scale(1.05);
+}
+
+.game-button:disabled {
+    background: #4b5563;
+    cursor: not-allowed;
+    transform: scale(1);
+}
+
+/* ===================================
+   Secret Code Box
+   =================================== */
+
+.code-box {
+    text-align: center;
+    margin: 3rem auto;
+    max-width: 500px;
+}
+
+.hint-text {
+    font-size: 1rem;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1rem;
+}
+
+.code-display {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.code-key {
+    width: 50px;
+    height: 50px;
+    background: rgba(176, 0, 32, 0.3);
+    border: 2px solid var(--accent-red);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    animation: key-glow 0.5s ease;
+}
+
+@keyframes key-glow {
+    0% {
+        transform: scale(1.3);
+        box-shadow: 0 0 20px var(--accent-glow);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: none;
+    }
+}
+
+/* ===================================
+   Discoveries Section
+   =================================== */
+
+.discoveries {
+    background: rgba(40, 30, 0, 0.8);
+    border: 2px solid #fbbf24;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+}
+
+.discoveries h3 {
+    color: #fbbf24;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+#discoveryList {
+    list-style: none;
+}
+
+#discoveryList li {
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    background: rgba(251, 191, 36, 0.1);
+    border-left: 4px solid #fbbf24;
+    border-radius: 4px;
+    animation: discovery-appear 0.5s ease;
+}
+
+@keyframes discovery-appear {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ===================================
+   Hidden Message (Final Reward)
+   =================================== */
+
+.hidden-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fade-in 1s ease;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.message-content {
+    max-width: 700px;
+    padding: 3rem;
+    background: linear-gradient(135deg, rgba(176, 0, 32, 0.2), rgba(106, 13, 173, 0.2));
+    border: 3px solid var(--accent-red);
+    border-radius: 12px;
+    text-align: center;
+    animation: zoom-in 0.8s ease;
+    box-shadow: 0 0 60px var(--accent-glow);
+}
+
+@keyframes zoom-in {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.message-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #fbbf24;
+}
+
+.message-content blockquote {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    font-style: italic;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-left: 4px solid var(--accent-red);
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+.signature {
+    font-size: 1.1rem;
+    color: var(--accent-red);
+    font-weight: 600;
+    margin: 1.5rem 0;
+}
+
+.return-button {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 1rem 2.5rem;
+    background: var(--accent-red);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.return-button:hover {
+    background: #d00030;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px var(--accent-glow);
+}
+
+/* ===================================
+   Progress Tracker
+   =================================== */
+
+.progress-tracker {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: rgba(20, 20, 30, 0.9);
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--accent-red);
+    border-radius: 8px;
+    min-width: 200px;
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.progress-tracker p {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-red), #fbbf24);
+    width: 0;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px var(--accent-red);
+}
+
+/* ===================================
+   Utility Classes
+   =================================== */
+
+.hidden {
+    display: none !important;
+}
+
+.glow {
+    animation: object-glow 1s ease;
+}
+
+@keyframes object-glow {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.5) drop-shadow(0 0 20px currentColor);
+    }
+}
+
+/* ===================================
+   Responsive Design
+   =================================== */
+
+@media (max-width: 768px) {
+    .secret-room {
+        padding: 2rem 1rem;
+    }
+
+    .glitch {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .interactive-area {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    .progress-tracker {
+        bottom: 1rem;
+        right: 1rem;
+        min-width: 150px;
+        padding: 0.8rem 1rem;
+    }
+
+    .message-content {
+        padding: 2rem;
+        margin: 1rem;
+    }
+
+    .message-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .message-content blockquote {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .glitch {
+        font-size: 1.5rem;
+        letter-spacing: 0.1rem;
+    }
+
+    .interactive-area {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .game-area {
+        height: 200px;
+    }
+}

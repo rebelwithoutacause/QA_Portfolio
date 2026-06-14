@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Secret Room - 404 Error">
+    <title>??? - Secret Room</title>
+    <link rel="stylesheet" href="assets/css/404-style.css">
+</head>
+<body>
+    <!-- Background particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Main container -->
+    <div class="secret-room">
+
+        <!-- Glitch effect title -->
+        <div class="glitch-container">
+            <h1 class="glitch" data-text="404: YOU FOUND SOMETHING">404: YOU FOUND SOMETHING</h1>
+            <p class="subtitle">Welcome to the Secret Room...</p>
+        </div>
+
+        <!-- Mystery message -->
+        <div class="mystery-box" id="mysteryBox">
+            <p class="mystery-text">The page you're looking for doesn't exist...</p>
+            <p class="mystery-text">But perhaps you're here for a reason?</p>
+            <p class="clue">💡 <span id="clueText">Click around. Some things aren't what they seem.</span></p>
+        </div>
+
+        <!-- Interactive objects -->
+        <div class="interactive-area">
+
+            <!-- Clickable candle -->
+            <div class="candle-container" id="candle1" data-clicks="0">
+                <div class="flame"></div>
+                <div class="candle"></div>
+                <p class="object-label">Ancient Candle</p>
+            </div>
+
+        </div>
+
+        <!-- Riddle section -->
+        <div class="riddle-box hidden" id="riddleBox">
+            <h3>🧩 Solve the Riddle</h3>
+            <p class="riddle-text" id="riddleText"></p>
+            <input type="text" id="riddleAnswer" placeholder="Your answer...">
+            <button id="riddleSubmit">Submit</button>
+            <p class="riddle-feedback" id="riddleFeedback"></p>
+        </div>
+
+        <!-- Mini game: Bug Hunt -->
+        <div class="game-box hidden" id="bugHuntGame">
+            <h3>🐛 Bug Hunt Mini-Game</h3>
+            <p>Click all the bugs before time runs out!</p>
+            <div class="game-stats">
+                <span>Bugs caught: <strong id="bugsCount">0/5</strong></span>
+                <span>Time: <strong id="gameTimer">30</strong>s</span>
+            </div>
+            <div class="game-area" id="gameArea"></div>
+            <button id="startGame" class="game-button">Start Hunt</button>
+        </div>
+
+        <!-- Secret code input -->
+        <div class="code-box" id="codeBox">
+            <p class="hint-text">🔐 Press the secret key sequence...</p>
+            <div class="code-display" id="codeDisplay"></div>
+        </div>
+
+        <!-- Rewards/discoveries section -->
+        <div class="discoveries hidden" id="discoveries">
+            <h3>📜 Your Discoveries</h3>
+            <ul id="discoveryList"></ul>
+        </div>
+
+        <!-- Hidden message revealed -->
+        <div class="hidden-message hidden" id="hiddenMessage">
+            <div class="message-content">
+                <h2>🎉 Congratulations!</h2>
+                <p>You've proven yourself worthy. Here's a message from Teodor:</p>
+                <blockquote>
+                    "Quality is not just about finding bugs—it's about curiosity, persistence,
+                    and the drive to explore beyond the surface. You found this secret room
+                    because you questioned what seemed broken. That's the mindset of a true QA professional."
+                </blockquote>
+                <p class="signature">— Teodor Kostov</p>
+                <a href="index.html" class="return-button">Return to Portfolio</a>
+            </div>
+        </div>
+
+        <!-- Progress tracker -->
+        <div class="progress-tracker">
+            <p>Secrets Found: <span id="secretsFound">0</span> / <span id="totalSecrets">5</span></p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Audio elements (optional) -->
+    <audio id="clickSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjGJ0fPTgjMGHm7A7+OZUREKT6Hn77BiFQU9k9X11oo6BxponOfvmFYOClSn5O+rXhUFOYzU8tKHOwYcanvo7ppYEQdUnObvp14VBTaI0fPShjsGGmy76e6cWRIFV6Pk76xfFAU3idL00Ik7BhlrverumlkTBFen4u+uYBQFN4nS8dGJOwcVaq3p7phYEwZVo+TvrmAUBTaJ0vHSiToGGGm76+2bWBMGVqPj77FhFAU2idLx0ok6BxlpvOvtm1gUBlaj4++yYRQFNYnS8tKIOwcYaLzq7ZxYFAdWo+PwsmAUBTWJ0vLTiDsGGGm96+2bWRQGVqTj8LJgFAU1idLy04g7BxdovOvtnFkVBlWk4/CzYRQFNInS8tOIOwcYaL3r7Z1ZFAdVpOPws2AUBTWKluvtnFkUB1Wk4/C0YRQFNIrS8tSJOwYXaL3r7ZxZFQZUpOPwtGEUBDSK0vLUiToGF2i96+2cWRUGVqTj8LRhFAU0idLy1Ik7BhhovevtnFkVB1ak4/C1YRQFNInS8tSJOwcXaL3r7ZxZFQZVo+PwtGEUBTSJ0vLUiToHGGi96+2cWRUGVqPj8LVhFAU0idLy1Ik7BxdovevtnFkVBlWj4/C1YRQFNInS8tSJOwcYaL3r7ZxZFQZVo+PwtWEUBTSJ0vLUiToHGGi96+2cWRUGVaPj8LVhFAU0idLy1Ik7BxhovevtnFkVBlWj4/C1YRQFNInS8tSJOwcYaL3r7ZxZFQZVo+PwtWEUBTSJ0vLUiToHGGi96+2cWRUGVaPj8LVhFAU0idLy1Ik7BxhovevtnFkVBlWj4/C1YRQFNInS8tSJOwcYaL3r7ZxZFQZVo+PwtWEUBTSJ0vLUiToHGGi96+2cWRUGVaPj8LVhFAU0idLy1Ik6BxhovevtnFkVBlWj4/C1YRQFNInS8tSJOwcYaL3r7ZxZFQZVo+PwtWEUBTSJ0vLUiToHGGi96+2cWRUGVaPj8LVhFAU0idLy1Ik6BxhovevtnFkVBlWj4/C1YRQFNInS8tSJOwcYaL3r7ZxZFQZVo+PwtWEUBTSJ0vLUiToHGGi96+2cWRUGVaPj8LVhFAU0idLy1Ik6BxhovevtnFkVBlWj4/C1YRQFNInS8tSJOwcYaL3r7ZxZFQZVo+PwtWEUBTSJ0vLUiToHGGi96+2cWRUGVaPj8LVhFAU0idLy1Ik6" type="audio/wav">
+    </audio>
+
+    <script src="assets/js/404-script.js"></script>
+</body>
+</html>
