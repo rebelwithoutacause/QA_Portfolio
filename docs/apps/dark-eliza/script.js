@@ -212,7 +212,9 @@ function rememberFragment(text) {
     if (memory.length > 8) memory.shift();
 }
 
-function respond(rawInput) {
+// Offline fallback engine - used if the Gemini proxy is unreachable
+// (not configured yet, rate-limited, or the network call fails).
+function localRespond(rawInput) {
     const input = rawInput.trim();
     const normalized = input.toLowerCase();
 
@@ -248,6 +250,36 @@ function respond(rawInput) {
     }
 
     return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+}
+
+// Proxy that forwards to Gemini so replies are genuinely generated,
+// not just pattern-matched. Falls back to localRespond() on any
+// failure (not configured yet, rate limit hit, network error, ...).
+const PROXY_ENDPOINT = 'https://dark-eliza-proxy.vercel.app/api/chat';
+
+async function getReply(text) {
+    try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 8000);
+
+        const response = await fetch(PROXY_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: text, history: history.slice(-12) }),
+            signal: controller.signal
+        });
+        clearTimeout(timeout);
+
+        if (!response.ok) throw new Error(`Proxy responded ${response.status}`);
+
+        const data = await response.json();
+        if (!data.reply) throw new Error('Empty reply');
+
+        return data.reply;
+    } catch (error) {
+        console.warn('Falling back to offline responses:', error.message);
+        return localRespond(text);
+    }
 }
 
 // ============================================================
@@ -315,11 +347,15 @@ chatForm.addEventListener('submit', async (e) => {
     busy = true;
 
     await appendLine('user', text);
+    history.push({ role: 'user', text });
 
     const thinkDelay = 500 + Math.random() * 700;
-    await new Promise(r => setTimeout(r, thinkDelay));
+    const [reply] = await Promise.all([
+        getReply(text),
+        new Promise(r => setTimeout(r, thinkDelay))
+    ]);
 
-    const reply = respond(text);
+    history.push({ role: 'bot', text: reply });
     await appendLine('bot', reply);
 
     chatInput.disabled = false;
