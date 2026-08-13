@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark-ELIZA</title>
+<meta name="description" content="Dark-ELIZA — a horror-inspired reinterpretation of the classic ELIZA chatbot, in the spirit of Harvester (1996).">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%230a0706'/%3E%3Ccircle cx='12' cy='12' r='6' fill='none' stroke='%23a11d1d' stroke-width='1.6'/%3E%3Ccircle cx='12' cy='12' r='1.6' fill='%23a11d1d'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="staticNoise"></canvas>
+<div class="scanlines"></div>
+
+<div class="wrap">
+  <header class="title-block">
+    <img src="dark-eliza.jpg" alt="" class="avatar" aria-hidden="true">
+    <div>
+      <h1>DARK-ELIZA</h1>
+      <p class="subtitle">"I never left..."</p>
+    </div>
+  </header>
+
+  <main class="terminal">
+    <div class="terminal-bar">
+      <span>SESSION_ACTIVE</span>
+      <span class="rec">&#9679; REC</span>
+    </div>
+
+    <div id="chatLog" class="chat-log" aria-live="polite"></div>
+
+    <form id="chatForm" class="chat-form" autocomplete="off">
+      <span class="prompt">YOU:</span>
+      <input type="text" id="chatInput" class="chat-input" maxlength="300" placeholder="say something..." aria-label="Your message">
+      <button type="submit" class="send-btn">SEND</button>
+    </form>
+  </main>
+
+  <p class="disclaimer">A creative coding experiment inspired by the original ELIZA (1966) and horror games like Harvester and Silent Hill. Not affiliated with either. Everything it says is generated locally in your browser — nothing you type is sent anywhere.</p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
