@@ -7,6 +7,6 @@ document.querySelectorAll('.flip-btn').forEach(btn => {
         const showingBack = backFace.classList.contains('is-active');
         frontFace.classList.toggle('is-active', showingBack);
         backFace.classList.toggle('is-active', !showingBack);
-        btn.textContent = showingBack ? '↷ VIEW COURSES' : '↶ VIEW DIPLOMA';
+        btn.textContent = showingBack ? '↷ VIEW GRADES' : '↶ VIEW DIPLOMA';
     });
 });
