@@ -68,12 +68,13 @@ body{
 }
 
 .avatar{
-  width:64px;
-  height:64px;
+  width:128px;
+  height:128px;
   border-radius:50%;
   object-fit:cover;
-  border:2px solid var(--blood);
-  filter:grayscale(.4) contrast(1.15) brightness(.85);
+  border:3px solid var(--blood);
+  box-shadow:0 0 28px rgba(161,29,29,.4);
+  filter:grayscale(.25) contrast(1.15) brightness(.95);
   flex-shrink:0;
 }
 
@@ -301,7 +302,7 @@ h1{
 @media (max-width:600px){
   .wrap{ padding:1.4rem 1rem 2.2rem; }
   .title-block{ gap:.8rem; }
-  .avatar{ width:48px; height:48px; }
+  .avatar{ width:88px; height:88px; border-width:2px; }
   h1{ letter-spacing:.06em; }
   .chat-log{ height:min(58vh, 420px); font-size:.92rem; }
   .chat-form{ padding:.6rem .7rem; }
