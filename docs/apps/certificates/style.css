@@ -1,0 +1,125 @@
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+:root{
+  --bg:#161014;
+  --bg-panel:#1f171a;
+  --wood-light:#7a5230;
+  --wood-dark:#3a2414;
+  --gold:#e0a94f;
+  --gold-bright:#f4c876;
+  --ink:#e8ddc8;
+  --ink-dim:#a99a86;
+}
+
+html,body{ height:100%; }
+
+body{
+  background:
+    radial-gradient(ellipse at top, #241a1e 0%, var(--bg) 70%);
+  color:var(--ink);
+  font-family:"Courier New", Courier, monospace;
+  line-height:1.6;
+  min-height:100vh;
+}
+
+.wrap{
+  max-width:1080px;
+  margin:0 auto;
+  padding:3rem 1.25rem 3.5rem;
+}
+
+header{
+  text-align:center;
+  margin-bottom:2.6rem;
+}
+
+.eyebrow{
+  color:var(--gold);
+  font-size:.85rem;
+  letter-spacing:.1em;
+  margin-bottom:.6rem;
+}
+
+h1{
+  font-size:clamp(1.8rem, 5vw, 2.6rem);
+  letter-spacing:.08em;
+  color:var(--gold-bright);
+  text-shadow:0 0 24px rgba(224,169,79,.35);
+  text-wrap:balance;
+}
+
+.subtitle{
+  color:var(--ink-dim);
+  font-style:italic;
+  margin-top:.6rem;
+}
+
+/* ---------- wall of frames ---------- */
+.wall{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:2.2rem;
+}
+
+.frame{
+  background:linear-gradient(155deg, var(--wood-light), var(--wood-dark));
+  padding:.9rem;
+  border-radius:4px;
+  box-shadow:
+    0 14px 30px rgba(0,0,0,.55),
+    inset 0 0 0 2px rgba(0,0,0,.3);
+}
+
+.frame-inner{
+  background:#000;
+  padding:.5rem;
+  border:1px solid rgba(224,169,79,.35);
+}
+
+.frame-inner img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+.plaque{
+  margin-top:.9rem;
+  background:var(--bg-panel);
+  border:1px solid rgba(224,169,79,.25);
+  padding:.75rem .9rem;
+  text-align:center;
+}
+
+.plaque h2{
+  font-size:1rem;
+  letter-spacing:.04em;
+  color:var(--gold-bright);
+  margin-bottom:.35rem;
+}
+
+.plaque p{
+  font-size:.75rem;
+  color:var(--ink-dim);
+  letter-spacing:.02em;
+}
+
+/* ---------- footnote ---------- */
+.footnote{
+  margin-top:2.6rem;
+  text-align:center;
+  font-size:.82rem;
+  color:var(--ink-dim);
+}
+
+.footnote a{
+  color:var(--gold);
+}
+
+.footnote a:hover{
+  color:var(--gold-bright);
+}
+
+@media (max-width:560px){
+  .wrap{ padding:2.2rem 1rem 2.6rem; }
+  .wall{ grid-template-columns:1fr; gap:1.6rem; }
+}
