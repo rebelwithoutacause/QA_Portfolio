@@ -23,7 +23,7 @@ body{
 }
 
 .wrap{
-  max-width:1080px;
+  max-width:1440px;
   margin:0 auto;
   padding:3rem 1.25rem 3.5rem;
 }
@@ -57,8 +57,8 @@ h1{
 /* ---------- wall of frames ---------- */
 .wall{
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
-  gap:2.2rem;
+  grid-template-columns:repeat(auto-fit, minmax(380px, 1fr));
+  gap:2.6rem;
 }
 
 .frame{
