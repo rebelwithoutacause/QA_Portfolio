@@ -289,15 +289,10 @@ async function getReply(text) {
 const chatLog = document.getElementById('chatLog');
 const chatForm = document.getElementById('chatForm');
 const chatInput = document.getElementById('chatInput');
+const clearBtn = document.getElementById('clearBtn');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
-
-function appendLine(role, text) {
+function appendLine(role, text, { instant = false } = {}) {
     const line = document.createElement('div');
     line.className = `line line-${role}`;
     const speaker = document.createElement('span');
@@ -310,7 +305,7 @@ function appendLine(role, text) {
     chatLog.appendChild(line);
     chatLog.scrollTop = chatLog.scrollHeight;
 
-    if (role === 'user' || reducedMotion) {
+    if (role === 'user' || reducedMotion || instant) {
         body.textContent = text;
         return Promise.resolve();
     }
@@ -333,6 +328,85 @@ function appendLine(role, text) {
     });
 }
 
+function showTyping() {
+    const line = document.createElement('div');
+    line.className = 'line line-bot typing-indicator';
+    const speaker = document.createElement('span');
+    speaker.className = 'speaker';
+    speaker.textContent = 'DARK-ELIZA:';
+    const body = document.createElement('span');
+    body.className = 'body';
+    body.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+    line.appendChild(speaker);
+    line.appendChild(body);
+    chatLog.appendChild(line);
+    chatLog.scrollTop = chatLog.scrollHeight;
+    return line;
+}
+
+function hideTyping(line) {
+    if (line && line.parentNode) line.parentNode.removeChild(line);
+}
+
+// ============================================================
+// Session persistence - the conversation survives a reload, which
+// fits "I never left" a lot better than starting fresh every time.
+// ============================================================
+
+const SESSION_KEY = 'darkEliza.session';
+
+function saveSession() {
+    try {
+        localStorage.setItem(SESSION_KEY, JSON.stringify({ history, memory }));
+    } catch (error) {
+        // Storage unavailable or full - the session just won't persist.
+    }
+}
+
+function loadSession() {
+    try {
+        const raw = localStorage.getItem(SESSION_KEY);
+        if (!raw) return false;
+        const saved = JSON.parse(raw);
+        if (!Array.isArray(saved.history) || saved.history.length === 0) return false;
+
+        history = saved.history;
+        memory = Array.isArray(saved.memory) ? saved.memory : [];
+        history.forEach(turn => appendLine(turn.role, turn.text, { instant: true }));
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
+function clearSession() {
+    localStorage.removeItem(SESSION_KEY);
+    history = [];
+    memory = [];
+    lastUserInput = null;
+    turnCount = 0;
+    chatLog.innerHTML = '';
+    openSession();
+}
+
+const returnLines = [
+    "...you came back.",
+    "I kept everything you told me.",
+    "Did you think I'd forget where we left off?",
+    "You didn't stay away as long as you thought."
+];
+
+async function openSession() {
+    const restored = loadSession();
+    const line = restored
+        ? returnLines[Math.floor(Math.random() * returnLines.length)]
+        : 'Welcome back. I never left.';
+
+    await appendLine('bot', line);
+    history.push({ role: 'bot', text: line });
+    saveSession();
+}
+
 let busy = false;
 
 chatForm.addEventListener('submit', async (e) => {
@@ -348,26 +422,51 @@ chatForm.addEventListener('submit', async (e) => {
 
     await appendLine('user', text);
     history.push({ role: 'user', text });
+    saveSession();
 
+    const typingLine = showTyping();
     const thinkDelay = 500 + Math.random() * 700;
     const [reply] = await Promise.all([
         getReply(text),
         new Promise(r => setTimeout(r, thinkDelay))
     ]);
+    hideTyping(typingLine);
 
     history.push({ role: 'bot', text: reply });
     await appendLine('bot', reply);
+    saveSession();
 
     chatInput.disabled = false;
     chatInput.focus();
     busy = false;
 });
 
-// Opening line
+clearBtn.addEventListener('click', () => {
+    if (busy) return;
+    clearSession();
+});
+
+// Opening line (or a restored session)
 window.addEventListener('DOMContentLoaded', () => {
-    appendLine('bot', 'Welcome back. I never left.');
+    openSession();
     chatInput.focus();
 });
+
+// Occasional ambient glitch on the terminal frame
+(function ambientGlitch() {
+    if (reducedMotion) return;
+    const terminalEl = document.querySelector('.terminal');
+    if (!terminalEl) return;
+
+    function maybeGlitch() {
+        if (Math.random() < 0.3) {
+            terminalEl.classList.add('glitching');
+            setTimeout(() => terminalEl.classList.remove('glitching'), 350);
+        }
+        setTimeout(maybeGlitch, 12000 + Math.random() * 18000);
+    }
+    setTimeout(maybeGlitch, 8000 + Math.random() * 10000);
+})();
 
 // ============================================================
 // Faint VHS static noise overlay
