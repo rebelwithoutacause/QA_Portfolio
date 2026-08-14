@@ -83,6 +83,23 @@ h1{
   animation:faceIn .35s ease;
 }
 
+.frame--fill{
+  display:flex;
+  flex-direction:column;
+}
+
+.frame--fill .frame-inner{
+  flex:1;
+  display:flex;
+}
+
+.frame--fill .frame-inner .face{
+  flex:1;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+
 .frame-inner .face.is-active{
   display:block;
 }
