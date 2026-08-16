@@ -354,6 +354,7 @@ function hideTyping(line) {
 // ============================================================
 
 const SESSION_KEY = 'darkEliza.session';
+const GREETED_KEY = 'darkEliza.greeted';
 
 function saveSession() {
     try {
@@ -398,6 +399,11 @@ const returnLines = [
 
 async function openSession() {
     const restored = loadSession();
+
+    // Once a greeting has played this browser session, a reload should
+    // just show the restored chat as-is instead of appending another one.
+    if (restored && sessionStorage.getItem(GREETED_KEY) === '1') return;
+
     const line = restored
         ? returnLines[Math.floor(Math.random() * returnLines.length)]
         : 'Welcome back. I never left.';
@@ -405,6 +411,7 @@ async function openSession() {
     await appendLine('bot', line);
     history.push({ role: 'bot', text: line });
     saveSession();
+    sessionStorage.setItem(GREETED_KEY, '1');
 }
 
 let busy = false;
