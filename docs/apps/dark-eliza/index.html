@@ -26,7 +26,10 @@
     <div class="terminal-bar">
       <span>SESSION_ACTIVE</span>
       <span class="rec">&#9679; REC</span>
-      <button id="clearBtn" type="button" class="clear-btn">CLEAR SESSION</button>
+      <div class="terminal-actions">
+        <button id="voiceBtn" type="button" class="clear-btn voice-btn" aria-pressed="false">VOICE: OFF</button>
+        <button id="clearBtn" type="button" class="clear-btn">CLEAR SESSION</button>
+      </div>
     </div>
 
     <div id="chatLog" class="chat-log" aria-live="polite"></div>
