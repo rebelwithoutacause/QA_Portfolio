@@ -309,6 +309,18 @@ const FEMALE_VOICE_HINTS = [
     'victoria', 'fiona', 'hazel', 'salli', 'joanna', 'kendra', 'kimberly'
 ];
 
+// Cloud-backed voices (localService === false, e.g. Chrome's "Google
+// US English") are synthesized on a server and sound far more natural
+// than the offline OS voices (Windows SAPI, etc.), which tend to read
+// flat and robotic. Prefer network + female-named, but take whatever
+// scores highest if that exact combo isn't available.
+function scoreVoice(v) {
+    let score = 0;
+    if (!v.localService) score += 2;
+    if (FEMALE_VOICE_HINTS.some(hint => v.name.toLowerCase().includes(hint))) score += 1;
+    return score;
+}
+
 function pickFemaleVoice() {
     const voices = speechSynthesis.getVoices();
     if (!voices.length) return null;
@@ -316,8 +328,7 @@ function pickFemaleVoice() {
     const english = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en'));
     const pool = english.length ? english : voices;
 
-    return pool.find(v => FEMALE_VOICE_HINTS.some(hint => v.name.toLowerCase().includes(hint)))
-        || pool[0];
+    return pool.slice().sort((a, b) => scoreVoice(b) - scoreVoice(a))[0];
 }
 
 if (speechSupported) {
@@ -332,8 +343,8 @@ function speak(text) {
     speechSynthesis.cancel();
     const utter = new SpeechSynthesisUtterance(text);
     if (preferredVoice) utter.voice = preferredVoice;
-    utter.rate = 0.92;
-    utter.pitch = 0.85;
+    utter.rate = 0.95;
+    utter.pitch = 1;
     utter.volume = 0.9;
     speechSynthesis.speak(utter);
 }
