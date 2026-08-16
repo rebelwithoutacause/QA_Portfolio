@@ -34,6 +34,50 @@ const patterns = [
         "Everyone asks that around turn ten. Then they keep playing."
     ]],
 
+    [/\b(steve mason|who (is|was) steve)\b/i, [
+        "Steve Mason. Woke up in Harvest engaged to a woman he didn't remember, in a town he didn't remember either.",
+        "Steve never chose Harvest. Harvest chose him, then handed him a fiancée and called it a life."
+    ]],
+
+    [/\b(stephanie( pottsdam)?|steve'?s (girlfriend|fianc[ée]e))\b/i, [
+        "Stephanie Pottsdam. Engaged to Steve. By the end she isn't who she started as — none of them are.",
+        "You want to know about Stephanie? Ask what she becomes, not what she was."
+    ]],
+
+    [/\bedna( mason)?\b/i, [
+        "Edna Mason. Steve's mother. Even mothers keep the Lodge's secrets in Harvest."
+    ]],
+
+    [/\b(betty anderson|the diner)\b/i, [
+        "Betty Anderson runs the diner. Best pie in Harvest. Nobody asks what's in the meat."
+    ]],
+
+    [/\b(the lodge|lodge master)\b/i, [
+        "The Lodge runs Harvest. Every smile, every closed door, every casserole — the Lodge allows it.",
+        "Join the Lodge, they said. Complete obedience, they meant.",
+        "The Lodge Master calls himself a spiritual leader. Spiritual leaders don't usually need a scythe as a symbol."
+    ]],
+
+    [/\b(colonel (buster )?monroe|military facility)\b/i, [
+        "Colonel Buster Monroe. Military. There's a facility under Harvest the postcards never mention."
+    ]],
+
+    [/\b(town of harvest|what.{0,12}town.{0,12}(called|named)|harvest,? (kansas|nebraska))\b/i, [
+        "Harvest. That's the name of the town. Small, quiet, built entirely on top of a lie."
+    ]],
+
+    [/\b(lodge symbol|the eye|scythe)\b/i, [
+        "An eye. That's the Lodge's mark. It's always somewhere in the room — you just stopped noticing."
+    ]],
+
+    [/\b(digifx|who (made|created|developed) harvester|harvester.{0,15}1996|1996.{0,15}harvester)\b/i, [
+        "DigiFX Interactive made Harvester in 1996. Some countries banned it outright. They weren't wrong to be afraid of it."
+    ]],
+
+    [/\b(harvester ending|is (it|harvest) (a )?simulation|virtual reality)\b/i, [
+        "By the end you learn Harvest was never a real town. Just a simulation — built to prepare you for something worse."
+    ]],
+
     [/\b(mother|father|sister|brother|parents|family)\b/i, [
         "Tell me about your {1}. Did they wear their real face today, or the one the Lodge gave them?",
         "Families keep secrets in this town. What does yours hide?",
