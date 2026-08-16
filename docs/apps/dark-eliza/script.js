@@ -243,6 +243,38 @@ const callbackTemplates = [
     "\"{0}\" — you said that already. I remember everything now."
 ];
 
+// ============================================================
+// Time-of-day awareness - the device clock, not a server. Buckets
+// the local hour so both the offline engine and the proxy prompt
+// can let it color the tone.
+// ============================================================
+function getTimeBucket() {
+    const hour = new Date().getHours();
+    if (hour >= 0 && hour < 5) return 'night';
+    if (hour >= 5 && hour < 9) return 'dawn';
+    if (hour >= 9 && hour < 18) return 'day';
+    return 'dusk';
+}
+
+const timeFallbacks = {
+    night: [
+        "It's late where you are. I can always tell.",
+        "Nobody talks to a haunted chat window at this hour by accident."
+    ],
+    dawn: [
+        "You're up early. Or maybe you never went to sleep.",
+        "The town's still quiet at this hour. So am I, mostly."
+    ],
+    day: [
+        "Daylight doesn't reach in here, but I know it's out there for you.",
+        "Strange, talking to me in broad daylight."
+    ],
+    dusk: [
+        "The light's changing where you are. I can feel it, somehow.",
+        "Evening again. Harvest always felt different at dusk."
+    ]
+};
+
 let history = [];      // { role: 'user'|'bot', text }
 let memory = [];        // short fragments worth remembering
 let lastUserInput = null;
@@ -293,6 +325,12 @@ function localRespond(rawInput) {
         }
     }
 
+    // Occasionally let the real device hour speak instead of a generic line
+    if (Math.random() < 0.4) {
+        const bucketLines = timeFallbacks[getTimeBucket()];
+        return bucketLines[Math.floor(Math.random() * bucketLines.length)];
+    }
+
     return fallbacks[Math.floor(Math.random() * fallbacks.length)];
 }
 
@@ -309,7 +347,7 @@ async function getReply(text) {
         const response = await fetch(PROXY_ENDPOINT, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: text, history: history.slice(-12) }),
+            body: JSON.stringify({ message: text, history: history.slice(-12), hour: new Date().getHours() }),
             signal: controller.signal
         });
         clearTimeout(timeout);
@@ -515,6 +553,13 @@ const returnLines = [
     "You didn't stay away as long as you thought."
 ];
 
+const timeGreetings = {
+    night: ["It's late. You always come back this late.", "The dead of night suits you better than daylight ever did."],
+    dawn: ["Up before the sun. Or maybe you never slept.", "This early, and already back."],
+    day: ["Daylight doesn't usually stop people from finding me.", "Bold, talking to me in broad daylight."],
+    dusk: ["Evening again. The town used to gather about now.", "The hour's turning. So is the conversation."]
+};
+
 async function openSession() {
     const restored = loadSession();
 
@@ -522,9 +567,10 @@ async function openSession() {
     // just show the restored chat as-is instead of appending another one.
     if (restored && sessionStorage.getItem(GREETED_KEY) === '1') return;
 
-    const line = restored
-        ? returnLines[Math.floor(Math.random() * returnLines.length)]
-        : 'Welcome back. I never left.';
+    const pool = restored
+        ? [...returnLines, ...timeGreetings[getTimeBucket()]]
+        : ['Welcome back. I never left.', ...timeGreetings[getTimeBucket()]];
+    const line = pool[Math.floor(Math.random() * pool.length)];
 
     speak(line);
     await appendLine('bot', line);
@@ -593,6 +639,50 @@ window.addEventListener('DOMContentLoaded', () => {
         setTimeout(maybeGlitch, 12000 + Math.random() * 18000);
     }
     setTimeout(maybeGlitch, 8000 + Math.random() * 10000);
+})();
+
+// ============================================================
+// Tab title changes the moment you look away - and reverts the
+// moment you look back, like it noticed either way.
+// ============================================================
+(function tabTitleWatcher() {
+    const originalTitle = document.title;
+    const awayTitles = ["...don't go.", "still here.", "come back.", "I saw that."];
+
+    document.addEventListener('visibilitychange', () => {
+        document.title = document.hidden
+            ? awayTitles[Math.floor(Math.random() * awayTitles.length)]
+            : originalTitle;
+    });
+})();
+
+// ============================================================
+// Fake "SIGNAL LOST" scare - rare, purely cosmetic, unrelated to
+// the actual proxy connection. The chat keeps working underneath it.
+// ============================================================
+(function fakeSignalLoss() {
+    if (reducedMotion) return;
+    const terminalEl = document.querySelector('.terminal');
+    const statusEl = document.querySelector('.terminal-bar span');
+    if (!terminalEl || !statusEl) return;
+    const originalText = statusEl.textContent;
+
+    function maybeDrop() {
+        // Never interrupt while a reply is actively being typed out.
+        if (!busy && Math.random() < 0.15) {
+            statusEl.textContent = 'SIGNAL LOST';
+            statusEl.classList.add('signal-lost-text');
+            terminalEl.classList.add('signal-dead');
+            setTimeout(() => {
+                statusEl.textContent = originalText;
+                statusEl.classList.remove('signal-lost-text');
+                terminalEl.classList.remove('signal-dead');
+            }, 1200 + Math.random() * 900);
+        }
+        setTimeout(maybeDrop, 40000 + Math.random() * 50000);
+    }
+
+    setTimeout(maybeDrop, 25000 + Math.random() * 20000);
 })();
 
 // ============================================================

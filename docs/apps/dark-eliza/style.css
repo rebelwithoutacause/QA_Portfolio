@@ -186,6 +186,24 @@ h1{
   animation:terminalGlitch .35s steps(2, end);
 }
 
+/* ---------- fake signal loss ---------- */
+@keyframes signalFlicker{
+  0%, 100%{ transform:translate(0,0); filter:none; opacity:1; }
+  20%{ transform:translate(-2px,1px); filter:hue-rotate(8deg); opacity:.85; }
+  40%{ transform:translate(2px,-1px); filter:hue-rotate(-8deg); opacity:1; }
+  60%{ transform:translate(-1px,0); filter:none; opacity:.7; }
+  80%{ transform:translate(1px,1px); filter:hue-rotate(4deg); opacity:1; }
+}
+
+.terminal.signal-dead{
+  animation:signalFlicker .18s steps(2, end) infinite;
+}
+
+.signal-lost-text{
+  color:var(--blood-bright);
+  animation:cursorBlink 1s steps(1) infinite;
+}
+
 .chat-log{
   height:min(52vh, 460px);
   overflow-y:auto;
