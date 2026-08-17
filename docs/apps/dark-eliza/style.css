@@ -331,12 +331,13 @@ h1{
 }
 
 .dossier-bonus-tag{
-  font-size:.7rem;
+  font-size:.85rem;
   font-weight:700;
   letter-spacing:.15em;
   text-transform:uppercase;
   color:var(--blood);
   transition:color .15s ease;
+  animation:cursorBlink 1s steps(1) infinite;
 }
 
 .dossier-bonus .dossier-title{
@@ -603,6 +604,7 @@ h1{
   .wrap.jumpscare-shake{ animation:none; }
   .dossier-item:hover .dossier-title, .dossier-item:focus-visible .dossier-title{ animation:none; }
   .dossier-bonus:hover .dossier-title, .dossier-bonus:focus-visible .dossier-title{ animation:none; }
+  .dossier-bonus-tag{ animation:none; opacity:1; }
 }
 
 @media (max-width:600px){
