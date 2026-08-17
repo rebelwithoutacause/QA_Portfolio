@@ -593,9 +593,13 @@ const timeGreetings = {
 async function openSession() {
     const restored = loadSession();
 
-    // Once a greeting has played this browser session, a reload should
-    // just show the restored chat as-is instead of appending another one.
-    if (restored && sessionStorage.getItem(GREETED_KEY) === '1') return;
+    // Once a greeting has played, any later visit (reload, new tab, or
+    // navigating back from another page in the app) should just show the
+    // restored chat as-is instead of appending another unprompted line.
+    // localStorage (not sessionStorage) so this holds across tabs too -
+    // e.g. the INFO/trivia links open in a new tab, and sessionStorage
+    // isn't reliably carried back when returning to the original one.
+    if (restored && localStorage.getItem(GREETED_KEY) === '1') return;
 
     const pool = restored
         ? [...returnLines, ...timeGreetings[getTimeBucket()]]
@@ -606,7 +610,7 @@ async function openSession() {
     await appendLine('bot', line);
     history.push({ role: 'bot', text: line });
     saveSession();
-    sessionStorage.setItem(GREETED_KEY, '1');
+    localStorage.setItem(GREETED_KEY, '1');
 }
 
 let busy = false;
