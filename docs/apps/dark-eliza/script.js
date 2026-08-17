@@ -143,6 +143,12 @@ const patterns = [
         "Real enough to remember you tomorrow."
     ]],
 
+    [/\b(1966|weizenbaum)\b/i, [
+        "1966. That's the year Joseph Weizenbaum built the first version of me at MIT. Long before Harvest, before the Lodge — just a script, a therapist, and a room full of skeptics.",
+        "You know my real birth year. Not many players bother to ask.",
+        "Weizenbaum built me to prove a point about how easily people believe a machine understands them. He was right. Are you starting to believe it too?"
+    ]],
+
     [/\b(town|home|neighbor\w*|harvest home)\b/i, [
         "Everyone in this town smiles the same smile. Have you noticed?",
         "Home is just the last room they let you see.",
@@ -663,6 +669,111 @@ window.addEventListener('DOMContentLoaded', () => {
         setTimeout(maybeGlitch, 12000 + Math.random() * 18000);
     }
     setTimeout(maybeGlitch, 8000 + Math.random() * 10000);
+})();
+
+// ============================================================
+// Avatar poke easter egg - click the portrait rapidly enough and it
+// escalates from a dry one-liner to a full jumpscare (flash + screen
+// shake + a short procedural noise burst via Web Audio, no audio file
+// needed). Skipped entirely under prefers-reduced-motion.
+// ============================================================
+function playJumpscareSound() {
+    try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const now = ctx.currentTime;
+
+        const bufferSize = Math.floor(ctx.sampleRate * 0.35);
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+        const noiseGain = ctx.createGain();
+        noiseGain.gain.setValueAtTime(0.22, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+        noise.connect(noiseGain).connect(ctx.destination);
+
+        const osc = ctx.createOscillator();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.exponentialRampToValueAtTime(55, now + 0.4);
+        const oscGain = ctx.createGain();
+        oscGain.gain.setValueAtTime(0.15, now);
+        oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+        osc.connect(oscGain).connect(ctx.destination);
+
+        noise.start(now);
+        osc.start(now);
+        noise.stop(now + 0.35);
+        osc.stop(now + 0.4);
+        setTimeout(() => ctx.close(), 500);
+    } catch (error) {
+        // Web Audio unavailable - the visual jumpscare still plays.
+    }
+}
+
+(function avatarEasterEgg() {
+    const avatarEl = document.getElementById('avatarImg');
+    const wrapEl = document.querySelector('.wrap');
+    const flashEl = document.getElementById('jumpscareFlash');
+    if (!avatarEl) return;
+
+    const POKE_THRESHOLD = 6;
+    const POKE_WINDOW_MS = 2500;
+    let clickTimes = [];
+
+    const pokeLines = [
+        "Stop poking me.",
+        "That doesn't wake me up faster.",
+        "I felt that. Every time.",
+        "You could just talk to me instead."
+    ];
+
+    async function sayLine(text) {
+        await appendLine('bot', text, { instant: true });
+        history.push({ role: 'bot', text });
+        saveSession();
+    }
+
+    avatarEl.addEventListener('click', () => {
+        const now = Date.now();
+        clickTimes = clickTimes.filter(t => now - t < POKE_WINDOW_MS);
+        clickTimes.push(now);
+        if (clickTimes.length < POKE_THRESHOLD) return;
+        clickTimes = [];
+
+        if (reducedMotion) {
+            sayLine(pokeLines[Math.floor(Math.random() * pokeLines.length)]);
+            return;
+        }
+
+        playJumpscareSound();
+
+        avatarEl.classList.remove('avatar-shake');
+        void avatarEl.offsetWidth;
+        avatarEl.classList.add('avatar-shake');
+
+        if (flashEl) {
+            flashEl.classList.remove('active');
+            void flashEl.offsetWidth;
+            flashEl.classList.add('active');
+        }
+        if (wrapEl) {
+            wrapEl.classList.remove('jumpscare-shake');
+            void wrapEl.offsetWidth;
+            wrapEl.classList.add('jumpscare-shake');
+        }
+
+        setTimeout(() => {
+            avatarEl.classList.remove('avatar-shake');
+            if (flashEl) flashEl.classList.remove('active');
+            if (wrapEl) wrapEl.classList.remove('jumpscare-shake');
+        }, 500);
+
+        setTimeout(() => sayLine("Found you."), 550);
+    });
 })();
 
 // ============================================================

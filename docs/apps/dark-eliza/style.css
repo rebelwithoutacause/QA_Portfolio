@@ -204,6 +204,50 @@ h1{
   animation:cursorBlink 1s steps(1) infinite;
 }
 
+/* ---------- avatar poke / jumpscare ---------- */
+@keyframes avatarShake{
+  0%, 100%{ transform:translate(0,0) rotate(0); }
+  20%{ transform:translate(-3px,2px) rotate(-2deg); }
+  40%{ transform:translate(3px,-2px) rotate(2deg); }
+  60%{ transform:translate(-2px,-3px) rotate(-1deg); }
+  80%{ transform:translate(2px,3px) rotate(1deg); }
+}
+
+.avatar.avatar-shake{
+  animation:avatarShake .4s ease-in-out;
+}
+
+.jumpscare-flash{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle, rgba(161,29,29,.9), rgba(0,0,0,.96));
+  opacity:0;
+  pointer-events:none;
+  z-index:50;
+}
+
+.jumpscare-flash.active{
+  animation:jumpscareFlash .5s ease-out;
+}
+
+@keyframes jumpscareFlash{
+  0%{ opacity:0; }
+  8%{ opacity:1; }
+  100%{ opacity:0; }
+}
+
+@keyframes jumpscareShake{
+  0%, 100%{ transform:translate(0,0); }
+  20%{ transform:translate(-6px,4px); }
+  40%{ transform:translate(6px,-4px); }
+  60%{ transform:translate(-4px,-6px); }
+  80%{ transform:translate(4px,6px); }
+}
+
+.wrap.jumpscare-shake{
+  animation:jumpscareShake .4s ease-in-out;
+}
+
 .chat-log{
   height:min(52vh, 460px);
   overflow-y:auto;
@@ -320,6 +364,9 @@ h1{
   #staticNoise{ display:none; }
   .typing-indicator .dot{ animation:none; opacity:.7; }
   .terminal.glitching{ animation:none; }
+  .avatar.avatar-shake{ animation:none; }
+  .jumpscare-flash.active{ animation:none; }
+  .wrap.jumpscare-shake{ animation:none; }
 }
 
 @media (max-width:600px){
