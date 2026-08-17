@@ -13,6 +13,16 @@ The "VOICE: ON" toggle uses the browser's built-in Web Speech API (`speechSynthe
 - **Firefox** also sounds robotic — its `speechSynthesis` implementation has never included any cloud/network voices, only whatever the OS provides directly, same limitation as Brave.
 - On Windows, installing an offline "Natural" voice (Settings → Time & Language → Speech → Manage voices → Add voices) improves things in any browser, but that voice list is gated by the Windows region and isn't offered in every market.
 
+## Reply Mode
+
+The "MODE" button cycles between three voices for Eliza's replies:
+
+- **Harvester** (default) — the original horror-first persona: weary, possessive, steeped in Harvest/Lodge lore.
+- **Philosophy** — a more contemplative register, leaning on real philosophical positions (existentialism, absurdism, the Ship of Theseus applied to herself) rather than horror dread.
+- **Casual** — warm and friendly, like an old friend with a strange past she only mentions in passing.
+
+The choice persists across visits and applies to both the AI path (sent to the proxy, which picks a matching system prompt) and the offline fallback engine's greetings, farewells, and generic replies. Lore-fact answers (who's Steve Mason, what's the Lodge, etc.) stay consistent no matter the mode — only the tone shifts.
+
 ## Case File
 
 The "INFO" button opens a small in-app archive (`info.html` → `eliza.html` / `harvester.html` / `facts.html`) with real, fact-checked background on ELIZA (1966) and Harvester (1996) — sourced from Wikipedia and the Harvester fan wiki, not from the in-chat fiction. A fourth entry, "PLAY THE TRIVIA", links out to [Harvester Trivia](../harvester-trivia/), a companion quiz game also hosted in this portfolio.

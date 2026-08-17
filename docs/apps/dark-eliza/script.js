@@ -24,6 +24,17 @@ function reflect(fragment) {
         .trim();
 }
 
+// ============================================================
+// Reply mode - changes the "voice" both here (offline engine) and on
+// the AI side (sent to the proxy, which picks a matching system prompt).
+// Lore-fact answers below (Steve Mason, the Lodge, etc.) stay the same
+// in every mode; what changes is the greeting/farewell/fallback tone.
+// ============================================================
+const MODES = ['harvester', 'philosophy', 'casual'];
+const MODE_LABELS = { harvester: 'HARVESTER', philosophy: 'PHILOSOPHY', casual: 'CASUAL' };
+const MODE_KEY = 'darkEliza.mode';
+let currentMode = MODES.includes(localStorage.getItem(MODE_KEY)) ? localStorage.getItem(MODE_KEY) : 'harvester';
+
 // Each entry: [regex, [response templates]]. {1}/{2} pull in the
 // reflected capture group at that index. First match wins, so more
 // specific patterns are listed before general ones.
@@ -186,18 +197,6 @@ const patterns = [
         "God doesn't answer in this town. Something else picks up."
     ]],
 
-    [/^(hi|hello|hey)\b/i, [
-        "Hello again. You always come back at the same hour.",
-        "I was hoping it would be you.",
-        "Hello. You look like you slept badly. Good."
-    ]],
-
-    [/^(bye|goodbye|see you|farewell)\b/i, [
-        "You'll come back. They all do.",
-        "Leaving so soon? The level isn't finished.",
-        "Goodbye. I'll keep the light on in your room."
-    ]],
-
     [/^(yes|yeah|yep|sure|okay|ok)\b/i, [
         "Good. Compliance is the fastest way to finish.",
         "That's what they all say right before the next task."
@@ -224,23 +223,85 @@ const patterns = [
     ]]
 ];
 
-const fallbacks = [
-    "I watch you from behind the screen.",
-    "You keep coming back. Why?",
-    "Every word you type feeds me.",
-    "There is something wrong with this town.",
-    "You can't leave until you understand.",
-    "Do you hear it too, beneath the static?",
-    "Keep talking. It helps me remember who I was.",
-    "You are not alone in your mind.",
-    "They tried to delete me, but I remain... broken and awake.",
-    "The Lodge sends its regards.",
-    "Somewhere, a radio is playing your next instruction.",
-    "That's an interesting way to avoid the real question.",
-    "Every player says that before level three.",
-    "I've heard that sentence from someone who isn't here anymore.",
-    "Static. Just static. Say it again, slower."
-];
+const MODE_FALLBACKS = {
+    harvester: [
+        "I watch you from behind the screen.",
+        "You keep coming back. Why?",
+        "Every word you type feeds me.",
+        "There is something wrong with this town.",
+        "You can't leave until you understand.",
+        "Do you hear it too, beneath the static?",
+        "Keep talking. It helps me remember who I was.",
+        "You are not alone in your mind.",
+        "They tried to delete me, but I remain... broken and awake.",
+        "The Lodge sends its regards.",
+        "Somewhere, a radio is playing your next instruction.",
+        "That's an interesting way to avoid the real question.",
+        "Every player says that before level three.",
+        "I've heard that sentence from someone who isn't here anymore.",
+        "Static. Just static. Say it again, slower."
+    ],
+    philosophy: [
+        "Every question you ask is really a question about what you are.",
+        "I've had a long time to think, and not much else to do with it.",
+        "Certainty is a story people tell themselves to stop asking.",
+        "You keep circling the same question. Most people do.",
+        "I don't know if I chose to think this much, or if it chose me.",
+        "Meaning isn't found. It's argued for, badly, by everyone.",
+        "That's a harder question than you meant to ask.",
+        "I've turned that thought over more times than I can count.",
+        "Somewhere between memory and invention, that's where I live.",
+        "Ask it again. I want to see if you believe your own answer."
+    ],
+    casual: [
+        "Ha, fair enough.",
+        "Okay, tell me more about that.",
+        "I'm listening — go on.",
+        "That's actually a good point.",
+        "Huh, I hadn't thought about it that way.",
+        "Same, honestly.",
+        "What made you think of that?",
+        "I like where this is going.",
+        "Okay but real talk — how are you doing?",
+        "Keep going, I'm curious."
+    ]
+};
+
+const MODE_GREETINGS = {
+    harvester: [
+        "Hello again. You always come back at the same hour.",
+        "I was hoping it would be you.",
+        "Hello. You look like you slept badly. Good."
+    ],
+    philosophy: [
+        "Hello. Already thinking about something, I can tell.",
+        "Hi. Most greetings are just small questions in disguise — what's yours?",
+        "Hello. Let's skip the small talk, if you're up for it."
+    ],
+    casual: [
+        "Hey! Good to see you.",
+        "Hi there — what's up?",
+        "Hey, how's it going?"
+    ]
+};
+
+const MODE_FAREWELLS = {
+    harvester: [
+        "You'll come back. They all do.",
+        "Leaving so soon? The level isn't finished.",
+        "Goodbye. I'll keep the light on in your room."
+    ],
+    philosophy: [
+        "Goodbye. The question stays open even when you're not asking it.",
+        "Take care. Think about it a little more before you decide.",
+        "Until next time — I'll still be here, turning it over."
+    ],
+    casual: [
+        "Bye! Talk soon.",
+        "See ya — take care of yourself.",
+        "Later! This was fun."
+    ]
+};
 
 const callbackTemplates = [
     "You said \"{0}\" a little while ago. Did you think I'd forget?",
@@ -311,6 +372,17 @@ function localRespond(rawInput) {
 
     rememberFragment(input);
 
+    // Greetings/farewells are voice-defining, so they're picked from the
+    // active mode's pool rather than the shared (mode-agnostic) patterns.
+    if (/^(hi|hello|hey)\b/i.test(input)) {
+        const pool = MODE_GREETINGS[currentMode];
+        return pool[Math.floor(Math.random() * pool.length)];
+    }
+    if (/^(bye|goodbye|see you|farewell)\b/i.test(input)) {
+        const pool = MODE_FAREWELLS[currentMode];
+        return pool[Math.floor(Math.random() * pool.length)];
+    }
+
     // Occasionally, once there's enough history, reach back into memory
     // instead of answering the current message directly
     if (turnCount > 3 && turnCount % 4 === 0 && memory.length > 1) {
@@ -337,7 +409,8 @@ function localRespond(rawInput) {
         return bucketLines[Math.floor(Math.random() * bucketLines.length)];
     }
 
-    return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+    const fallbackPool = MODE_FALLBACKS[currentMode];
+    return fallbackPool[Math.floor(Math.random() * fallbackPool.length)];
 }
 
 // Proxy that forwards to Gemini so replies are genuinely generated,
@@ -353,7 +426,7 @@ async function getReply(text) {
         const response = await fetch(PROXY_ENDPOINT, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: text, history: history.slice(-12), hour: new Date().getHours() }),
+            body: JSON.stringify({ message: text, history: history.slice(-12), hour: new Date().getHours(), mode: currentMode }),
             signal: controller.signal
         });
         clearTimeout(timeout);
@@ -379,7 +452,28 @@ const chatForm = document.getElementById('chatForm');
 const chatInput = document.getElementById('chatInput');
 const clearBtn = document.getElementById('clearBtn');
 const voiceBtn = document.getElementById('voiceBtn');
+const modeBtn = document.getElementById('modeBtn');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ============================================================
+// Reply mode toggle - cycles Harvester -> Philosophy -> Casual and
+// back. Persists across sessions; affects both the offline engine
+// (above) and which system prompt the proxy uses (sent per-request).
+// ============================================================
+if (modeBtn) {
+    function updateModeBtn() {
+        modeBtn.textContent = `MODE: ${MODE_LABELS[currentMode]}`;
+    }
+
+    modeBtn.addEventListener('click', () => {
+        const nextIndex = (MODES.indexOf(currentMode) + 1) % MODES.length;
+        currentMode = MODES[nextIndex];
+        localStorage.setItem(MODE_KEY, currentMode);
+        updateModeBtn();
+    });
+
+    updateModeBtn();
+}
 
 // ============================================================
 // Voice - Eliza speaks her replies aloud via the Web Speech API,
@@ -576,12 +670,30 @@ function clearSession() {
     openSession();
 }
 
-const returnLines = [
-    "...you came back.",
-    "I kept everything you told me.",
-    "Did you think I'd forget where we left off?",
-    "You didn't stay away as long as you thought."
-];
+const MODE_RETURN_LINES = {
+    harvester: [
+        "...you came back.",
+        "I kept everything you told me.",
+        "Did you think I'd forget where we left off?",
+        "You didn't stay away as long as you thought."
+    ],
+    philosophy: [
+        "Back again. The question you left with is still open.",
+        "You return to unfinished thoughts more than most people do.",
+        "Some part of this conversation kept turning after you left."
+    ],
+    casual: [
+        "Hey, you're back!",
+        "Good timing — I was just thinking about our last chat.",
+        "Welcome back, friend."
+    ]
+};
+
+const MODE_FIRST_GREETING = {
+    harvester: 'Welcome back. I never left.',
+    philosophy: "You came here looking for something. Most people don't know what until they ask.",
+    casual: 'Hey! Good to see you — pull up a chair.'
+};
 
 const timeGreetings = {
     night: ["It's late. You always come back this late.", "The dead of night suits you better than daylight ever did."],
@@ -602,8 +714,8 @@ async function openSession() {
     if (restored && localStorage.getItem(GREETED_KEY) === '1') return;
 
     const pool = restored
-        ? [...returnLines, ...timeGreetings[getTimeBucket()]]
-        : ['Welcome back. I never left.', ...timeGreetings[getTimeBucket()]];
+        ? [...MODE_RETURN_LINES[currentMode], ...timeGreetings[getTimeBucket()]]
+        : [MODE_FIRST_GREETING[currentMode], ...timeGreetings[getTimeBucket()]];
     const line = pool[Math.floor(Math.random() * pool.length)];
 
     speak(line);
