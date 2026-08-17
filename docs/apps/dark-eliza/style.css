@@ -639,4 +639,17 @@ h1{
   .dossier-item{ padding:.9rem 1rem; gap:.7rem; }
   .dossier-num{ font-size:1.15rem; min-width:2.6rem; }
   .dossier-title{ font-size:.92rem; }
+
+  .terminal-bar{ align-items:stretch; }
+  .terminal-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    width:100%;
+    margin-left:0;
+  }
+  .terminal-actions > *{
+    width:100%;
+    text-align:center;
+    box-sizing:border-box;
+  }
 }
