@@ -1,6 +1,9 @@
 // QA smoke test: loads every HTML page under docs/, fails the build if any
-// page throws a console/page error, has a failed network request, or links
-// to a local file that doesn't exist.
+// page throws a console/page error, has a failed network request, links to
+// a local file that doesn't exist, or overflows horizontally on a phone-
+// width viewport (this last one is how the mobile layout bugs fixed this
+// session - clipped titles, buttons pushed outside the panel - slipped
+// through: the rest of this test only ever ran at desktop width).
 import { chromium } from 'playwright';
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
@@ -12,6 +15,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DOCS_ROOT = path.resolve(__dirname, '../../docs');
 const PORT = 8177;
 const BASE_URL = `http://localhost:${PORT}`;
+const MOBILE_VIEWPORT = { width: 375, height: 667 }; // iPhone SE-class width
+const OVERFLOW_TOLERANCE_PX = 2; // sub-pixel rounding slack
 
 const MIME_TYPES = {
     '.html': 'text/html',
@@ -125,10 +130,30 @@ async function checkPage(page, pagePath) {
     return { pagePath, consoleErrors, pageErrors, failedRequests, brokenLinks };
 }
 
+// Loads the page at phone width and checks whether anything pushes the
+// document wider than the viewport - the same symptom (scrollWidth >
+// clientWidth) behind every mobile layout bug fixed this session.
+async function checkMobileOverflow(mobilePage, pagePath) {
+    const url = `${BASE_URL}/${pagePath}`;
+    await mobilePage.goto(url, { waitUntil: 'networkidle', timeout: 20000 });
+
+    const { scrollWidth, clientWidth } = await mobilePage.evaluate(() => ({
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth
+    }));
+
+    const overflowPx = scrollWidth - clientWidth;
+    if (overflowPx > OVERFLOW_TOLERANCE_PX) {
+        return [`horizontal overflow at ${MOBILE_VIEWPORT.width}px viewport: content is ${scrollWidth}px wide (${overflowPx}px too wide)`];
+    }
+    return [];
+}
+
 async function main() {
     const server = await startServer();
     const browser = await chromium.launch();
     const page = await browser.newPage();
+    const mobilePage = await browser.newPage({ viewport: MOBILE_VIEWPORT });
 
     const htmlFiles = findHtmlFiles(DOCS_ROOT).sort();
     console.log(`Found ${htmlFiles.length} page(s) under docs/:\n  ${htmlFiles.join('\n  ')}\n`);
@@ -137,11 +162,13 @@ async function main() {
     for (const file of htmlFiles) {
         process.stdout.write(`Checking ${file} ... `);
         const result = await checkPage(page, file);
+        result.mobileIssues = await checkMobileOverflow(mobilePage, file);
         const hasIssues =
             result.consoleErrors.length ||
             result.pageErrors.length ||
             result.failedRequests.length ||
-            result.brokenLinks.length;
+            result.brokenLinks.length ||
+            result.mobileIssues.length;
         console.log(hasIssues ? 'FAIL' : 'ok');
         results.push(result);
     }
@@ -156,6 +183,7 @@ async function main() {
             ...r.pageErrors.map((m) => `page error: ${m}`),
             ...r.failedRequests.map((m) => `failed request: ${m}`),
             ...r.brokenLinks.map((m) => `broken link: ${m}`),
+            ...r.mobileIssues.map((m) => `mobile: ${m}`),
         ];
         if (issues.length) {
             failed = true;
