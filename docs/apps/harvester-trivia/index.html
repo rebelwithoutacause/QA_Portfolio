@@ -557,8 +557,7 @@
         function exitLodge() {
             const confirmExit = confirm(`So, ${playerName} flees from the Lodge...\nThe shadows will remember your cowardice.\nAre you sure you wish to leave?`);
             if (confirmExit) {
-                alert('The Lodge never forgets...');
-                window.close();
+                window.location.href = '../dark-eliza/';
             }
         }
 
