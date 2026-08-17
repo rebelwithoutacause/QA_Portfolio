@@ -15,7 +15,7 @@ The "VOICE: ON" toggle uses the browser's built-in Web Speech API (`speechSynthe
 
 ## Reply Mode
 
-The "MODE" button cycles between three voices for Eliza's replies:
+The "MODE" dropdown selects between three voices for Eliza's replies:
 
 - **Harvester** (default) — the original horror-first persona: weary, possessive, steeped in Harvest/Lodge lore.
 - **Philosophy** — a more contemplative register, leaning on real philosophical positions (existentialism, absurdism, the Ship of Theseus applied to herself) rather than horror dread.
