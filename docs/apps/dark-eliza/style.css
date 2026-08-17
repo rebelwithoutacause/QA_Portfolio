@@ -642,8 +642,8 @@ h1{
 
   .terminal-bar{ align-items:stretch; }
   .terminal-actions{
-    display:grid;
-    grid-template-columns:1fr 1fr;
+    display:flex;
+    flex-direction:column;
     width:100%;
     margin-left:0;
   }
