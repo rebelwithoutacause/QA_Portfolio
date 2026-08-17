@@ -12,3 +12,9 @@ The "VOICE: ON" toggle uses the browser's built-in Web Speech API (`speechSynthe
 - **Brave** and most other Chromium forks sound noticeably more robotic — Brave strips out the Google API keys Chrome uses for its cloud voices for privacy reasons, so only the flat, offline OS voice (Windows SAPI, etc.) is ever available to pick from, no matter what the page does.
 - **Firefox** also sounds robotic — its `speechSynthesis` implementation has never included any cloud/network voices, only whatever the OS provides directly, same limitation as Brave.
 - On Windows, installing an offline "Natural" voice (Settings → Time & Language → Speech → Manage voices → Add voices) improves things in any browser, but that voice list is gated by the Windows region and isn't offered in every market.
+
+## Case File
+
+The "INFO" button opens a small in-app archive (`info.html` → `eliza.html` / `harvester.html` / `facts.html`) with real, fact-checked background on ELIZA (1966) and Harvester (1996) — sourced from Wikipedia and the Harvester fan wiki, not from the in-chat fiction.
+
+Dark-ELIZA is an unofficial, fan-made creative reinterpretation. It is not affiliated with, endorsed by, or sponsored by Joseph Weizenbaum's estate, MIT, DigiFX Interactive, Merit Studios, or Virgin Interactive. A few in-conversation details in the chat (character relationships, additional characters) are deliberately remixed for the horror narrative and should not be taken as accurate to the original game — the Case File pages stick to the real history.
