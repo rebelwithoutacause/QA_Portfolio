@@ -321,19 +321,6 @@
                     isPlaying = true;
                 }
             });
-
-            // Auto-play when user first interacts with the page
-            document.addEventListener('click', function autoPlay() {
-                if (!isPlaying) {
-                    audio.play().catch(e => {
-                        console.log('Auto-play failed:', e);
-                    });
-                    toggle.textContent = '♪';
-                    toggle.style.opacity = '1';
-                    isPlaying = true;
-                }
-                document.removeEventListener('click', autoPlay);
-            }, { once: true });
         }
 
         function goToHomePage() {
