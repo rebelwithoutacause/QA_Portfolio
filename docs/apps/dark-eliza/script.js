@@ -548,6 +548,25 @@ function speak(text) {
     speechSynthesis.speak(utter);
 }
 
+// Mobile browsers (iOS Safari especially) only allow speechSynthesis.speak()
+// to actually produce sound when it's called synchronously inside a user
+// gesture - an `await` in between (like the network round-trip to the AI)
+// breaks that and the speech gets silently dropped. Priming with a near-
+// silent utterance directly inside a click handler "unlocks" the engine so
+// later async speak() calls in the same page session go through.
+let speechUnlocked = false;
+function unlockSpeech() {
+    if (speechUnlocked || !speechSupported) return;
+    speechUnlocked = true;
+    try {
+        const unlockUtter = new SpeechSynthesisUtterance(' ');
+        unlockUtter.volume = 0;
+        speechSynthesis.speak(unlockUtter);
+    } catch (error) {
+        // Best-effort - if this fails, speak() will just no-op as before.
+    }
+}
+
 function updateVoiceBtn() {
     if (!voiceBtn) return;
     voiceBtn.textContent = voiceEnabled ? 'VOICE: ON' : 'VOICE: OFF';
@@ -559,7 +578,8 @@ if (voiceBtn && speechSupported) {
     voiceBtn.addEventListener('click', () => {
         voiceEnabled = !voiceEnabled;
         localStorage.setItem(VOICE_KEY, voiceEnabled ? '1' : '0');
-        if (!voiceEnabled) speechSynthesis.cancel();
+        if (voiceEnabled) unlockSpeech();
+        else speechSynthesis.cancel();
         updateVoiceBtn();
     });
     updateVoiceBtn();
@@ -723,6 +743,7 @@ let busy = false;
 chatForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (busy) return;
+    if (voiceEnabled) unlockSpeech();
 
     const text = chatInput.value.trim();
     if (!text) return;
