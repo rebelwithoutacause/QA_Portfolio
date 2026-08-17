@@ -33,7 +33,7 @@ body {
 
 .title {
     font-family: 'Nosifer', cursive;
-    font-size: 4rem;
+    font-size: clamp(2rem, 9vw, 4rem);
     margin-bottom: 20px;
     text-shadow: 3px 3px 10px #8b0000, 0 0 20px #ff0000;
     animation: flicker 3s infinite alternate;
@@ -330,3 +330,51 @@ body {
 .blood-drop:nth-child(6) { left: 75%; animation-duration: 4.2s; animation-delay: 2.5s; height: 16px; }
 .blood-drop:nth-child(7) { left: 65%; animation-duration: 3.2s; animation-delay: 3s; height: 13px; }
 .blood-drop:nth-child(8) { left: 35%; animation-duration: 4.8s; animation-delay: 3.5s; height: 19px; }
+
+/* ---------- mobile ---------- */
+@media (max-width: 600px) {
+    .container {
+        padding: 52px 14px 14px;
+    }
+
+    .game-container {
+        padding: 18px 16px;
+        border-radius: 10px;
+    }
+
+    .lodge-master-text {
+        font-size: 1.2rem;
+    }
+
+    .name-input {
+        font-size: 1.1rem;
+        padding: 12px 14px;
+    }
+
+    .menu-btn, .choice-btn, .game-btn, .continue-btn {
+        font-size: 1rem;
+        padding: 12px 16px;
+    }
+
+    .back-link, .audio-controls {
+        top: 10px;
+        padding: 5px 9px;
+        font-size: 0.7rem;
+    }
+
+    .back-link {
+        left: 10px;
+    }
+
+    .audio-controls {
+        right: 10px;
+    }
+
+    .audio-icon {
+        font-size: 1.2rem;
+    }
+
+    .ascii-art {
+        font-size: 0.6rem;
+    }
+}
