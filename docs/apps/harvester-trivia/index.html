@@ -42,7 +42,7 @@
         <div id="intro-screen">
             
             <div class="game-container">
-                <div class="lodge-master-text">🕯️ Welcome, Initiate… 🕯️</div>
+                <div class="lodge-master-text">Welcome, Initiate…</div>
                 <div class="lodge-master-text">The Lodge watches your every move.</div>
                 <div class="lodge-master-text">Only the brave may proceed to test their knowledge of Harvest.</div>
                 
@@ -109,7 +109,7 @@
 🪦 GRAVEYARD OF SOULS 🪦
                     💀
                   ☠️ ☠️ ☠️
-               🕯️ ⚰️ 💀 ⚰️ 🕯️
+                  ⚰️ 💀 ⚰️
             </div>
             
             <div class="game-container">
@@ -381,7 +381,7 @@
             hideAllScreens();
             document.getElementById('menu-screen').classList.remove('hidden');
             document.getElementById('player-greeting').textContent = 
-                `🕯️ The Lodge of Knowledge beckons, ${playerName} 🕯️`;
+                `The Lodge of Knowledge beckons, ${playerName}`;
         }
 
         function startTrivia() {
@@ -402,7 +402,7 @@
             hasAnsweredCurrentQuestion = false; // Reset for new question
             
             document.getElementById('question-header').textContent = 
-                `🕯️ Question ${currentQuestionIndex + 1} of 30 🕯️`;
+                `Question ${currentQuestionIndex + 1} of 30`;
             document.getElementById('score-display').textContent = 
                 `Score: ${score}/${currentQuestionIndex}`;
             document.getElementById('question-text').textContent = question.question;
