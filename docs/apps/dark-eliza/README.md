@@ -8,6 +8,6 @@ A creative coding experiment inspired by the original ELIZA (1966) and horror ga
 
 The "VOICE: ON" toggle uses the browser's built-in Web Speech API (`speechSynthesis`) — entirely client-side, no extra API or key involved. Voice quality depends on what the browser exposes:
 
-- **Chrome / Edge** sound the most natural — both ship with cloud-backed voices (Chrome's "Google US/UK English", Edge's "...Online (Natural)" voices) that the app prefers automatically. In Chrome, being signed into a Google account tends to make these cloud voices available more reliably — signed out (or in a fresh/incognito profile), `speechSynthesis.getVoices()` may return only the local OS voices, same as Brave.
+- **Chrome / Edge** sound the most natural — both ship with cloud-backed voices (Chrome's "Google US/UK English", Edge's "...Online (Natural)" voices) that the app prefers automatically. This works out of the box, including in Incognito — no Google sign-in required.
 - **Brave** and most other Chromium forks sound noticeably more robotic — Brave strips out the Google API keys Chrome uses for its cloud voices for privacy reasons, so only the flat, offline OS voice (Windows SAPI, etc.) is ever available to pick from, no matter what the page does.
 - On Windows, installing an offline "Natural" voice (Settings → Time & Language → Speech → Manage voices → Add voices) improves things in any browser, but that voice list is gated by the Windows region and isn't offered in every market.
