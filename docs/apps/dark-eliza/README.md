@@ -15,6 +15,11 @@ The "VOICE: ON" toggle uses the browser's built-in Web Speech API (`speechSynthe
 
 ## Case File
 
-The "INFO" button opens a small in-app archive (`info.html` → `eliza.html` / `harvester.html` / `facts.html`) with real, fact-checked background on ELIZA (1966) and Harvester (1996) — sourced from Wikipedia and the Harvester fan wiki, not from the in-chat fiction.
+The "INFO" button opens a small in-app archive (`info.html` → `eliza.html` / `harvester.html` / `facts.html`) with real, fact-checked background on ELIZA (1966) and Harvester (1996) — sourced from Wikipedia and the Harvester fan wiki, not from the in-chat fiction. A fourth entry, "PLAY THE TRIVIA", links out to [Harvester Trivia](../harvester-trivia/), a companion quiz game also hosted in this portfolio.
 
 Dark-ELIZA is an unofficial, fan-made creative reinterpretation. It is not affiliated with, endorsed by, or sponsored by Joseph Weizenbaum's estate, MIT, DigiFX Interactive, Merit Studios, or Virgin Interactive. A few in-conversation details in the chat (character relationships, additional characters) are deliberately remixed for the horror narrative and should not be taken as accurate to the original game — the Case File pages stick to the real history.
+
+## Easter Eggs
+
+- Typing **"1966"** or **"Weizenbaum"** into the chat gets a fourth-wall-breaking reply about the real 1966 ELIZA.
+- Clicking the portrait **6 times rapidly** (within ~2.5s) escalates into a full jumpscare — a red screen flash, a screen shake, and a short procedural noise burst generated live via the Web Audio API (no audio file involved). Fully skipped in favor of a plain text line under `prefers-reduced-motion`.
