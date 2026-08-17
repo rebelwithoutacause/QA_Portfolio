@@ -331,12 +331,20 @@ h1{
 }
 
 .dossier-bonus-tag{
-  font-size:.75rem;
+  font-size:.85rem;
   font-weight:700;
   letter-spacing:.2em;
   text-transform:uppercase;
   color:var(--blood);
   transition:color .15s ease;
+}
+
+.dossier-bonus .dossier-title{
+  font-size:1.2rem;
+}
+
+.dossier-bonus .dossier-desc{
+  font-size:.9rem;
 }
 
 .dossier-bonus:hover .dossier-bonus-tag,
