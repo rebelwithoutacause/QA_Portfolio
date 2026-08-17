@@ -253,6 +253,16 @@ h1{
   border-bottom:none;
 }
 
+.dossier-item-bonus{
+  margin-top:1.6rem;
+  border-top:1px dashed var(--border);
+}
+
+.dossier-item-bonus .dossier-num{
+  font-size:1rem;
+  min-width:auto;
+}
+
 .dossier-item:hover,
 .dossier-item:focus-visible{
   background:rgba(161,29,29,.08);
