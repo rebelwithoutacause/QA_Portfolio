@@ -253,15 +253,6 @@ h1{
   border-bottom:none;
 }
 
-.dossier-item-bonus{
-  margin-top:1.6rem;
-  border-top:1px dashed var(--border);
-}
-
-.dossier-item-bonus .dossier-num{
-  font-size:1rem;
-}
-
 .dossier-item:hover,
 .dossier-item:focus-visible{
   background:rgba(161,29,29,.08);
@@ -318,6 +309,44 @@ h1{
 .dossier-item:focus-visible .dossier-arrow{
   color:var(--blood-bright);
   transform:translateX(4px);
+}
+
+/* ---------- bonus entry: separate, centered callout ---------- */
+.dossier-bonus{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:.35rem;
+  padding:1.4rem;
+  text-decoration:none;
+  border-top:1px dashed var(--border);
+  transition:background-color .15s ease;
+}
+
+.dossier-bonus:hover,
+.dossier-bonus:focus-visible{
+  background:rgba(161,29,29,.08);
+  outline:none;
+}
+
+.dossier-bonus-tag{
+  font-size:.75rem;
+  font-weight:700;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--blood);
+  transition:color .15s ease;
+}
+
+.dossier-bonus:hover .dossier-bonus-tag,
+.dossier-bonus:focus-visible .dossier-bonus-tag{
+  color:var(--blood-bright);
+}
+
+.dossier-bonus:hover .dossier-title,
+.dossier-bonus:focus-visible .dossier-title{
+  animation:terminalGlitch .35s steps(2, end);
 }
 
 /* ---------- prev/next nav on case-file pages ---------- */
@@ -565,6 +594,7 @@ h1{
   .jumpscare-flash.active{ animation:none; }
   .wrap.jumpscare-shake{ animation:none; }
   .dossier-item:hover .dossier-title, .dossier-item:focus-visible .dossier-title{ animation:none; }
+  .dossier-bonus:hover .dossier-title, .dossier-bonus:focus-visible .dossier-title{ animation:none; }
 }
 
 @media (max-width:600px){
