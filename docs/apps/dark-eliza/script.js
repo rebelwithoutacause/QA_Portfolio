@@ -542,8 +542,9 @@ function speak(text) {
     speechSynthesis.cancel();
     const utter = new SpeechSynthesisUtterance(text);
     if (preferredVoice) utter.voice = preferredVoice;
-    utter.rate = 0.95;
-    utter.pitch = 1;
+    // Leave rate/pitch at engine defaults (1.0) - a lot of budget-Android
+    // TTS engines handle any deviation from 1.0 badly, producing warped,
+    // pitch-shifted audio instead of just reading slightly slower/faster.
     utter.volume = 0.9;
     speechSynthesis.speak(utter);
 }
