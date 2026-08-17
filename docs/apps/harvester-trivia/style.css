@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Nosifer&family=Chiller&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nosifer&display=swap');
 
 * {
     margin: 0;
@@ -9,7 +9,7 @@
 body {
     background: #000;
     color: #8b0000;
-    font-family: 'Chiller', cursive;
+    font-family: Georgia, 'Times New Roman', serif;
     min-height: 100vh;
     background-image:
         radial-gradient(circle at 25% 25%, #1a0000 0%, transparent 50%),
