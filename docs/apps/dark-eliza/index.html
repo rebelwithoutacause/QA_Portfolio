@@ -28,7 +28,11 @@
       <span>SESSION_ACTIVE</span>
       <span class="rec">&#9679; REC</span>
       <div class="terminal-actions">
-        <button id="modeBtn" type="button" class="clear-btn">MODE: HARVESTER</button>
+        <select id="modeSelect" class="clear-btn mode-select" aria-label="Reply mode">
+          <option value="harvester">MODE: HARVESTER</option>
+          <option value="philosophy">MODE: PHILOSOPHY</option>
+          <option value="casual">MODE: CASUAL</option>
+        </select>
         <button id="voiceBtn" type="button" class="clear-btn voice-btn" aria-pressed="false">VOICE: OFF</button>
         <button id="clearBtn" type="button" class="clear-btn">CLEAR SESSION</button>
         <a href="info.html" class="clear-btn info-btn" target="_blank" rel="noopener">INFO</a>

@@ -31,7 +31,6 @@ function reflect(fragment) {
 // in every mode; what changes is the greeting/farewell/fallback tone.
 // ============================================================
 const MODES = ['harvester', 'philosophy', 'casual'];
-const MODE_LABELS = { harvester: 'HARVESTER', philosophy: 'PHILOSOPHY', casual: 'CASUAL' };
 const MODE_KEY = 'darkEliza.mode';
 let currentMode = MODES.includes(localStorage.getItem(MODE_KEY)) ? localStorage.getItem(MODE_KEY) : 'harvester';
 
@@ -452,27 +451,21 @@ const chatForm = document.getElementById('chatForm');
 const chatInput = document.getElementById('chatInput');
 const clearBtn = document.getElementById('clearBtn');
 const voiceBtn = document.getElementById('voiceBtn');
-const modeBtn = document.getElementById('modeBtn');
+const modeSelect = document.getElementById('modeSelect');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ============================================================
-// Reply mode toggle - cycles Harvester -> Philosophy -> Casual and
-// back. Persists across sessions; affects both the offline engine
-// (above) and which system prompt the proxy uses (sent per-request).
+// Reply mode dropdown - Harvester / Philosophy / Casual. Persists
+// across sessions; affects both the offline engine (above) and
+// which system prompt the proxy uses (sent per-request).
 // ============================================================
-if (modeBtn) {
-    function updateModeBtn() {
-        modeBtn.textContent = `MODE: ${MODE_LABELS[currentMode]}`;
-    }
+if (modeSelect) {
+    modeSelect.value = currentMode;
 
-    modeBtn.addEventListener('click', () => {
-        const nextIndex = (MODES.indexOf(currentMode) + 1) % MODES.length;
-        currentMode = MODES[nextIndex];
+    modeSelect.addEventListener('change', () => {
+        currentMode = MODES.includes(modeSelect.value) ? modeSelect.value : 'harvester';
         localStorage.setItem(MODE_KEY, currentMode);
-        updateModeBtn();
     });
-
-    updateModeBtn();
 }
 
 // ============================================================
