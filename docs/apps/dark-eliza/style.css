@@ -260,7 +260,6 @@ h1{
 
 .dossier-item-bonus .dossier-num{
   font-size:1rem;
-  min-width:auto;
 }
 
 .dossier-item:hover,
@@ -273,7 +272,7 @@ h1{
   font-size:1.5rem;
   font-weight:700;
   color:var(--blood);
-  min-width:2.2ch;
+  min-width:3.4rem;
   flex-shrink:0;
   transition:color .15s ease;
 }
@@ -577,6 +576,6 @@ h1{
   .chat-form{ padding:.6rem .7rem; }
   .send-btn{ padding:.5rem .8rem; font-size:.72rem; }
   .dossier-item{ padding:.9rem 1rem; gap:.7rem; }
-  .dossier-num{ font-size:1.15rem; min-width:1.8ch; }
+  .dossier-num{ font-size:1.15rem; min-width:2.6rem; }
   .dossier-title{ font-size:.92rem; }
 }
