@@ -331,9 +331,9 @@ h1{
 }
 
 .dossier-bonus-tag{
-  font-size:.85rem;
+  font-size:.7rem;
   font-weight:700;
-  letter-spacing:.2em;
+  letter-spacing:.15em;
   text-transform:uppercase;
   color:var(--blood);
   transition:color .15s ease;
