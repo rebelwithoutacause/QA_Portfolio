@@ -388,18 +388,23 @@ let preferredVoice = null;
 
 const FEMALE_VOICE_HINTS = [
     'female', 'zira', 'samantha', 'susan', 'karen', 'moira', 'tessa',
-    'victoria', 'fiona', 'hazel', 'salli', 'joanna', 'kendra', 'kimberly'
+    'victoria', 'fiona', 'hazel', 'salli', 'joanna', 'kendra', 'kimberly',
+    'aria', 'jenny', 'michelle', 'ava', 'emma'
 ];
 
-// Cloud-backed voices (localService === false, e.g. Chrome's "Google
-// US English") are synthesized on a server and sound far more natural
-// than the offline OS voices (Windows SAPI, etc.), which tend to read
-// flat and robotic. Prefer network + female-named, but take whatever
-// scores highest if that exact combo isn't available.
+// Neural/cloud engines (Edge's "...Online (Natural)" voices, Chrome's
+// "Google" voices) sound far more natural than the offline OS voices
+// (Windows SAPI "Zira"/"David", etc.), which read flat and robotic.
+// Weight these hints heavily so a Natural/Neural voice always wins over
+// a merely female-named local one.
+const PREMIUM_VOICE_HINTS = ['natural', 'neural', 'online', 'google'];
+
 function scoreVoice(v) {
     let score = 0;
     if (!v.localService) score += 2;
-    if (FEMALE_VOICE_HINTS.some(hint => v.name.toLowerCase().includes(hint))) score += 1;
+    const name = v.name.toLowerCase();
+    if (PREMIUM_VOICE_HINTS.some(hint => name.includes(hint))) score += 4;
+    if (FEMALE_VOICE_HINTS.some(hint => name.includes(hint))) score += 1;
     return score;
 }
 
@@ -413,15 +418,34 @@ function pickFemaleVoice() {
     return pool.slice().sort((a, b) => scoreVoice(b) - scoreVoice(a))[0];
 }
 
+// getVoices() is asynchronous and unreliable across browsers: it often
+// returns [] on the very first call, and onvoiceschanged doesn't always
+// fire (notably in Chrome, depending on cache state). Poll for a few
+// seconds after load as a fallback so the good voices aren't missed.
+function refreshPreferredVoice() {
+    const found = pickFemaleVoice();
+    if (found) preferredVoice = found;
+    return found;
+}
+
 if (speechSupported) {
-    preferredVoice = pickFemaleVoice();
-    speechSynthesis.onvoiceschanged = () => { preferredVoice = pickFemaleVoice(); };
+    refreshPreferredVoice();
+    speechSynthesis.onvoiceschanged = refreshPreferredVoice;
+
+    let voicePollAttempts = 0;
+    const voicePoll = setInterval(() => {
+        voicePollAttempts += 1;
+        if (refreshPreferredVoice() || voicePollAttempts >= 10) {
+            clearInterval(voicePoll);
+        }
+    }, 300);
 } else if (voiceBtn) {
     voiceBtn.style.display = 'none';
 }
 
 function speak(text) {
     if (!voiceEnabled || !speechSupported) return;
+    if (!preferredVoice) refreshPreferredVoice();
     speechSynthesis.cancel();
     const utter = new SpeechSynthesisUtterance(text);
     if (preferredVoice) utter.voice = preferredVoice;
