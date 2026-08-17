@@ -1,0 +1,30 @@
+name: QA Smoke Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install test dependencies
+        working-directory: .github/qa-tests
+        run: npm ci
+
+      - name: Install Playwright browser
+        working-directory: .github/qa-tests
+        run: npx playwright install --with-deps chromium
+
+      - name: Run QA smoke checks
+        working-directory: .github/qa-tests
+        run: node smoke-test.mjs

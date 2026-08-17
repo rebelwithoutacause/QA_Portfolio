@@ -1,0 +1,8 @@
+{
+  "name": "qa-portfolio-smoke-tests",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "playwright": "1.55.0"
+  }
+}
