@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark-ELIZA — Real Eliza</title>
+<meta name="description" content="The real 1966 ELIZA program by Joseph Weizenbaum at MIT, and the ELIZA effect.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%230a0706'/%3E%3Ccircle cx='12' cy='12' r='6' fill='none' stroke='%23a11d1d' stroke-width='1.6'/%3E%3Ccircle cx='12' cy='12' r='1.6' fill='%23a11d1d'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="staticNoise"></canvas>
+<div class="scanlines"></div>
+
+<div class="wrap">
+  <header class="title-block">
+    <div>
+      <h1 class="typing-cursor">REAL ELIZA</h1>
+      <p class="subtitle">File 01 — MIT, 1966</p>
+    </div>
+  </header>
+
+  <main class="terminal">
+    <div class="terminal-bar">
+      <span>FILE_01</span>
+      <div class="terminal-actions">
+        <a href="info.html" class="clear-btn info-btn">&larr; ARCHIVE</a>
+      </div>
+    </div>
+
+    <div class="dossier-body">
+
+      <section>
+        <p>In 1966, MIT computer scientist Joseph Weizenbaum published ELIZA, one of the first programs able to hold something resembling a conversation in plain English. Its best-known script, DOCTOR, imitated a Rogerian psychotherapist — a style chosen deliberately, because that kind of therapist mostly reflects a patient's own words back as questions ("I feel sad" &rarr; "Why do you feel sad?"). That let Weizenbaum's simple pattern-matching and keyword substitution get away with very little real understanding.</p>
+        <p>Weizenbaum built ELIZA to study natural-language communication between humans and machines, not to prove machines could think. He was reportedly unsettled by how seriously people engaged with it — most famously his own secretary, who asked him to leave the room so she could have a "private" conversation with the program. That tendency to read understanding, empathy, or intent into a script that has none is now called the <strong>ELIZA effect</strong>. Weizenbaum spent much of the rest of his career warning against it, publishing the book <em>Computer Power and Human Reason</em> in 1976.</p>
+        <p>Dark-ELIZA borrows the name and the reflection trick — the <code>reflect()</code> function in this app's code ("I am" &rarr; "you are", "my" &rarr; "your") is a direct descendant of DOCTOR's. Everything else — the horror, the town, the memory — is fiction layered on top.</p>
+      </section>
+
+      <section class="disclaimer">
+        <p>Dark-ELIZA is an unofficial, fan-made creative reinterpretation. It is not affiliated with, endorsed by, or sponsored by Joseph Weizenbaum's estate or MIT.</p>
+        <p>Further reading: <a href="https://en.wikipedia.org/wiki/ELIZA" target="_blank" rel="noopener">ELIZA on Wikipedia</a></p>
+      </section>
+
+      <nav class="dossier-nav">
+        <a href="info.html" class="dossier-nav-link">&larr; ARCHIVE</a>
+        <a href="harvester.html" class="dossier-nav-link dossier-nav-next">HARVESTER &rarr;</a>
+      </nav>
+
+    </div>
+  </main>
+</div>
+
+<script src="dossier.js"></script>
+</body>
+</html>

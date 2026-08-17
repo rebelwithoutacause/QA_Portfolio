@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark-ELIZA — Case File</title>
+<meta name="description" content="The real history behind Dark-ELIZA: the 1966 ELIZA chatbot, the 1996 horror game Harvester, its creators and characters, and trivia.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%230a0706'/%3E%3Ccircle cx='12' cy='12' r='6' fill='none' stroke='%23a11d1d' stroke-width='1.6'/%3E%3Ccircle cx='12' cy='12' r='1.6' fill='%23a11d1d'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="staticNoise"></canvas>
+<div class="scanlines"></div>
+
+<div class="wrap">
+  <header class="title-block">
+    <div>
+      <h1 class="typing-cursor">CASE FILE</h1>
+      <p class="subtitle">Select a file to open.</p>
+    </div>
+  </header>
+
+  <main class="terminal">
+    <div class="terminal-bar">
+      <span>ARCHIVE_ACCESS</span>
+      <div class="terminal-actions">
+        <a href="index.html" class="clear-btn info-btn">&larr; BACK TO SESSION</a>
+      </div>
+    </div>
+
+    <nav class="dossier-menu">
+      <a class="dossier-item" href="eliza.html">
+        <span class="dossier-num">01</span>
+        <span class="dossier-text">
+          <span class="dossier-title">REAL ELIZA</span>
+          <span class="dossier-desc">MIT, 1966. The program this whole thing is named after.</span>
+        </span>
+        <span class="dossier-arrow">&gt;</span>
+      </a>
+      <a class="dossier-item" href="harvester.html">
+        <span class="dossier-num">02</span>
+        <span class="dossier-text">
+          <span class="dossier-title">HARVESTER</span>
+          <span class="dossier-desc">Texas, 1953. The game, the town, the people in it.</span>
+        </span>
+        <span class="dossier-arrow">&gt;</span>
+      </a>
+      <a class="dossier-item" href="facts.html">
+        <span class="dossier-num">03</span>
+        <span class="dossier-text">
+          <span class="dossier-title">FACTS</span>
+          <span class="dossier-desc">Trivia and production notes nobody asked for.</span>
+        </span>
+        <span class="dossier-arrow">&gt;</span>
+      </a>
+    </nav>
+  </main>
+</div>
+
+<script src="dossier.js"></script>
+</body>
+</html>

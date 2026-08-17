@@ -148,6 +148,194 @@ h1{
   color:var(--blood-bright);
 }
 
+.info-btn{
+  display:inline-block;
+  text-decoration:none;
+}
+
+/* ---------- dossier / case file page ---------- */
+.dossier-body{
+  padding:1.3rem 1.4rem 1.6rem;
+  display:flex;
+  flex-direction:column;
+  gap:1.6rem;
+}
+
+.dossier-body section h2{
+  color:var(--blood-bright);
+  font-size:1rem;
+  letter-spacing:.08em;
+  margin-bottom:.6rem;
+  text-transform:uppercase;
+}
+
+.dossier-body section p{
+  color:var(--ink);
+  font-size:.92rem;
+  margin-bottom:.6rem;
+}
+
+.dossier-body section p:last-child{
+  margin-bottom:0;
+}
+
+.dossier-body dl{
+  display:flex;
+  flex-direction:column;
+  gap:.7rem;
+}
+
+.dossier-body dt{
+  color:var(--blood-bright);
+  font-weight:700;
+  font-size:.9rem;
+}
+
+.dossier-body dd{
+  color:var(--ink);
+  font-size:.9rem;
+  margin-left:0;
+}
+
+.dossier-body ul{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:.5rem;
+}
+
+.dossier-body ul li{
+  color:var(--ink);
+  font-size:.9rem;
+  padding-left:1.1rem;
+  position:relative;
+}
+
+.dossier-body ul li::before{
+  content:'>';
+  position:absolute;
+  left:0;
+  color:var(--sick-green);
+}
+
+.dossier-body a{
+  color:var(--sick-green);
+  text-decoration:underline;
+}
+
+.dossier-body a:hover{
+  color:var(--blood-bright);
+}
+
+.dossier-body .disclaimer p{
+  color:var(--ink-dim);
+  font-size:.8rem;
+  font-style:italic;
+}
+
+/* ---------- dossier menu (case-file landing page) ---------- */
+.dossier-menu{
+  display:flex;
+  flex-direction:column;
+}
+
+.dossier-item{
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  padding:1.15rem 1.4rem;
+  text-decoration:none;
+  border-bottom:1px solid var(--border);
+  transition:background-color .15s ease;
+}
+
+.dossier-item:last-child{
+  border-bottom:none;
+}
+
+.dossier-item:hover,
+.dossier-item:focus-visible{
+  background:rgba(161,29,29,.08);
+  outline:none;
+}
+
+.dossier-num{
+  font-size:1.5rem;
+  font-weight:700;
+  color:var(--border);
+  min-width:2.2ch;
+  flex-shrink:0;
+  transition:color .15s ease;
+}
+
+.dossier-item:hover .dossier-num,
+.dossier-item:focus-visible .dossier-num{
+  color:var(--blood-bright);
+}
+
+.dossier-text{
+  display:flex;
+  flex-direction:column;
+  gap:.25rem;
+  flex:1;
+  min-width:0;
+}
+
+.dossier-title{
+  font-size:1.05rem;
+  letter-spacing:.1em;
+  color:var(--blood-bright);
+  text-shadow:1px 0 0 rgba(124,148,104,.35), -1px 0 0 rgba(161,29,29,.35);
+}
+
+.dossier-item:hover .dossier-title,
+.dossier-item:focus-visible .dossier-title{
+  animation:terminalGlitch .35s steps(2, end);
+}
+
+.dossier-desc{
+  font-size:.8rem;
+  color:var(--ink-dim);
+}
+
+.dossier-arrow{
+  color:var(--border);
+  font-size:1.3rem;
+  flex-shrink:0;
+  transition:color .15s ease, transform .15s ease;
+}
+
+.dossier-item:hover .dossier-arrow,
+.dossier-item:focus-visible .dossier-arrow{
+  color:var(--blood-bright);
+  transform:translateX(4px);
+}
+
+/* ---------- prev/next nav on case-file pages ---------- */
+.dossier-nav{
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  padding-top:.6rem;
+  border-top:1px solid var(--border);
+}
+
+.dossier-nav-link{
+  font-size:.75rem;
+  letter-spacing:.06em;
+  color:var(--ink-dim);
+  text-decoration:none;
+  transition:color .15s ease;
+}
+
+.dossier-nav-link:hover{
+  color:var(--blood-bright);
+}
+
+.dossier-nav-next{
+  margin-left:auto;
+}
+
 /* ---------- typing indicator ---------- */
 .typing-indicator .body{
   display:inline-flex;
@@ -367,6 +555,7 @@ h1{
   .avatar.avatar-shake{ animation:none; }
   .jumpscare-flash.active{ animation:none; }
   .wrap.jumpscare-shake{ animation:none; }
+  .dossier-item:hover .dossier-title, .dossier-item:focus-visible .dossier-title{ animation:none; }
 }
 
 @media (max-width:600px){
@@ -377,4 +566,7 @@ h1{
   .chat-log{ height:min(58vh, 420px); font-size:.92rem; }
   .chat-form{ padding:.6rem .7rem; }
   .send-btn{ padding:.5rem .8rem; font-size:.72rem; }
+  .dossier-item{ padding:.9rem 1rem; gap:.7rem; }
+  .dossier-num{ font-size:1.15rem; min-width:1.8ch; }
+  .dossier-title{ font-size:.92rem; }
 }
