@@ -1,0 +1,16 @@
+{
+  "name": "playwright-api-tests-jsonplaceholder",
+  "version": "1.0.0",
+  "description": "Playwright API tests (request context, no browser) against jsonplaceholder.typicode.com",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report"
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0"
+  }
+}

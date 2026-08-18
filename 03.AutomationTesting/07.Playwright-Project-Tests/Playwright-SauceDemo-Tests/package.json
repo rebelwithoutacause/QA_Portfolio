@@ -1,0 +1,16 @@
+{
+  "name": "playwright-saucedemo-tests",
+  "version": "1.0.0",
+  "description": "Playwright UI tests against saucedemo.com - locators, fixtures, Page Object Model",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report"
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0"
+  }
+}
