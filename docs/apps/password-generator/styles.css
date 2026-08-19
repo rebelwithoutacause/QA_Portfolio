@@ -136,7 +136,7 @@ body::before {
     margin-bottom: 15px;
 }
 
-.control-group label {
+.control-group > label {
     display: block;
     margin-bottom: 8px;
     color: #ffaa00;
