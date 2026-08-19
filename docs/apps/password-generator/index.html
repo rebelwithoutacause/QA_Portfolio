@@ -87,7 +87,7 @@
                         <div class="control-group batch-controls">
                             <label for="batchCount">BATCH GENERATION:</label>
                             <div class="slider-container">
-                                <input type="range" id="batchCount" class="slider" min="1" max="10" value="1">
+                                <input type="range" id="batchCount" class="slider" min="1" max="3" value="1">
                                 <span class="length-display" id="batchDisplay">1</span>
                             </div>
                         </div>
@@ -231,13 +231,59 @@
                 }
             }
 
-            generateRandomPassword(length, options) {
-                const charset = this.buildCharset(options);
-                let password = '';
-                for (let i = 0; i < length; i++) {
-                    password += charset[Math.floor(Math.random() * charset.length)];
+            secureRandomInt(maxExclusive) {
+                const range = maxExclusive;
+                const maxUint32 = 0xFFFFFFFF;
+                const limit = maxUint32 - (maxUint32 % range);
+                const buf = new Uint32Array(1);
+                let value;
+                do {
+                    crypto.getRandomValues(buf);
+                    value = buf[0];
+                } while (value >= limit);
+                return value % range;
+            }
+
+            secureRandomChar(charset) {
+                return charset[this.secureRandomInt(charset.length)];
+            }
+
+            secureShuffle(arr) {
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = this.secureRandomInt(i + 1);
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
                 }
-                return password;
+                return arr;
+            }
+
+            generateRandomPassword(length, options) {
+                let uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                let lowercase = 'abcdefghijklmnopqrstuvwxyz';
+                let numbers = '0123456789';
+                let symbols = options.customSymbols || '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+                const categories = [];
+                if (options.uppercase) categories.push(uppercase);
+                if (options.lowercase) categories.push(lowercase);
+                if (options.numbers) categories.push(numbers);
+                if (options.symbols) categories.push(symbols);
+
+                const charset = this.buildCharset(options);
+                const passwordChars = [];
+
+                // Guarantee at least one character from every selected
+                // category so the result reliably scores as Strong+.
+                categories.forEach(category => {
+                    if (passwordChars.length < length) {
+                        passwordChars.push(this.secureRandomChar(category));
+                    }
+                });
+
+                while (passwordChars.length < length) {
+                    passwordChars.push(this.secureRandomChar(charset));
+                }
+
+                return this.secureShuffle(passwordChars).join('');
             }
 
             buildCharset(options) {
@@ -258,7 +304,6 @@
 
             generatePatternPassword(options) {
                 const pattern = this.patternInput.value.toUpperCase();
-                const charset = this.buildCharset(options);
                 const upperChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
                 const lowerChars = 'abcdefghijklmnopqrstuvwxyz';
                 const numberChars = '0123456789';
@@ -269,16 +314,16 @@
                 for (let char of pattern) {
                     switch (char) {
                         case 'L':
-                            password += upperChars[Math.floor(Math.random() * upperChars.length)];
+                            password += this.secureRandomChar(upperChars);
                             break;
                         case 'l':
-                            password += lowerChars[Math.floor(Math.random() * lowerChars.length)];
+                            password += this.secureRandomChar(lowerChars);
                             break;
                         case 'N':
-                            password += numberChars[Math.floor(Math.random() * numberChars.length)];
+                            password += this.secureRandomChar(numberChars);
                             break;
                         case 'S':
-                            password += symbolChars[Math.floor(Math.random() * symbolChars.length)];
+                            password += this.secureRandomChar(symbolChars);
                             break;
                         default:
                             password += char;
@@ -291,17 +336,31 @@
             generatePronounceablePassword(length) {
                 const consonants = 'bcdfghjklmnpqrstvwxyz';
                 const vowels = 'aeiou';
-                let password = '';
+                const numberChars = '0123456789';
+                const symbolChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
 
-                for (let i = 0; i < length; i++) {
+                // Reserve a short digit+symbol suffix so the pronounceable
+                // base still hits every strength category (Strong+).
+                const suffixLength = Math.min(3, Math.max(length - 1, 0));
+                const baseLength = Math.max(length - suffixLength, 1);
+
+                let password = '';
+                for (let i = 0; i < baseLength; i++) {
                     if (i % 2 === 0) {
-                        password += consonants[Math.floor(Math.random() * consonants.length)];
+                        password += this.secureRandomChar(consonants);
                     } else {
-                        password += vowels[Math.floor(Math.random() * vowels.length)];
+                        password += this.secureRandomChar(vowels);
                     }
                 }
 
-                return password.charAt(0).toUpperCase() + password.slice(1);
+                password = password.charAt(0).toUpperCase() + password.slice(1);
+
+                let suffix = '';
+                if (suffixLength >= 1) suffix += this.secureRandomChar(numberChars);
+                if (suffixLength >= 2) suffix += this.secureRandomChar(numberChars);
+                if (suffixLength >= 3) suffix += this.secureRandomChar(symbolChars);
+
+                return password + suffix;
             }
 
             generatePassphrase(wordCount) {
@@ -309,11 +368,11 @@
                 const selectedWords = [];
 
                 for (let i = 0; i < Math.min(wordCount, 8); i++) {
-                    const word = words[Math.floor(Math.random() * words.length)];
+                    const word = words[this.secureRandomInt(words.length)];
                     selectedWords.push(word.charAt(0).toUpperCase() + word.slice(1));
                 }
 
-                return selectedWords.join('-') + Math.floor(Math.random() * 999);
+                return selectedWords.join('-') + this.secureRandomInt(999);
             }
 
             calculatePasswordStrength(password) {
@@ -372,13 +431,23 @@
 
             displayBatchPasswords() {
                 this.passwordBatch.innerHTML = '';
-                this.currentPasswords.forEach((password, index) => {
+                this.currentPasswords.forEach((password) => {
                     const passwordItem = document.createElement('div');
                     passwordItem.className = 'batch-password-item';
-                    passwordItem.innerHTML = `
-                        <span class="batch-password">${password}</span>
-                        <button class="mini-copy-btn" onclick="navigator.clipboard.writeText('${password}');">Copy</button>
-                    `;
+
+                    const passwordSpan = document.createElement('span');
+                    passwordSpan.className = 'batch-password';
+                    passwordSpan.textContent = password;
+
+                    const copyButton = document.createElement('button');
+                    copyButton.className = 'mini-copy-btn';
+                    copyButton.textContent = 'Copy';
+                    copyButton.addEventListener('click', () => {
+                        navigator.clipboard.writeText(password);
+                    });
+
+                    passwordItem.appendChild(passwordSpan);
+                    passwordItem.appendChild(copyButton);
                     this.passwordBatch.appendChild(passwordItem);
                 });
             }
