@@ -534,6 +534,17 @@ body::before {
     font-weight: 600;
 }
 
+.checkbox-item.locked {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.checkbox-item.locked input[type="checkbox"],
+.checkbox-item.locked label {
+    cursor: not-allowed;
+}
+
 
 .generate-btn-centered {
     display: block;

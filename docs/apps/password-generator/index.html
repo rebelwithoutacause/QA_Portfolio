@@ -156,6 +156,7 @@
                 this.genModeRadios.forEach(radio => {
                     radio.addEventListener('change', () => {
                         this.patternControls.style.display = radio.value === 'pattern' ? 'block' : 'none';
+                        this.updatePhoneticLock(radio.value);
                     });
                 });
 
@@ -171,6 +172,16 @@
 
                 this.saveBtn.addEventListener('click', () => {
                     this.savePasswords();
+                });
+            }
+
+            updatePhoneticLock(mode) {
+                const isPhonetic = mode === 'pronounceable';
+
+                [this.numbersCheck, this.symbolsCheck].forEach(checkbox => {
+                    checkbox.disabled = isPhonetic;
+                    checkbox.closest('.checkbox-item').classList.toggle('locked', isPhonetic);
+                    if (isPhonetic) checkbox.checked = false;
                 });
             }
 
