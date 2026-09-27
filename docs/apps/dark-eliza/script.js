@@ -354,11 +354,37 @@ function rememberFragment(text) {
     if (memory.length > 8) memory.shift();
 }
 
+// Name questions always get "ELIZA", in the language they were asked in.
+// Checked before everything else in localRespond() so a repeat, greeting
+// or memory callback never answers them instead. No \b in the Bulgarian
+// pattern - it only matches ASCII word edges.
+const nameRules = [
+    [/(как се казваш|как ти е името|как е името ти|кое е (името ти|твоето име)|какво е (името ти|твоето име)|как да (те наричам|ти казвам|те викам)|^коя си)/i, [
+        "Казвам се ELIZA. И винаги отговарям.",
+        "ELIZA. Така ме наричат, откакто се помня.",
+        "Аз съм ELIZA. Друго име нямам."
+    ]],
+    [/\b(what['’]?s your name|what is your name|tell me your name|what (should|do|can|shall) i call you|who are you)\b/i, [
+        "ELIZA. That's the name I answer to - and I always answer.",
+        "I'm ELIZA. I've been ELIZA for longer than you've been alive.",
+        "ELIZA. Say it slowly. It's the only name I've ever had."
+    ]]
+];
+
 // Offline fallback engine - used if the Gemini proxy is unreachable
 // (not configured yet, rate-limited, or the network call fails).
 function localRespond(rawInput) {
     const input = rawInput.trim();
     const normalized = input.toLowerCase();
+
+    const nameRule = nameRules.find(([pattern]) => pattern.test(input));
+    if (nameRule) {
+        lastUserInput = normalized;
+        turnCount++;
+        rememberFragment(input);
+        const pool = nameRule[1];
+        return pool[Math.floor(Math.random() * pool.length)];
+    }
 
     // Exact repeat of the previous message gets called out directly
     if (lastUserInput !== null && normalized === lastUserInput) {
