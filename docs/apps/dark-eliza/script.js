@@ -533,7 +533,9 @@ if (speechSupported) {
         }
     }, 300);
 } else if (voiceBtn) {
-    voiceBtn.style.display = 'none';
+    voiceBtn.disabled = true;
+    voiceBtn.textContent = 'VOICE: N/A';
+    voiceBtn.title = 'Voice is not supported in this browser - try Chrome or Safari';
 }
 
 function speak(text) {
