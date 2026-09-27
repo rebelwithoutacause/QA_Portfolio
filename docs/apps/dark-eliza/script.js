@@ -354,16 +354,10 @@ function rememberFragment(text) {
     if (memory.length > 8) memory.shift();
 }
 
-// Name questions always get "ELIZA", in the language they were asked in.
-// Checked before everything else in localRespond() so a repeat, greeting
-// or memory callback never answers them instead. No \b in the Bulgarian
-// pattern - it only matches ASCII word edges.
+// Name questions always get "ELIZA". Checked before everything else in
+// localRespond() so a repeat, greeting or memory callback never answers
+// them instead.
 const nameRules = [
-    [/(как се казваш|как ти е името|как е името ти|кое е (името ти|твоето име)|какво е (името ти|твоето име)|как да (те наричам|ти казвам|те викам)|^коя си)/i, [
-        "Казвам се ELIZA. И винаги отговарям.",
-        "ELIZA. Така ме наричат, откакто се помня.",
-        "Аз съм ELIZA. Друго име нямам."
-    ]],
     [/\b(what['’]?s your name|what is your name|tell me your name|what (should|do|can|shall) i call you|who are you)\b/i, [
         "ELIZA. That's the name I answer to - and I always answer.",
         "I'm ELIZA. I've been ELIZA for longer than you've been alive.",
@@ -873,6 +867,55 @@ async function openSession() {
     localStorage.setItem(GREETED_KEY, '1');
 }
 
+// ============================================================
+// English-only input - Cyrillic is stripped as it's typed or pasted,
+// and a message that still contains any is never sent. The placeholder
+// and the browser's own validation tooltip say why.
+// ============================================================
+const CYRILLIC = /[\u0400-\u052F\u1C80-\u1C8F\u2DE0-\u2DFF\uA640-\uA69F]/;
+const CYRILLIC_ALL = new RegExp(CYRILLIC.source, 'g');
+const DEFAULT_PLACEHOLDER = chatInput.placeholder;
+let englishHintTimer = null;
+
+// The tooltip is informational only - the Cyrillic check in the submit
+// handler does the blocking, so a pending hint never stops a clean message.
+chatForm.noValidate = true;
+
+function showEnglishOnlyHint() {
+    chatInput.placeholder = 'english only...';
+    chatInput.setCustomValidity('Dark-ELIZA only speaks English - Cyrillic letters are not allowed.');
+    chatInput.reportValidity();
+    clearTimeout(englishHintTimer);
+    englishHintTimer = setTimeout(() => {
+        chatInput.placeholder = DEFAULT_PLACEHOLDER;
+        chatInput.setCustomValidity('');
+    }, 2500);
+}
+
+function stripCyrillic() {
+    if (!CYRILLIC.test(chatInput.value)) return;
+    // Strip it, keeping the caret where the user was typing. If nothing but
+    // spaces/punctuation is left, clear the field so the hint placeholder shows.
+    const caret = chatInput.selectionStart;
+    const before = chatInput.value.slice(0, caret).replace(CYRILLIC_ALL, '');
+    const stripped = before + chatInput.value.slice(caret).replace(CYRILLIC_ALL, '');
+    if (/[a-z0-9]/i.test(stripped)) {
+        chatInput.value = stripped;
+        chatInput.setSelectionRange(before.length, before.length);
+    } else {
+        chatInput.value = '';
+    }
+    showEnglishOnlyHint();
+}
+
+// Mobile keyboards compose words through an IME - rewriting the field
+// mid-composition can duplicate or scramble text, so wait until the word
+// is committed. The submit check still blocks anything in between.
+chatInput.addEventListener('input', (e) => {
+    if (!e.isComposing) stripCyrillic();
+});
+chatInput.addEventListener('compositionend', stripCyrillic);
+
 let busy = false;
 
 chatForm.addEventListener('submit', async (e) => {
@@ -882,6 +925,10 @@ chatForm.addEventListener('submit', async (e) => {
 
     const text = chatInput.value.trim();
     if (!text) return;
+    if (CYRILLIC.test(text)) {
+        showEnglishOnlyHint();
+        return;
+    }
 
     chatInput.value = '';
     chatInput.disabled = true;
