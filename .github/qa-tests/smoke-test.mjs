@@ -149,6 +149,66 @@ async function checkMobileOverflow(mobilePage, pagePath) {
     return [];
 }
 
+// Regression: Android WebView can report a 0x0 viewport before layout (or
+// mid-rotation), which made the VHS static noise call createImageData(0, h)
+// and throw IndexSizeError. Fake a zero viewport, check nothing throws, then
+// restore it and check the noise canvas sizes itself and actually draws.
+const ZERO_VIEWPORT_PAGES = ['apps/dark-eliza/index.html', 'apps/dark-eliza/info.html'];
+
+async function checkZeroViewportNoise(browser, pagePath) {
+    const context = await browser.newContext({ reducedMotion: 'no-preference' });
+    await context.addInitScript(() => {
+        window.__zeroViewport = true;
+        for (const prop of ['innerWidth', 'innerHeight']) {
+            const desc = Object.getOwnPropertyDescriptor(window, prop) ||
+                Object.getOwnPropertyDescriptor(Window.prototype, prop);
+            Object.defineProperty(window, prop, {
+                configurable: true,
+                get() { return window.__zeroViewport ? 0 : desc.get.call(window); }
+            });
+        }
+    });
+    const page = await context.newPage();
+    const pageErrors = [];
+    page.on('pageerror', (err) => pageErrors.push(err.message));
+
+    const issues = [];
+    await page.goto(`${BASE_URL}/${pagePath}`, { waitUntil: 'networkidle', timeout: 20000 });
+    await page.waitForTimeout(500); // several noise frames (~120ms apart) at 0x0
+    pageErrors.splice(0).forEach((m) => issues.push(`error with zero-size viewport: ${m}`));
+
+    await page.evaluate(() => {
+        window.__zeroViewport = false;
+        window.dispatchEvent(new Event('resize'));
+    });
+    const sized = await page
+        .waitForFunction(() => {
+            const c = document.getElementById('staticNoise');
+            return c && c.width > 0 && c.height > 0;
+        }, null, { timeout: 3000 })
+        .then(() => true, () => false);
+
+    if (!sized) {
+        issues.push('noise canvas never got non-zero dimensions after viewport restored');
+    } else {
+        await page.waitForTimeout(300); // let a few frames draw
+        const distinctShades = await page.evaluate(() => {
+            const c = document.getElementById('staticNoise');
+            const data = c.getContext('2d').getImageData(0, 0, Math.min(c.width, 64), Math.min(c.height, 64)).data;
+            const shades = new Set();
+            for (let i = 0; i < data.length; i += 4) {
+                if (data[i + 3] === 255) shades.add(data[i]);
+            }
+            return shades.size;
+        });
+        if (distinctShades < 10) issues.push(`noise not rendering (only ${distinctShades} distinct opaque shades)`);
+    }
+    pageErrors.forEach((m) => issues.push(`error after viewport restored: ${m}`));
+
+    await context.close();
+    return issues;
+}
+
 async function main() {
     const server = await startServer();
     const browser = await chromium.launch();
@@ -173,6 +233,14 @@ async function main() {
         results.push(result);
     }
 
+    const zeroViewportResults = [];
+    for (const file of ZERO_VIEWPORT_PAGES) {
+        process.stdout.write(`Checking ${file} with zero-size viewport ... `);
+        const issues = await checkZeroViewportNoise(browser, file);
+        console.log(issues.length ? 'FAIL' : 'ok');
+        zeroViewportResults.push({ pagePath: file, issues });
+    }
+
     await browser.close();
     server.close();
 
@@ -189,6 +257,13 @@ async function main() {
             failed = true;
             console.log(`\n--- ${r.pagePath} ---`);
             issues.forEach((i) => console.log(`  ✗ ${i}`));
+        }
+    }
+    for (const r of zeroViewportResults) {
+        if (r.issues.length) {
+            failed = true;
+            console.log(`\n--- ${r.pagePath} (zero-size viewport) ---`);
+            r.issues.forEach((i) => console.log(`  ✗ ${i}`));
         }
     }
 

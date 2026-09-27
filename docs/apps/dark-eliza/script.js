@@ -1150,6 +1150,11 @@ function playJumpscareSound() {
     window.addEventListener('resize', resize);
 
     function drawNoise() {
+        if (!canvas.width || !canvas.height) {
+            resize();
+            return;
+        }
+
         const imageData = ctx.createImageData(canvas.width, canvas.height);
         const buffer = imageData.data;
         for (let i = 0; i < buffer.length; i += 4) {
