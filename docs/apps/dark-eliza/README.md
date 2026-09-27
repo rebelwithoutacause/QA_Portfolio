@@ -12,6 +12,7 @@ The "VOICE: ON" toggle uses the browser's built-in Web Speech API (`speechSynthe
 - **Brave** and most other Chromium forks sound noticeably more robotic — Brave strips out the Google API keys Chrome uses for its cloud voices for privacy reasons, so only the flat, offline OS voice (Windows SAPI, etc.) is ever available to pick from, no matter what the page does.
 - **Firefox** also sounds robotic — its `speechSynthesis` implementation has never included any cloud/network voices, only whatever the OS provides directly, same limitation as Brave.
 - On Windows, installing an offline "Natural" voice (Settings → Time & Language → Speech → Manage voices → Add voices) improves things in any browser, but that voice list is gated by the Windows region and isn't offered in every market.
+- **In-app browsers** (links opened inside Messenger, Instagram, etc. on Android) run on Android WebView, which doesn't expose `speechSynthesis` at all. There, and in any other browser without it, the reply text is sent to the proxy's `/api/tts` endpoint instead, which synthesizes it with Gemini TTS (key stays server-side) and the audio plays through Web Audio. Browsers that do have `speechSynthesis` never use this path.
 
 ## Reply Mode
 

@@ -476,7 +476,11 @@ if (modeSelect) {
 
 const VOICE_KEY = 'darkEliza.voiceEnabled';
 const speechSupported = 'speechSynthesis' in window;
-let voiceEnabled = speechSupported && localStorage.getItem(VOICE_KEY) === '1';
+// Browsers without speechSynthesis (notably Android in-app WebViews) get a
+// server-side fallback instead - see speakFallback() below.
+const FallbackAudioContext = window.AudioContext || window.webkitAudioContext;
+const fallbackVoice = !speechSupported && !!FallbackAudioContext;
+let voiceEnabled = (speechSupported || fallbackVoice) && localStorage.getItem(VOICE_KEY) === '1';
 let preferredVoice = null;
 
 const FEMALE_VOICE_HINTS = [
@@ -532,14 +536,18 @@ if (speechSupported) {
             clearInterval(voicePoll);
         }
     }, 300);
-} else if (voiceBtn) {
+} else if (voiceBtn && !fallbackVoice) {
     voiceBtn.disabled = true;
     voiceBtn.textContent = 'VOICE: N/A';
     voiceBtn.title = 'Voice is not supported in this browser - try Chrome or Safari';
 }
 
 function speak(text) {
-    if (!voiceEnabled || !speechSupported) return;
+    if (!voiceEnabled) return;
+    if (fallbackVoice) {
+        speakFallback(text);
+        return;
+    }
     if (!preferredVoice) refreshPreferredVoice();
     speechSynthesis.cancel();
     const utter = new SpeechSynthesisUtterance(text);
@@ -559,6 +567,10 @@ function speak(text) {
 // later async speak() calls in the same page session go through.
 let speechUnlocked = false;
 function unlockSpeech() {
+    if (fallbackVoice) {
+        unlockFallbackAudio();
+        return;
+    }
     if (speechUnlocked || !speechSupported) return;
     speechUnlocked = true;
     try {
@@ -570,6 +582,99 @@ function unlockSpeech() {
     }
 }
 
+// Fallback voice for browsers without speechSynthesis: the proxy turns the
+// reply into speech with Gemini TTS (the key stays server-side) and the
+// audio plays through a single AudioContext. That context is created and
+// resumed inside the VOICE click and the send handler (via unlockSpeech),
+// so it's allowed to start playback later, after the network round-trips -
+// a fresh <audio> element created at that point gets blocked as autoplay.
+const TTS_ENDPOINT = 'https://dark-eliza-proxy.vercel.app/api/tts';
+// Keep in sync with MAX_TEXT_LENGTH in the proxy's api/tts.js.
+const TTS_MAX_CHARS = 700;
+let fallbackCtx = null;
+let fallbackSource = null;
+let fallbackRequest = null;
+
+function unlockFallbackAudio() {
+    try {
+        if (!fallbackCtx) fallbackCtx = new FallbackAudioContext();
+        // 'suspended' before the first tap, or 'interrupted' on iOS after a
+        // call or app switch - either way, resume from this gesture.
+        if (fallbackCtx.state !== 'running') fallbackCtx.resume().catch(() => {});
+        // A one-sample silent buffer started inside the gesture - older iOS
+        // versions won't let the context make sound until one has played.
+        const silence = fallbackCtx.createBufferSource();
+        silence.buffer = fallbackCtx.createBuffer(1, 1, 22050);
+        silence.connect(fallbackCtx.destination);
+        silence.start(0);
+    } catch (error) {
+        console.warn('Voice fallback could not unlock audio:', error.message);
+    }
+}
+
+function stopFallbackAudio() {
+    if (fallbackRequest) {
+        fallbackRequest.abort();
+        fallbackRequest = null;
+    }
+    if (fallbackSource) {
+        try {
+            fallbackSource.stop();
+        } catch (error) {
+            // Already finished.
+        }
+        fallbackSource = null;
+    }
+}
+
+async function speakFallback(text) {
+    // A newer reply always wins - drop any request still in flight and
+    // cut off whatever is currently playing.
+    stopFallbackAudio();
+    if (text.length > TTS_MAX_CHARS) {
+        console.warn(`Voice fallback skipped: reply is ${text.length} chars (max ${TTS_MAX_CHARS}).`);
+        return;
+    }
+    // No gesture yet (e.g. the opening greeting) - this may stay suspended
+    // on iOS until the first tap, in which case the line is just silent.
+    if (!fallbackCtx) unlockFallbackAudio();
+    if (!fallbackCtx) return;
+
+    const controller = new AbortController();
+    fallbackRequest = controller;
+    const timeout = setTimeout(() => controller.abort(), 15000);
+
+    try {
+        const response = await fetch(TTS_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text }),
+            signal: controller.signal
+        });
+        if (!response.ok) throw new Error(`TTS proxy responded ${response.status}`);
+
+        const audio = await fallbackCtx.decodeAudioData(await response.arrayBuffer());
+        if (fallbackRequest !== controller) return; // superseded, or VOICE switched off
+        // Still locked (no tap yet) - skip rather than queue it on a suspended
+        // context, where it would suddenly play on the user's first tap.
+        if (fallbackCtx.state !== 'running') return;
+
+        const source = fallbackCtx.createBufferSource();
+        source.buffer = audio;
+        source.connect(fallbackCtx.destination);
+        source.onended = () => {
+            if (fallbackSource === source) fallbackSource = null;
+        };
+        fallbackSource = source;
+        source.start();
+    } catch (error) {
+        if (fallbackRequest === controller) console.warn('Voice fallback failed:', error.message);
+    } finally {
+        clearTimeout(timeout);
+        if (fallbackRequest === controller) fallbackRequest = null;
+    }
+}
+
 function updateVoiceBtn() {
     if (!voiceBtn) return;
     voiceBtn.textContent = voiceEnabled ? 'VOICE: ON' : 'VOICE: OFF';
@@ -577,11 +682,12 @@ function updateVoiceBtn() {
     voiceBtn.setAttribute('aria-pressed', String(voiceEnabled));
 }
 
-if (voiceBtn && speechSupported) {
+if (voiceBtn && (speechSupported || fallbackVoice)) {
     voiceBtn.addEventListener('click', () => {
         voiceEnabled = !voiceEnabled;
         localStorage.setItem(VOICE_KEY, voiceEnabled ? '1' : '0');
         if (voiceEnabled) unlockSpeech();
+        else if (fallbackVoice) stopFallbackAudio();
         else speechSynthesis.cancel();
         updateVoiceBtn();
     });
